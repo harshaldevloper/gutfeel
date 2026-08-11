@@ -22,33 +22,25 @@ export default function Tracker() {
   }
 
   return (
-    <div className="min-h-screen bg-stone-50">
-      <header className="bg-white border-b border-stone-200 px-4 py-4">
+    <div className="min-h-screen bg-stone-50 pb-20">
+      <header className="bg-white border-b border-stone-200 px-4 py-3 sticky top-0 z-50">
         <div className="max-w-4xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-emerald-500 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-sm">G</span>
-            </div>
-            <span className="text-lg font-bold text-stone-900">gutfeel</span>
+            <img src="/logo.svg" width="28" height="28" alt="gutfeel" />
+            <span className="text-lg font-bold text-stone-900">Symptom Tracker</span>
           </div>
-          <nav className="flex gap-4 text-sm">
-            <a href="/dashboard" className="text-stone-500 hover:text-stone-700">Plan</a>
-            <a href="/tracker" className="text-emerald-600 font-medium">Tracker</a>
-            <a href="/foods" className="text-stone-500 hover:text-stone-700">Foods</a>
-            <a href="/reintroduction" className="text-stone-500 hover:text-stone-700">Reintroduction</a>
-          </nav>
         </div>
       </header>
 
-      <main className="max-w-4xl mx-auto p-4 space-y-6">
-        <div className="bg-white rounded-2xl shadow-sm border border-stone-200 p-6">
+      <main className="max-w-4xl mx-auto p-4 space-y-4">
+        <div className="bg-white rounded-2xl border border-stone-200 p-5 shadow-sm">
           <h1 className="text-xl font-bold text-stone-900 mb-2">How are you feeling?</h1>
           <p className="text-sm text-stone-500 mb-6">Quick log — takes 10 seconds</p>
 
           <div className="space-y-6">
             <div>
               <label className="block text-sm font-medium text-stone-700 mb-3">Overall severity: <span className="font-bold text-emerald-600">{severity}/5</span></label>
-              <input type="range" min="1" max="5" value={severity} onChange={e => setSeverity(+e.target.value)} className="w-full accent-emerald-500" />
+              <input type="range" min="1" max="5" value={severity} onChange={e => setSeverity(+e.target.value)} className="w-full accent-emerald-500 h-2" />
               <div className="flex justify-between text-xs text-stone-400 mt-1">
                 <span>No symptoms</span>
                 <span>Severe</span>
@@ -59,7 +51,7 @@ export default function Tracker() {
               <label className="block text-sm font-medium text-stone-700 mb-3">Symptoms</label>
               <div className="flex flex-wrap gap-2">
                 {SYMPTOM_TYPES.map(s => (
-                  <button key={s} onClick={() => toggleSymptom(s)} className={`px-3 py-1.5 rounded-full text-sm font-medium transition-colors ${selectedSymptoms.includes(s) ? "bg-emerald-100 text-emerald-700 border border-emerald-300" : "bg-stone-100 text-stone-600 border border-stone-200"}`}>{s}</button>
+                  <button key={s} onClick={() => toggleSymptom(s)} className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all ${selectedSymptoms.includes(s) ? "bg-emerald-100 text-emerald-700 border border-emerald-300" : "bg-stone-100 text-stone-600 border border-stone-200"}`}>{s}</button>
                 ))}
               </div>
             </div>
@@ -68,40 +60,40 @@ export default function Tracker() {
               <label className="block text-sm font-medium text-stone-700 mb-3">Bowel movement</label>
               <div className="grid grid-cols-4 gap-2">
                 {BOWEL_TYPES.map(b => (
-                  <button key={b} onClick={() => setBowel(b)} className={`p-2 rounded-lg border text-xs font-medium capitalize transition-colors ${bowel === b ? "border-emerald-500 bg-emerald-50 text-emerald-700" : "border-stone-200"}`}>{b}</button>
+                  <button key={b} onClick={() => setBowel(b)} className={`p-2 rounded-xl border text-xs font-medium capitalize transition-all ${bowel === b ? "border-emerald-500 bg-emerald-50 text-emerald-700" : "border-stone-200"}`}>{b}</button>
                 ))}
               </div>
             </div>
 
             <div>
               <label className="block text-sm font-medium text-stone-700 mb-3">Stress level: <span className="font-bold text-emerald-600">{stress}/5</span></label>
-              <input type="range" min="1" max="5" value={stress} onChange={e => setStress(+e.target.value)} className="w-full accent-emerald-500" />
+              <input type="range" min="1" max="5" value={stress} onChange={e => setStress(+e.target.value)} className="w-full accent-emerald-500 h-2" />
             </div>
 
-            <button onClick={handleLog} className="w-full py-3 bg-emerald-600 text-white rounded-xl font-medium hover:bg-emerald-700 transition-colors">
+            <button onClick={handleLog} className="w-full py-3.5 bg-emerald-600 text-white rounded-xl font-bold text-base active:scale-95 transition-transform">
               {logged ? "✓ Logged!" : "Log Symptoms"}
             </button>
           </div>
         </div>
 
-        <div className="bg-white rounded-2xl shadow-sm border border-stone-200 p-6">
+        <div className="bg-white rounded-2xl border border-stone-200 p-5 shadow-sm">
           <h2 className="text-lg font-semibold text-stone-900 mb-4">Recent Patterns</h2>
           <div className="space-y-3">
-            <div className="flex items-center gap-3 p-3 bg-emerald-50 rounded-lg">
+            <div className="flex items-center gap-3 p-3 bg-emerald-50 rounded-xl">
               <span className="text-lg">📉</span>
               <div className="flex-1">
                 <p className="text-sm font-medium text-stone-900">Symptoms decreasing</p>
                 <p className="text-xs text-stone-500">40% better than your first week</p>
               </div>
             </div>
-            <div className="flex items-center gap-3 p-3 bg-amber-50 rounded-lg">
+            <div className="flex items-center gap-3 p-3 bg-amber-50 rounded-xl">
               <span className="text-lg">⚠️</span>
               <div className="flex-1">
                 <p className="text-sm font-medium text-stone-900">Possible trigger: Broccoli</p>
                 <p className="text-xs text-stone-500">Symptoms appeared 3/4 times after eating</p>
               </div>
             </div>
-            <div className="flex items-center gap-3 p-3 bg-emerald-50 rounded-lg">
+            <div className="flex items-center gap-3 p-3 bg-emerald-50 rounded-xl">
               <span className="text-lg">✅</span>
               <div className="flex-1">
                 <p className="text-sm font-medium text-stone-900">Safe: Quinoa, Chicken, Spinach</p>
@@ -111,6 +103,28 @@ export default function Tracker() {
           </div>
         </div>
       </main>
+
+      {/* Bottom Navigation */}
+      <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-stone-200 px-4 py-2 z-50">
+        <div className="max-w-4xl mx-auto flex items-center justify-around">
+          <a href="/dashboard" className="flex flex-col items-center gap-0.5 py-1 px-3 text-stone-400">
+            <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" /></svg>
+            <span className="text-xs font-medium">Home</span>
+          </a>
+          <a href="/tracker" className="flex flex-col items-center gap-0.5 py-1 px-3 text-emerald-600">
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
+            <span className="text-xs font-medium">Tracker</span>
+          </a>
+          <a href="/foods" className="flex flex-col items-center gap-0.5 py-1 px-3 text-stone-400">
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
+            <span className="text-xs font-medium">Foods</span>
+          </a>
+          <a href="/reintroduction" className="flex flex-col items-center gap-0.5 py-1 px-3 text-stone-400">
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" /></svg>
+            <span className="text-xs font-medium">Protocol</span>
+          </a>
+        </div>
+      </nav>
     </div>
   );
 }
