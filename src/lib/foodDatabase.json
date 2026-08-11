@@ -1,0 +1,343 @@
+[
+  {
+    "id": "f1",
+    "name": "Banana (ripe)",
+    "category": "fruit",
+    "fodmap": "safe",
+    "calories": 105,
+    "servingSize": "1 medium"
+  },
+  {
+    "id": "f2",
+    "name": "Blueberries",
+    "category": "fruit",
+    "fodmap": "safe",
+    "calories": 85,
+    "servingSize": "1 cup"
+  },
+  {
+    "id": "f3",
+    "name": "Strawberries",
+    "category": "fruit",
+    "fodmap": "safe",
+    "calories": 50,
+    "servingSize": "1 cup"
+  },
+  {
+    "id": "f4",
+    "name": "Orange",
+    "category": "fruit",
+    "fodmap": "safe",
+    "calories": 62,
+    "servingSize": "1 medium"
+  },
+  {
+    "id": "f5",
+    "name": "Grapes",
+    "category": "fruit",
+    "fodmap": "safe",
+    "calories": 100,
+    "servingSize": "1 cup"
+  },
+  {
+    "id": "f6",
+    "name": "Watermelon",
+    "category": "fruit",
+    "fodmap": "high",
+    "fodmapType": [
+      "fructans"
+    ],
+    "calories": 46,
+    "servingSize": "1 cup"
+  },
+  {
+    "id": "f7",
+    "name": "Apple",
+    "category": "fruit",
+    "fodmap": "high",
+    "fodmapType": [
+      "fructose",
+      "sorbitol"
+    ],
+    "calories": 95,
+    "servingSize": "1 medium"
+  },
+  {
+    "id": "f8",
+    "name": "Mango",
+    "category": "fruit",
+    "fodmap": "high",
+    "fodmapType": [
+      "fructose"
+    ],
+    "calories": 200,
+    "servingSize": "1 cup"
+  },
+  {
+    "id": "f9",
+    "name": "Chicken breast",
+    "category": "protein",
+    "fodmap": "safe",
+    "calories": 165,
+    "servingSize": "100g"
+  },
+  {
+    "id": "f10",
+    "name": "Salmon",
+    "category": "protein",
+    "fodmap": "safe",
+    "calories": 208,
+    "servingSize": "100g"
+  },
+  {
+    "id": "f11",
+    "name": "Eggs",
+    "category": "protein",
+    "fodmap": "safe",
+    "calories": 78,
+    "servingSize": "1 large"
+  },
+  {
+    "id": "f12",
+    "name": "Tofu (firm)",
+    "category": "protein",
+    "fodmap": "safe",
+    "calories": 144,
+    "servingSize": "100g"
+  },
+  {
+    "id": "f13",
+    "name": "Beef",
+    "category": "protein",
+    "fodmap": "safe",
+    "calories": 250,
+    "servingSize": "100g"
+  },
+  {
+    "id": "f14",
+    "name": "Lentils",
+    "category": "protein",
+    "fodmap": "high",
+    "fodmapType": [
+      "GOS"
+    ],
+    "calories": 230,
+    "servingSize": "1 cup cooked"
+  },
+  {
+    "id": "f15",
+    "name": "Chickpeas",
+    "category": "protein",
+    "fodmap": "high",
+    "fodmapType": [
+      "GOS"
+    ],
+    "calories": 269,
+    "servingSize": "1 cup"
+  },
+  {
+    "id": "f16",
+    "name": "Quinoa",
+    "category": "grain",
+    "fodmap": "safe",
+    "calories": 222,
+    "servingSize": "1 cup cooked"
+  },
+  {
+    "id": "f17",
+    "name": "Rice (white)",
+    "category": "grain",
+    "fodmap": "safe",
+    "calories": 206,
+    "servingSize": "1 cup cooked"
+  },
+  {
+    "id": "f18",
+    "name": "Oats",
+    "category": "grain",
+    "fodmap": "safe",
+    "calories": 154,
+    "servingSize": "1 cup cooked"
+  },
+  {
+    "id": "f19",
+    "name": "Brown rice",
+    "category": "grain",
+    "fodmap": "safe",
+    "calories": 216,
+    "servingSize": "1 cup cooked"
+  },
+  {
+    "id": "f20",
+    "name": "Pasta (regular)",
+    "category": "grain",
+    "fodmap": "high",
+    "fodmapType": [
+      "fructans"
+    ],
+    "calories": 220,
+    "servingSize": "1 cup cooked"
+  },
+  {
+    "id": "f21",
+    "name": "Wheat bread",
+    "category": "grain",
+    "fodmap": "high",
+    "fodmapType": [
+      "fructans"
+    ],
+    "calories": 80,
+    "servingSize": "1 slice"
+  },
+  {
+    "id": "f22",
+    "name": "Spinach",
+    "category": "vegetable",
+    "fodmap": "safe",
+    "calories": 7,
+    "servingSize": "1 cup raw"
+  },
+  {
+    "id": "f23",
+    "name": "Carrots",
+    "category": "vegetable",
+    "fodmap": "safe",
+    "calories": 52,
+    "servingSize": "1 cup"
+  },
+  {
+    "id": "f24",
+    "name": "Bell pepper",
+    "category": "vegetable",
+    "fodmap": "safe",
+    "calories": 31,
+    "servingSize": "1 medium"
+  },
+  {
+    "id": "f25",
+    "name": "Cucumber",
+    "category": "vegetable",
+    "fodmap": "safe",
+    "calories": 16,
+    "servingSize": "1 cup"
+  },
+  {
+    "id": "f26",
+    "name": "Tomato",
+    "category": "vegetable",
+    "fodmap": "safe",
+    "calories": 22,
+    "servingSize": "1 medium"
+  },
+  {
+    "id": "f27",
+    "name": "Zucchini",
+    "category": "vegetable",
+    "fodmap": "safe",
+    "calories": 19,
+    "servingSize": "1 cup"
+  },
+  {
+    "id": "f28",
+    "name": "Broccoli",
+    "category": "vegetable",
+    "fodmap": "moderate",
+    "fodmapType": [
+      "fructans"
+    ],
+    "calories": 55,
+    "servingSize": "1 cup"
+  },
+  {
+    "id": "f29",
+    "name": "Onion",
+    "category": "vegetable",
+    "fodmap": "high",
+    "fodmapType": [
+      "fructans"
+    ],
+    "calories": 44,
+    "servingSize": "1 medium"
+  },
+  {
+    "id": "f30",
+    "name": "Garlic",
+    "category": "vegetable",
+    "fodmap": "high",
+    "fodmapType": [
+      "fructans"
+    ],
+    "calories": 4,
+    "servingSize": "1 clove"
+  },
+  {
+    "id": "f31",
+    "name": "Milk (cow)",
+    "category": "dairy",
+    "fodmap": "high",
+    "fodmapType": [
+      "lactose"
+    ],
+    "calories": 149,
+    "servingSize": "1 cup"
+  },
+  {
+    "id": "f32",
+    "name": "Lactose-free milk",
+    "category": "dairy",
+    "fodmap": "safe",
+    "calories": 130,
+    "servingSize": "1 cup"
+  },
+  {
+    "id": "f33",
+    "name": "Hard cheese",
+    "category": "dairy",
+    "fodmap": "safe",
+    "calories": 113,
+    "servingSize": "1 oz"
+  },
+  {
+    "id": "f34",
+    "name": "Almond milk",
+    "category": "dairy",
+    "fodmap": "safe",
+    "calories": 39,
+    "servingSize": "1 cup"
+  },
+  {
+    "id": "f35",
+    "name": "Olive oil",
+    "category": "fat",
+    "fodmap": "safe",
+    "calories": 119,
+    "servingSize": "1 tbsp"
+  },
+  {
+    "id": "f36",
+    "name": "Butter",
+    "category": "fat",
+    "fodmap": "safe",
+    "calories": 102,
+    "servingSize": "1 tbsp"
+  },
+  {
+    "id": "f37",
+    "name": "Maple syrup",
+    "category": "sweetener",
+    "fodmap": "safe",
+    "calories": 52,
+    "servingSize": "1 tbsp"
+  },
+  {
+    "id": "f38",
+    "name": "Honey",
+    "category": "sweetener",
+    "fodmap": "high",
+    "fodmapType": [
+      "fructose"
+    ],
+    "calories": 64,
+    "servingSize": "1 tbsp"
+  }
+]

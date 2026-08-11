@@ -1,0 +1,57 @@
+"use client";
+
+import { useState } from "react";
+
+export default function Waitlist() {
+  const [email, setEmail] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (email.includes("@")) {
+      setSubmitted(true);
+    }
+  }
+
+  return (
+    <section id="waitlist" className="py-20 lg:py-32 px-4 sm:px-6 lg:px-8 bg-emerald-600">
+      <div className="max-w-3xl mx-auto text-center">
+        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6">
+          Ready to stop guessing?
+        </h2>
+        <p className="text-lg text-emerald-100 mb-8 max-w-xl mx-auto">
+          Join the waitlist today. Get early access, exclusive pricing, and be the first to experience personalized FODMAP meal planning.
+        </p>
+
+        {submitted ? (
+          <div className="bg-white/10 backdrop-blur-sm rounded-xl p-8 border border-white/20">
+            <p className="text-2xl font-semibold text-white mb-2">You're in!</p>
+            <p className="text-emerald-100">Check your email for confirmation. We'll notify you when we launch.</p>
+          </div>
+        ) : (
+          <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Enter your email"
+              required
+              className="flex-1 px-6 py-4 rounded-xl text-stone-900 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-white"
+            />
+            <button type="submit" className="px-8 py-4 bg-stone-900 text-white rounded-xl font-semibold hover:bg-stone-800 transition-colors whitespace-nowrap">
+              Join Waitlist
+            </button>
+          </form>
+        )}
+
+        <div className="flex items-center justify-center gap-6 mt-8 text-sm text-emerald-200">
+          <span>No spam</span>
+          <span>•</span>
+          <span>Unsubscribe anytime</span>
+          <span>•</span>
+          <span>Free forever plan</span>
+        </div>
+      </div>
+    </section>
+  );
+}
