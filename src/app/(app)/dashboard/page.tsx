@@ -27,7 +27,7 @@ export default function Dashboard() {
       <header className="bg-white border-b border-stone-200 px-4 py-3 sticky top-0 z-50">
         <div className="max-w-4xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <img src="/logo.svg" width="28" height="28" alt="gutfeel" />
+            <img src="/logo.png" width="28" height="28" alt="gutfeel" />
             <span className="text-lg font-bold text-stone-900">gutfeel</span>
           </div>
           <div className="flex items-center gap-2">
