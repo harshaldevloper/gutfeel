@@ -2,123 +2,140 @@
 
 import { useState } from "react";
 
-const DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
-
-const SAMPLE_PLAN = {
-  monday: {
-    breakfast: { name: "Scrambled eggs with spinach", time: "12 min", confidence: 95, emoji: "🍳" },
-    lunch: { name: "Quinoa bowl with grilled chicken", time: "20 min", confidence: 92, emoji: "🥙" },
-    dinner: { name: "Lemon herb salmon with rice", time: "25 min", confidence: 90, emoji: "🍲" },
-  },
-  tuesday: {
-    breakfast: { name: "Oatmeal with blueberries", time: "8 min", confidence: 97, emoji: "🥣" },
-    lunch: { name: "Turkey lettuce wraps", time: "15 min", confidence: 93, emoji: "🌯" },
-    dinner: { name: "Stir-fried tofu with vegetables", time: "22 min", confidence: 88, emoji: "🥘" },
-  },
-  wednesday: {
-    breakfast: { name: "Rice cakes with peanut butter", time: "5 min", confidence: 96, emoji: "🥜" },
-    lunch: { name: "Grilled chicken salad", time: "18 min", confidence: 91, emoji: "🥗" },
-    dinner: { name: "Baked cod with roasted carrots", time: "30 min", confidence: 89, emoji: "🐟" },
-  },
-};
-
-const SYMPTOM_DATA = [
-  { day: "Mon", level: 2 },
-  { day: "Tue", level: 1 },
-  { day: "Wed", level: 3 },
-  { day: "Thu", level: 1 },
-  { day: "Fri", level: 2 },
-  { day: "Sat", level: 1 },
-  { day: "Sun", level: 1 },
+const DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+const TODAY_MEALS = [
+  { meal: "Breakfast", name: "Scrambled eggs with spinach", time: "12 min", confidence: 95, emoji: "🍳", logged: true },
+  { meal: "Lunch", name: "Quinoa bowl with grilled chicken", time: "20 min", confidence: 92, emoji: "🥙", logged: false },
+  { meal: "Dinner", name: "Lemon herb salmon with rice", time: "25 min", confidence: 90, emoji: "🍲", logged: false },
 ];
 
+const FINGERPRINT_DATA = {
+  completed: 4,
+  total: 14,
+  triggers: [
+    { food: "Broccoli", confidence: 87, status: "likely-trigger" },
+    { food: "Onion", confidence: 92, status: "confirmed-trigger" },
+    { food: "Quinoa", confidence: 12, status: "likely-safe" },
+    { food: "Chicken", confidence: 5, status: "confirmed-safe" },
+  ],
+};
+
+const STREAK = 5;
+
+const SYMPTOM_TODAY = { severity: null, logged: false };
+
 export default function Dashboard() {
-  const [activeDay, setActiveDay] = useState("monday");
-  const today = SAMPLE_PLAN[activeDay as keyof typeof SAMPLE_PLAN];
+  const [symptomLogged, setSymptomLogged] = useState(false);
+  const [severity, setSeverity] = useState(3);
 
   return (
     <div className="min-h-screen bg-stone-50">
-      <header className="bg-white border-b border-stone-200 px-4 py-4">
+      <header className="bg-white border-b border-stone-200 px-4 py-3 sticky top-0 z-50">
         <div className="max-w-4xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-emerald-500 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-sm">G</span>
-            </div>
+            <img src="/logo.svg" width="28" height="28" alt="gutfeel" />
             <span className="text-lg font-bold text-stone-900">gutfeel</span>
           </div>
-          <nav className="flex gap-4 text-sm">
-            <a href="/dashboard" className="text-emerald-600 font-medium">Plan</a>
-            <a href="/tracker" className="text-stone-500 hover:text-stone-700">Tracker</a>
-            <a href="/foods" className="text-stone-500 hover:text-stone-700">Foods</a>
-            <a href="/reintroduction" className="text-stone-500 hover:text-stone-700">Reintroduction</a>
+          <nav className="flex gap-3 text-sm">
+            <a href="/dashboard" className="px-3 py-1.5 bg-emerald-100 text-emerald-700 rounded-full font-medium">Today</a>
+            <a href="/tracker" className="px-3 py-1.5 text-stone-500 hover:text-stone-700">Tracker</a>
+            <a href="/foods" className="px-3 py-1.5 text-stone-500 hover:text-stone-700">Foods</a>
+            <a href="/reintroduction" className="px-3 py-1.5 text-stone-500 hover:text-stone-700">Protocol</a>
           </nav>
         </div>
       </header>
 
-      <main className="max-w-4xl mx-auto p-4 space-y-6">
-        <div className="bg-white rounded-2xl shadow-sm border border-stone-200 p-6">
-          <div className="flex items-center justify-between mb-4">
+      <main className="max-w-4xl mx-auto p-4 space-y-4">
+        {/* Daily Check-in */}
+        <div className="bg-gradient-to-r from-emerald-500 to-emerald-600 rounded-2xl p-5 text-white">
+          <div className="flex items-center justify-between mb-3">
             <div>
-              <h1 className="text-xl font-bold text-stone-900">Your Week</h1>
-              <p className="text-sm text-stone-500">Elimination Phase • Week 1</p>
+              <p className="text-emerald-100 text-sm">Good morning!</p>
+              <h1 className="text-xl font-bold">How is your gut today?</h1>
             </div>
-            <div className="text-right">
-              <p className="text-2xl font-bold text-emerald-600">92%</p>
-              <p className="text-xs text-stone-500">Symptom confidence</p>
+            <div className="text-center">
+              <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center text-xl font-bold">{STREAK}</div>
+              <p className="text-emerald-100 text-xs mt-1">day streak</p>
             </div>
           </div>
-          <div className="flex gap-2 overflow-x-auto pb-2">
-            {DAYS.map(day => (
-              <button key={day} onClick={() => setActiveDay(day.toLowerCase())} className={`px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-colors ${activeDay === day.toLowerCase() ? "bg-emerald-100 text-emerald-700" : "bg-stone-100 text-stone-600 hover:bg-stone-200"}`}>
-                {day.slice(0, 3)}
+          {!symptomLogged ? (
+            <div className="space-y-3">
+              <input type="range" min="1" max="5" value={severity} onChange={e => setSeverity(+e.target.value)} className="w-full accent-white" />
+              <div className="flex justify-between text-xs text-emerald-100">
+                <span>Feeling great</span>
+                <span>Severe symptoms</span>
+              </div>
+              <button onClick={() => setSymptomLogged(true)} className="w-full py-3 bg-white text-emerald-700 rounded-xl font-semibold hover:bg-emerald-50 transition-colors">
+                Log Today&apos;s Symptoms
               </button>
-            ))}
-          </div>
-        </div>
-
-        <div className="grid gap-4">
-          {today && Object.entries(today).map(([meal, data]) => (
-            <div key={meal} className="bg-white rounded-xl shadow-sm border border-stone-200 p-4 flex items-center gap-4">
-              <div className="w-12 h-12 bg-emerald-50 rounded-xl flex items-center justify-center text-2xl">{data.emoji}</div>
-              <div className="flex-1">
-                <p className="text-xs text-stone-500 capitalize mb-0.5">{meal}</p>
-                <p className="font-medium text-stone-900">{data.name}</p>
-                <p className="text-xs text-stone-500">{data.time}</p>
-              </div>
-              <div className="text-right">
-                <div className={`text-sm font-semibold ${data.confidence >= 90 ? "text-emerald-600" : "text-amber-600"}`}>{data.confidence}%</div>
-                <p className="text-xs text-stone-400">safe</p>
-              </div>
             </div>
-          ))}
+          ) : (
+            <div className="bg-white/20 rounded-xl p-4 text-center">
+              <p className="text-lg font-semibold">✓ Logged today!</p>
+              <p className="text-emerald-100 text-sm">Severity: {severity}/5. Keep your streak going!</p>
+            </div>
+          )}
         </div>
 
-        <div className="bg-white rounded-2xl shadow-sm border border-stone-200 p-6">
-          <h2 className="text-lg font-semibold text-stone-900 mb-4">This Week's Symptoms</h2>
-          <div className="flex items-end gap-2 h-24">
-            {SYMPTOM_DATA.map((d, i) => (
-              <div key={i} className="flex-1 flex flex-col items-center gap-1">
-                <div className="w-full bg-stone-100 rounded-t-md relative" style={{ height: "80px" }}>
-                  <div className={`absolute bottom-0 w-full rounded-t-md ${d.level <= 1 ? "bg-emerald-400" : d.level <= 2 ? "bg-amber-400" : "bg-red-400"}`} style={{ height: `${d.level * 33}%` }} />
+        {/* Fingerprint Progress */}
+        <div className="bg-white rounded-2xl border border-stone-200 p-5">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="font-bold text-stone-900">Your FODMAP Fingerprint</h2>
+            <span className="text-xs text-stone-500">{FINGERPRINT_DATA.completed}/{FINGERPRINT_DATA.total} foods tested</span>
+          </div>
+          <div className="w-full h-3 bg-stone-100 rounded-full mb-4 overflow-hidden">
+            <div className="h-full bg-gradient-to-r from-emerald-400 to-emerald-600 rounded-full transition-all" style={{ width: `${(FINGERPRINT_DATA.completed / FINGERPRINT_DATA.total) * 100}%` }} />
+          </div>
+          <p className="text-sm text-stone-600 mb-4">Log daily to discover YOUR specific triggers. Most users see patterns after 7 days.</p>
+          <div className="grid grid-cols-2 gap-2">
+            {FINGERPRINT_DATA.triggers.map((t, i) => (
+              <div key={i} className={`p-3 rounded-lg border ${t.status === "confirmed-trigger" ? "border-red-200 bg-red-50" : t.status === "likely-trigger" ? "border-amber-200 bg-amber-50" : "border-emerald-200 bg-emerald-50"}`}>
+                <p className="text-sm font-medium text-stone-900">{t.food}</p>
+                <p className={`text-xs font-semibold ${t.status === "confirmed-trigger" ? "text-red-600" : t.status === "likely-trigger" ? "text-amber-600" : "text-emerald-600"}`}>
+                  {t.status === "confirmed-trigger" ? "✗ Trigger" : t.status === "likely-trigger" ? "⚠ Likely trigger" : "✓ Safe"} · {t.confidence}%
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Today\'s Meals */}
+        <div className="bg-white rounded-2xl border border-stone-200 p-5">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="font-bold text-stone-900">Today&apos;s Meals</h2>
+            <span className="text-xs bg-emerald-100 text-emerald-700 px-2 py-1 rounded-full font-medium">92% safe</span>
+          </div>
+          <div className="space-y-3">
+            {TODAY_MEALS.map((m, i) => (
+              <div key={i} className="flex items-center gap-3 p-3 rounded-xl bg-stone-50 border border-stone-100">
+                <div className="w-10 h-10 bg-emerald-100 rounded-lg flex items-center justify-center text-lg">{m.emoji}</div>
+                <div className="flex-1">
+                  <p className="text-sm font-medium text-stone-900">{m.name}</p>
+                  <p className="text-xs text-stone-500">{m.meal} · {m.time}</p>
                 </div>
-                <span className="text-xs text-stone-500">{d.day}</span>
+                <div className="text-right">
+                  <p className="text-sm font-semibold text-emerald-600">{m.confidence}%</p>
+                  <p className="text-xs text-stone-400">safe</p>
+                </div>
               </div>
             ))}
           </div>
-          <p className="text-xs text-stone-400 mt-3">Trending down — 40% better than last week</p>
         </div>
 
-        <div className="bg-emerald-50 rounded-2xl border border-emerald-200 p-6">
-          <h2 className="text-lg font-semibold text-emerald-900 mb-2">Grocery List</h2>
-          <p className="text-sm text-emerald-700 mb-4">Auto-generated for this week's meals</p>
-          <div className="grid grid-cols-2 gap-2 text-sm">
-            {["Eggs", "Spinach", "Quinoa", "Chicken breast", "Salmon", "Rice", "Tofu", "Blueberries"].map(item => (
-              <div key={item} className="flex items-center gap-2 bg-white rounded-lg px-3 py-2">
-                <div className="w-4 h-4 border-2 border-emerald-400 rounded" />
-                <span className="text-stone-700">{item}</span>
+        {/* Weekly Symptom Chart */}
+        <div className="bg-white rounded-2xl border border-stone-200 p-5">
+          <h2 className="font-bold text-stone-900 mb-4">This Week&apos;s Symptoms</h2>
+          <div className="flex items-end gap-2 h-24">
+            {[2, 1, 3, 1, 2, 1, 1].map((level, i) => (
+              <div key={i} className="flex-1 flex flex-col items-center gap-1">
+                <div className="w-full relative" style={{ height: "80px" }}>
+                  <div className={`absolute bottom-0 w-full rounded-t-md transition-all ${i === 6 ? "bg-emerald-500" : level <= 1 ? "bg-emerald-300" : level <= 2 ? "bg-amber-300" : "bg-red-300"}`} style={{ height: `${level * 33}%`, opacity: i === 6 ? 1 : 0.6 }} />
+                </div>
+                <span className={`text-xs ${i === 6 ? "font-bold text-emerald-600" : "text-stone-400"}`}>{DAYS[i]}{i === 6 ? " (today)" : ""}</span>
               </div>
             ))}
           </div>
+          <p className="text-xs text-emerald-600 mt-3 font-medium">↘ 40% better than last week</p>
         </div>
       </main>
     </div>
