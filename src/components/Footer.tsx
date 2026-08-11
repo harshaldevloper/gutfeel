@@ -8,7 +8,7 @@ export default function Footer() {
               <div className="w-8 h-8 bg-emerald-500 rounded-lg flex items-center justify-center">
                 <span className="text-white font-bold text-sm">G</span>
               </div>
-              <span className="text-xl font-bold text-white">GutWise</span>
+              <span className="text-xl font-bold text-white">gutfeel</span>
             </div>
             <p className="text-sm leading-relaxed">AI-powered low FODMAP meal planning for people with IBS. Stop guessing what to eat.</p>
           </div>
@@ -41,7 +41,7 @@ export default function Footer() {
           </div>
         </div>
         <div className="pt-8 border-t border-stone-800 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-sm">© 2026 GutWise. All rights reserved.</p>
+          <p className="text-sm">© 2026 gutfeel. All rights reserved.</p>
           <p className="text-xs text-stone-500">This app does not provide medical advice. Consult your healthcare provider.</p>
         </div>
       </div>

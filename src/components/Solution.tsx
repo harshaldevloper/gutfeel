@@ -11,7 +11,7 @@ export default function Solution() {
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-stone-900 mb-6">
-            Meet GutWise — your AI gut health coach.
+            Meet gutfeel — your AI gut health coach.
           </h2>
           <p className="text-lg text-stone-600 max-w-2xl mx-auto">
             Not a food database. Not a static meal plan. An intelligent system that learns what works for YOUR body and gets smarter over time.

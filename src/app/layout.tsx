@@ -8,9 +8,9 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "GutWise — AI-Powered Low FODMAP Meal Planner for IBS",
+  title: "gutfeel — AI-Powered Low FODMAP Meal Planner for IBS",
   description:
-    "Stop guessing what to eat. GutWise creates personalized low FODMAP meal plans, tracks your symptoms, and guides you through reintroduction — all powered by AI that learns YOUR triggers.",
+    "Stop guessing what to eat. gutfeel creates personalized low FODMAP meal plans, tracks your symptoms, and guides you through reintroduction — all powered by AI that learns YOUR triggers.",
   keywords: [
     "low FODMAP",
     "IBS",

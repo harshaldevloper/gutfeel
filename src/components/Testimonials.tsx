@@ -1,9 +1,9 @@
 export default function Testimonials() {
   const testimonials = [
-    { name: "Sarah M.", role: "IBS-D, 3 years", quote: "I spent 2 years afraid to eat. GutWise gave me a plan that actually worked for MY body. I'm down to 1-2 flare-ups a month from daily pain.", avatar: "S" },
-    { name: "James K.", role: "IBS-C, dietitian", quote: "I recommend GutWise to all my patients. The reintroduction protocol is better than anything I could create manually. It's like having a coach in your pocket.", avatar: "J" },
-    { name: "Priya R.", role: "IBS + vegan, 5 years", quote: "Finally an app that handles multiple restrictions. I'm vegan AND low FODMAP — every other app made me choose. GutWise just works.", avatar: "P" },
-    { name: "Michael T.", role: "Recently diagnosed", quote: "I was overwhelmed by the FODMAP diet. GutWise made it simple. The AI meal plans mean I don't have to think — just cook and eat.", avatar: "M" },
+    { name: "Sarah M.", role: "IBS-D, 3 years", quote: "I spent 2 years afraid to eat. gutfeel gave me a plan that actually worked for MY body. I'm down to 1-2 flare-ups a month from daily pain.", avatar: "S" },
+    { name: "James K.", role: "IBS-C, dietitian", quote: "I recommend gutfeel to all my patients. The reintroduction protocol is better than anything I could create manually. It's like having a coach in your pocket.", avatar: "J" },
+    { name: "Priya R.", role: "IBS + vegan, 5 years", quote: "Finally an app that handles multiple restrictions. I'm vegan AND low FODMAP — every other app made me choose. gutfeel just works.", avatar: "P" },
+    { name: "Michael T.", role: "Recently diagnosed", quote: "I was overwhelmed by the FODMAP diet. gutfeel made it simple. The AI meal plans mean I don't have to think — just cook and eat.", avatar: "M" },
     { name: "Lisa W.", role: "IBS-M, 8 years", quote: "The symptom tracking actually found my trigger foods that I never suspected. Turns out it wasn't what I thought at all. Game changer.", avatar: "L" },
     { name: "David C.", role: "Post-infectious IBS", quote: "The guided reintroduction gave me confidence I haven't had in years. I tested 12 foods in 8 weeks — something I could never do alone.", avatar: "D" },
   ];

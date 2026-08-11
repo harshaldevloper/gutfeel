@@ -13,7 +13,7 @@ export default function Hero() {
               <span className="gradient-text">Start living again.</span>
             </h1>
             <p className="text-lg sm:text-xl text-stone-600 leading-relaxed mb-8 max-w-xl">
-              GutWise uses AI to create personalized low FODMAP meal plans that adapt to YOUR body. No more generic diets. No more fear of food. Just relief.
+              gutfeel uses AI to create personalized low FODMAP meal plans that adapt to YOUR body. No more generic diets. No more fear of food. Just relief.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 mb-8">
               <a href="#waitlist" className="px-8 py-4 bg-emerald-600 text-white rounded-xl text-base font-semibold hover:bg-emerald-700 transition-all hover:shadow-lg hover:shadow-emerald-200 text-center">

@@ -29,7 +29,7 @@ export default function Tracker() {
             <div className="w-8 h-8 bg-emerald-500 rounded-lg flex items-center justify-center">
               <span className="text-white font-bold text-sm">G</span>
             </div>
-            <span className="text-lg font-bold text-stone-900">GutWise</span>
+            <span className="text-lg font-bold text-stone-900">gutfeel</span>
           </div>
           <nav className="flex gap-4 text-sm">
             <a href="/dashboard" className="text-stone-500 hover:text-stone-700">Plan</a>

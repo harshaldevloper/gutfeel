@@ -3,7 +3,7 @@
 import { useState } from "react";
 
 const STEPS = [
-  { title: "Welcome to GutWise", subtitle: "Let's personalize your experience. This takes 3 minutes." },
+  { title: "Welcome to gutfeel", subtitle: "Let's personalize your experience. This takes 3 minutes." },
   { title: "Your IBS Profile", subtitle: "Help us understand your condition." },
   { title: "Dietary Preferences", subtitle: "What can't or don't you eat?" },
   { title: "Cooking & Lifestyle", subtitle: "How do you like to cook?" },
@@ -37,7 +37,7 @@ export default function Onboarding() {
         <div className="bg-white rounded-2xl shadow-sm border border-stone-200 p-6">
           {step === 0 && (
             <div className="space-y-4">
-              <p className="text-stone-600">GutWise creates AI-personalized low FODMAP meal plans that adapt to YOUR body. No more generic diets.</p>
+              <p className="text-stone-600">gutfeel creates AI-personalized low FODMAP meal plans that adapt to YOUR body. No more generic diets.</p>
               <div className="bg-emerald-50 rounded-xl p-4 text-sm text-emerald-800">
                 <p className="font-semibold mb-1">What you'll get:</p>
                 <ul className="space-y-1">
