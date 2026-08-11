@@ -13,7 +13,7 @@ export default function Header() {
             <div className="w-8 h-8 bg-emerald-500 rounded-lg flex items-center justify-center">
               <span className="text-white font-bold text-sm">G</span>
             </div>
-            <span className="text-xl font-bold text-stone-900">gutfeel</span>
+            <span className="text-xl font-bold text-stone-900">Gutfeel</span>
           </div>
 
           <nav className="hidden md:flex items-center gap-8">

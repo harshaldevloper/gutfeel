@@ -43,7 +43,7 @@ export default function Onboarding() {
         <div className="bg-white rounded-2xl shadow-sm border border-stone-200 p-6">
           {step === 0 && (
             <div className="space-y-4">
-              <h1 className="text-2xl font-bold text-stone-900">Welcome to gutfeel</h1>
+              <h1 className="text-2xl font-bold text-stone-900">Welcome to Gutfeel</h1>
               <p className="text-stone-600">First, where do you live? This helps us show foods you actually eat.</p>
               <div className="space-y-2">
                 {COUNTRIES.map(c => (

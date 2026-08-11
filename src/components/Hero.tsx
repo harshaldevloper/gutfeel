@@ -27,7 +27,7 @@ export default function Hero() {
             </h1>
             <p className="text-lg text-stone-500 font-medium mt-2 mb-4">Eat Confidently.</p>
             <p className="text-lg sm:text-xl text-stone-600 leading-relaxed mb-8 max-w-xl">
-              gutfeel uses AI to create personalized low FODMAP meal plans that adapt to YOUR body. No more generic diets. No more fear of food. Just relief.
+              Gutfeel uses AI to create personalized low FODMAP meal plans that adapt to YOUR body. No more generic diets. No more fear of food. Just relief.
             </p>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
