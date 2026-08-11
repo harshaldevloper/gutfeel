@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GutWise — AI-Powered Low FODMAP Meal Planner for IBS</title>
+<meta name="description" content="Stop guessing what to eat. GutWise creates personalized low FODMAP meal plans, tracks your symptoms, and guides you through reintroduction.">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#fafaf9;color:#1c1917;line-height:1.6}
+.container{max-width:1200px;margin:0 auto;padding:0 24px}
+header{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(255,255,255,0.9);backdrop-filter:blur(12px);border-bottom:1px solid #e7e5e4}
+header .container{display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{display:flex;align-items:center;gap:8px}
+.logo-icon{width:32px;height:32px;background:#10b981;border-radius:8px;display:flex;align-items:center:center;justify-content:center;color:white;font-weight:bold}
+.logo-text{font-size:20px;font-weight:700}
+nav{display:flex;gap:32px}
+nav a{color:#57534e;text-decoration:none;font-size:14px;font-weight:500;transition:color 0.2s}
+nav a:hover{color:#1c1917}
+.btn{display:inline-block;padding:12px 24px;background:#059669;color:white;border-radius:12px;text-decoration:none;font-weight:600;font-size:14px;transition:all 0.2s}
+.btn:hover{background:#047857;box-shadow:0 4px 12px rgba(16,185,129,0.3)}
+.btn-large{padding:16px 32px;font-size:16px}
+.btn-outline{background:white;border:1px solid #d6d3d1;color:#44403c}
+.btn-outline:hover{background:#f5f5f4}
+.hero{padding:120px 0 80px;text-align:center}
+.badge{display:inline-flex;align-items:center;gap:8px;padding:4px 12px;background:#ecfdf5;border:1px solid #a7f3d0;border-radius:9999px;color:#059669;font-size:12px;font-weight:600;margin-bottom:24px}
+.badge-dot{width:8px;height:8px;background:#10b981;border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.5}}
+h1{font-size:clamp(32px,5vw,56px);font-weight:700;line-height:1.1;margin-bottom:24px;letter-spacing:-0.02em}
+.gradient{background:linear-gradient(135deg,#059669 0%,#10b981 50%,#34d399 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero p{font-size:clamp(16px,2vw,20px);color:#57534e;max-width:600px;margin:0 auto 32px}
+.btn-group{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:32px}
+.features{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:24px;padding:80px 0}
+.feature{padding:24px;background:white;border-radius:16px;border:1px solid #e7e5e4}
+.feature-icon{font-size:32px;margin-bottom:16px}
+.feature h3{font-size:18px;font-weight:600;margin-bottom:8px}
+.feature p{font-size:14px;color:#57534e}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;padding:40px 0}
+.stat{text-align:center;padding:24px;background:#f5f5f4;border-radius:12px}
+.stat-value{font-size:28px;font-weight:700;color:#059669}
+.stat-label{font-size:13px;color:#57534e;margin-top:4px}
+.cta{padding:80px 0;text-align:center;background:#059669;border-radius:24px;margin:40px 0}
+.cta h2{font-size:clamp(24px,4vw,40px);color:white;margin-bottom:16px}
+.cta p{color:#d1fae5;margin-bottom:32px}
+.cta .btn{background:white;color:#059669}
+.cta .btn:hover{background:#f5f5f4}
+footer{padding:40px 0;text-align:center;color:#78716c;font-size:13px;border-top:1px solid #e7e5e4;margin-top:80px}
+@media(max-width:768px){nav{display:none}.stats{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<header><div class="container"><div class="logo"><div class="logo-icon">G</div><span class="logo-text">GutWise</span></div><nav><a href="#features">Features</a><a href="#pricing">Pricing</a><a href="#waitlist">Get Started</a></nav><a href="#waitlist" class="btn">Join Waitlist</a></div></header>
+
+<section class="hero container">
+<div class="badge"><span class="badge-dot"></span> Now in Early Access — Limited Spots</div>
+<h1>Stop guessing what to eat.<br><span class="gradient">Start living again.</span></h1>
+<p>GutWise uses AI to create personalized low FODMAP meal plans that adapt to YOUR body. No more generic diets. No more fear of food. Just relief.</p>
+<div class="btn-group"><a href="#waitlist" class="btn btn-large">Get Early Access — Free</a><a href="#features" class="btn btn-large btn-outline">See Features</a></div>
+</section>
+
+<section class="container">
+<div class="stats">
+<div class="stat"><div class="stat-value">10-15%</div><div class="stat-label">of global population has IBS</div></div>
+<div class="stat"><div class="stat-value">70%</div><div class="stat-label">report food as primary trigger</div></div>
+<div class="stat"><div class="stat-value">2 years</div><div class="stat-label">average time to diagnosis</div></div>
+<div class="stat"><div class="stat-value">85%</div><div class="stat-label">see improvement with FODMAP</div></div>
+</div>
+</section>
+
+<section class="container" id="features">
+<h2 style="text-align:center;font-size:36px;font-weight:700;margin-bottom:40px">Everything you need. Nothing you don't.</h2>
+<div class="features">
+<div class="feature"><div class="feature-icon">🧠</div><h3>AI-Personalized Plans</h3><p>Not a static template. Your plan adapts weekly based on your symptoms, preferences, and progress.</p></div>
+<div class="feature"><div class="feature-icon">📊</div><h3>Symptom-Food Correlations</h3><p>Discover YOUR specific triggers — not generic lists. The AI finds patterns you'd never notice.</p></div>
+<div class="feature"><div class="feature-icon">🔬</div><h3>Guided Reintroduction</h3><p>The hardest phase, made simple. Step-by-step protocol with dose tracking and confidence scores.</p></div>
+<div class="feature"><div class="feature-icon">🛒</div><h3>Smart Grocery Lists</h3><p>Auto-generated lists organized by store aisle. Export to Instacart, Amazon, or your local store.</p></div>
+<div class="feature"><div class="feature-icon">👩‍⚕️</div><h3>Dietitian Dashboard</h3><p>Share your data with your dietitian. They see your patterns and can adjust your plan remotely.</p></div>
+<div class="feature"><div class="feature-icon">🌍</div><h3>Multi-Restriction Support</h3><p>FODMAP + gluten-free + dairy-free + vegan — handle all your dietary needs simultaneously.</p></div>
+<div class="feature"><div class="feature-icon">📱</div><h3>10-Second Logging</h3><p>Not a tedious food diary. Quick tap logging that actually fits your life.</p></div>
+<div class="feature"><div class="feature-icon">🔮</div><h3>Predictive Insights</h3><p>Get warned before you eat something likely to cause symptoms based on your history.</p></div>
+</div>
+</section>
+
+<section class="container" id="pricing">
+<h2 style="text-align:center;font-size:36px;font-weight:700;margin-bottom:40px">Simple, transparent pricing.</h2>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;max-width:900px;margin:0 auto">
+<div style="padding:32px;background:#f5f5f4;border-radius:20px;border:1px solid #e7e5e4"><h3 style="font-size:18px;font-weight:600;margin-bottom:4px">Free</h3><p style="font-size:14px;color:#78716c;margin-bottom:16px">Try it out</p><p style="font-size:40px;font-weight:700;margin-bottom:24px">$0<span style="font-size:16px;color:#78716c">/mo</span></p><ul style="list-style:none;margin-bottom:24px"><li style="padding:8px 0;font-size:14px;color:#57534e">✓ 3-day meal plan</li><li style="padding:8px 0;font-size:14px;color:#57534e">✓ Basic food database</li><li style="padding:8px 0;font-size:14px;color:#57534e">✓ 7-day free trial</li></ul><a href="#waitlist" class="btn" style="display:block;text-align:center">Get Started</a></div>
+<div style="padding:32px;background:#059669;border-radius:20px;position:relative;transform:scale(1.05)"><div style="position:absolute;top:-12px;left:50%;transform:translateX(-50%);padding:4px 12px;background:#fbbf24;color:#78350f;font-size:11px;font-weight:700;border-radius:9999px">MOST POPULAR</div><h3 style="font-size:18px;font-weight:600;margin-bottom:4px;color:white">Premium</h3><p style="font-size:14px;color:#a7f3d0;margin-bottom:16px">Full access</p><p style="font-size:40px;font-weight:700;margin-bottom:24px;color:white">$7.99<span style="font-size:16px;color:#a7f3d0">/mo</span></p><ul style="list-style:none;margin-bottom:24px"><li style="padding:8px 0;font-size:14px;color:white">✓ Unlimited AI meal plans</li><li style="padding:8px 0;font-size:14px;color:white">✓ Symptom tracking + correlations</li><li style="padding:8px 0;font-size:14px;color:white">✓ Guided reintroduction</li><li style="padding:8px 0;font-size:14px;color:white">✓ Smart grocery lists</li><li style="padding:8px 0;font-size:14px;color:white">✓ Dietitian sharing</li></ul><a href="#waitlist" class="btn" style="display:block;text-align:center;background:white;color:#059669">Start Free Trial</a></div>
+<div style="padding:32px;background:#f5f5f4;border-radius:20px;border:1px solid #e7e5e4"><h3 style="font-size:18px;font-weight:600;margin-bottom:4px">Annual</h3><p style="font-size:14px;color:#78716c;margin-bottom:16px">Best value</p><p style="font-size:40px;font-weight:700;margin-bottom:24px">$49<span style="font-size:16px;color:#78716c">/yr</span></p><ul style="list-style:none;margin-bottom:24px"><li style="padding:8px 0;font-size:14px;color:#57534e">✓ Everything in Premium</li><li style="padding:8px 0;font-size:14px;color:#57534e">✓ 43% savings</li><li style="padding:8px 0;font-size:14px;color:#57534e">✓ Priority support</li><li style="padding:8px 0;font-size:14px;color:#57534e">✓ Early access to features</li></ul><a href="#waitlist" class="btn" style="display:block;text-align:center">Save 43%</a></div>
+</div>
+</section>
+
+<section class="container" id="waitlist">
+<div class="cta">
+<h2>Ready to stop guessing?</h2>
+<p>Join the waitlist today. Get early access, exclusive pricing, and be the first to experience personalized FODMAP meal planning.</p>
+<a href="mailto:harshaldevloper@gmail.com?subject=GutWise%20Waitlist" class="btn btn-large">Join Waitlist — Free</a>
+</div>
+</section>
+
+<footer><div class="container">© 2026 GutWise. All rights reserved. · This app does not provide medical advice. Consult your healthcare provider.</div></footer>
+</body>
+</html>
