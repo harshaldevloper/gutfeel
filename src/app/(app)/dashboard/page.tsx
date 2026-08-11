@@ -1,21 +1,22 @@
 "use client";
 
 import { useState } from "react";
+import { motion } from "framer-motion";
 
-const TODAY_MEALS = [
-  { meal: "Breakfast", name: "Scrambled eggs with spinach", time: "12 min", confidence: 95, emoji: "🍳", logged: true },
-  { meal: "Lunch", name: "Quinoa bowl with grilled chicken", time: "20 min", confidence: 92, emoji: "🥙", logged: false },
-  { meal: "Dinner", name: "Lemon herb salmon with rice", time: "25 min", confidence: 90, emoji: "🍲", logged: false },
-];
+const STREAK = 5;
+const FINGERPRINT_COMPLETE = 4;
+const FINGERPRINT_TOTAL = 14;
 
-const FINGERPRINT = [
+const LIKELY_TRIGGERS = [
   { food: "Broccoli", confidence: 87, status: "likely-trigger" },
   { food: "Onion", confidence: 92, status: "confirmed-trigger" },
   { food: "Quinoa", confidence: 12, status: "likely-safe" },
   { food: "Chicken", confidence: 5, status: "confirmed-safe" },
+  { food: "Rice", confidence: 8, status: "confirmed-safe" },
 ];
 
-const STREAK = 5;
+const TODAY_INSIGHT = "People with IBS-D who ate rice today reported 40% fewer symptoms.";
+const FDA_ALERT = "⚠\uFE0F FDA seized 2,000L adulterated milk in Pune this week. Tap to check your brand.";
 
 export default function Dashboard() {
   const [symptomLogged, setSymptomLogged] = useState(false);
@@ -23,7 +24,7 @@ export default function Dashboard() {
 
   return (
     <div className="min-h-screen bg-stone-50 pb-20">
-      {/* Top Header */}
+      {/* Header */}
       <header className="bg-white border-b border-stone-200 px-4 py-3 sticky top-0 z-50">
         <div className="max-w-4xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-2">
@@ -32,7 +33,7 @@ export default function Dashboard() {
           </div>
           <div className="flex items-center gap-2">
             <div className="flex items-center gap-1 bg-amber-50 px-2.5 py-1 rounded-full">
-              <span className="text-sm">🔥</span>
+              <span className="text-sm">\uD83D\uDD25</span>
               <span className="text-sm font-bold text-amber-700">{STREAK}</span>
             </div>
           </div>
@@ -40,87 +41,141 @@ export default function Dashboard() {
       </header>
 
       <main className="max-w-4xl mx-auto p-4 space-y-4">
+        {/* FDA Alert Banner */}
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="bg-red-50 border border-red-200 rounded-xl p-4"
+        >
+          <p className="text-sm text-red-800 font-medium">{FDA_ALERT}</p>
+        </motion.div>
+
         {/* Daily Check-in */}
-        <div className="bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-2xl p-5 text-white shadow-lg shadow-emerald-200">
-          <p className="text-emerald-100 text-sm">Good morning!</p>
-          <h1 className="text-xl font-bold mb-4">How is your gut today?</h1>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1 }}
+          className="bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-2xl p-5 text-white shadow-lg shadow-emerald-200"
+        >
+          <div className="flex items-center justify-between mb-3">
+            <div>
+              <p className="text-emerald-100 text-sm">Good morning!</p>
+              <h1 className="text-xl font-bold">How is your gut today?</h1>
+            </div>
+            <div className="text-center">
+              <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center text-xl font-bold">{STREAK}</div>
+              <p className="text-emerald-100 text-xs mt-1">day streak</p>
+            </div>
+          </div>
           {!symptomLogged ? (
             <div className="space-y-3">
-              <div className="flex justify-between text-xs text-emerald-100 px-1">
-                <span>😊 Great</span>
-                <span>😣 Severe</span>
+              <div className="flex justify-between text-xs text-emerald-100">
+                <span>\uD83D\uDE0A Feeling great</span>
+                <span>\uD83D\uDE23 Severe</span>
               </div>
               <input type="range" min="1" max="5" value={severity} onChange={e => setSeverity(+e.target.value)} className="w-full accent-white h-2" />
-              <button onClick={() => setSymptomLogged(true)} className="w-full py-3.5 bg-white text-emerald-700 rounded-xl font-bold text-base active:scale-95 transition-transform">
+              <button onClick={() => setSymptomLogged(true)} className="w-full py-3.5 bg-white text-emerald-700 rounded-xl font-bold active:scale-95 transition-transform">
                 Log Today&apos;s Symptoms
               </button>
             </div>
           ) : (
-            <div className="bg-white/20 rounded-xl p-4 text-center backdrop-blur-sm">
-              <p className="text-lg font-semibold">✓ Logged today!</p>
-              <p className="text-emerald-100 text-sm">Severity: {severity}/5. Keep your streak!</p>
+            <div className="bg-white/20 rounded-xl p-4 text-center">
+              <p className="text-lg font-semibold">\u2713 Logged today!</p>
+              <p className="text-emerald-100 text-sm">Severity: {severity}/5. Keep your streak going!</p>
             </div>
           )}
-        </div>
+        </motion.div>
+
+        {/* Daily Insight */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+          className="bg-blue-50 border border-blue-200 rounded-xl p-4"
+        >
+          <p className="text-sm text-blue-800 font-medium">\uD83D\uDCA1 Today&apos;s Insight</p>
+          <p className="text-sm text-blue-700 mt-1">{TODAY_INSIGHT}</p>
+        </motion.div>
 
         {/* Fingerprint Progress */}
-        <div className="bg-white rounded-2xl border border-stone-200 p-5 shadow-sm">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 }}
+          className="bg-white rounded-2xl border border-stone-200 p-5 shadow-sm"
+        >
           <div className="flex items-center justify-between mb-3">
-            <h2 className="font-bold text-stone-900">FODMAP Fingerprint</h2>
-            <span className="text-xs text-stone-500">4/14 foods</span>
+            <h2 className="font-bold text-stone-900">Your FODMAP Fingerprint</h2>
+            <span className="text-xs text-stone-500">{FINGERPRINT_COMPLETE}/{FINGERPRINT_TOTAL} foods</span>
           </div>
-          <div className="w-full h-2.5 bg-stone-100 rounded-full mb-3 overflow-hidden">
-            <div className="h-full bg-gradient-to-r from-emerald-400 to-emerald-600 rounded-full" style={{ width: "29%" }} />
+          <div className="w-full h-3 bg-stone-100 rounded-full mb-4 overflow-hidden">
+            <div className="h-full bg-gradient-to-r from-emerald-400 to-emerald-600 rounded-full transition-all" style={{ width: `${(FINGERPRINT_COMPLETE / FINGERPRINT_TOTAL) * 100}%` }} />
           </div>
-          <p className="text-sm text-stone-600 mb-4">Log daily to discover YOUR triggers. Patterns appear after 7 days.</p>
+          <p className="text-sm text-stone-600 mb-4">Log daily to discover YOUR specific triggers. Most users see patterns after 7 days.</p>
           <div className="grid grid-cols-2 gap-2">
-            {FINGERPRINT.map((t, i) => (
-              <div key={i} className={`p-3 rounded-xl border ${t.status === "confirmed-trigger" ? "border-red-200 bg-red-50" : t.status === "likely-trigger" ? "border-amber-200 bg-amber-50" : "border-emerald-200 bg-emerald-50"}`}>
+            {LIKELY_TRIGGERS.map((t, i) => (
+              <div key={i} className={`p-3 rounded-xl border ${t.status.includes("trigger") ? "border-red-200 bg-red-50" : "border-emerald-200 bg-emerald-50"}`}>
                 <p className="text-sm font-medium text-stone-900">{t.food}</p>
-                <p className={`text-xs font-semibold mt-0.5 ${t.status === "confirmed-trigger" ? "text-red-600" : t.status === "likely-trigger" ? "text-amber-600" : "text-emerald-600"}`}>
-                  {t.status === "confirmed-trigger" ? "✗ Trigger" : t.status === "likely-trigger" ? "⚠ Likely" : "✓ Safe"}
+                <p className={`text-xs font-semibold mt-0.5 ${t.status.includes("trigger") ? "text-red-600" : "text-emerald-600"}`}>
+                  {t.status === "confirmed-trigger" ? "\u2717 Trigger" : t.status === "likely-trigger" ? "\u26A0\uFE0F Likely trigger" : "\u2713 Safe"}
                 </p>
               </div>
             ))}
           </div>
-        </div>
+        </motion.div>
 
         {/* Today\'s Meals */}
-        <div className="bg-white rounded-2xl border border-stone-200 p-5 shadow-sm">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4 }}
+          className="bg-white rounded-2xl border border-stone-200 p-5 shadow-sm"
+        >
           <div className="flex items-center justify-between mb-4">
             <h2 className="font-bold text-stone-900">Today&apos;s Meals</h2>
             <span className="text-xs bg-emerald-100 text-emerald-700 px-2.5 py-1 rounded-full font-semibold">92% safe</span>
           </div>
           <div className="space-y-3">
-            {TODAY_MEALS.map((m, i) => (
+            {[
+              { meal: "Breakfast", name: "Scrambled eggs with spinach", time: "12 min", confidence: 95, emoji: "\uD83C\uDF73" },
+              { meal: "Lunch", name: "Quinoa bowl with grilled chicken", time: "20 min", confidence: 92, emoji: "\uD83E\uDD59" },
+              { meal: "Dinner", name: "Lemon herb salmon with rice", time: "25 min", confidence: 90, emoji: "\uD83C\uDF72" },
+            ].map((m, i) => (
               <div key={i} className="flex items-center gap-3 p-3 rounded-xl bg-stone-50 border border-stone-100 active:bg-stone-100 transition-colors">
                 <div className="w-11 h-11 bg-emerald-100 rounded-xl flex items-center justify-center text-xl">{m.emoji}</div>
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-medium text-stone-900 truncate">{m.name}</p>
-                  <p className="text-xs text-stone-500">{m.meal} · {m.time}</p>
+                  <p className="text-xs text-stone-500">{m.meal} &middot; {m.time}</p>
                 </div>
                 <div className="text-right shrink-0">
                   <p className="text-sm font-bold text-emerald-600">{m.confidence}%</p>
+                  <p className="text-xs text-stone-400">safe</p>
                 </div>
               </div>
             ))}
           </div>
-        </div>
+        </motion.div>
 
-        {/* Weekly Chart */}
-        <div className="bg-white rounded-2xl border border-stone-200 p-5 shadow-sm">
-          <h2 className="font-bold text-stone-900 mb-4">This Week</h2>
-          <div className="flex items-end gap-2 h-20">
+        {/* Weekly Symptom Chart */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5 }}
+          className="bg-white rounded-2xl border border-stone-200 p-5 shadow-sm"
+        >
+          <h2 className="font-bold text-stone-900 mb-4">This Week&apos;s Symptoms</h2>
+          <div className="flex items-end gap-2 h-24">
             {[2, 1, 3, 1, 2, 1, 1].map((level, i) => (
               <div key={i} className="flex-1 flex flex-col items-center gap-1">
-                <div className="w-full relative" style={{ height: "60px" }}>
-                  <div className={`absolute bottom-0 w-full rounded-t-lg ${i === 6 ? "bg-emerald-500" : level <= 1 ? "bg-emerald-200" : level <= 2 ? "bg-amber-200" : "bg-red-200"}`} style={{ height: `${level * 33}%`, opacity: i === 6 ? 1 : 0.5 }} />
+                <div className="w-full relative" style={{ height: "80px" }}>
+                  <div className={`absolute bottom-0 w-full rounded-t-md transition-all ${i === 6 ? "bg-emerald-500" : level <= 1 ? "bg-emerald-300" : level <= 2 ? "bg-amber-300" : "bg-red-300"}`} style={{ height: `${level * 33}%`, opacity: i === 6 ? 1 : 0.6 }} />
                 </div>
-                <span className={`text-xs ${i === 6 ? "font-bold text-emerald-600" : "text-stone-400"}`}>{["M","T","W","T","F","S","S"][i]}</span>
+                <span className={`text-xs ${i === 6 ? "font-bold text-emerald-600" : "text-stone-400"}`}>{["M","T","W","T","F","S","S"][i]}{i === 6 ? "*" : ""}</span>
               </div>
             ))}
           </div>
-        </div>
+          <p className="text-xs text-emerald-600 mt-3 font-medium">\u2198 40% better than last week</p>
+        </motion.div>
       </main>
 
       {/* Bottom Navigation (Mobile) */}
@@ -138,9 +193,9 @@ export default function Dashboard() {
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
             <span className="text-xs font-medium">Foods</span>
           </a>
-          <a href="/reintroduction" className="flex flex-col items-center gap-0.5 py-1 px-3 text-stone-400">
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" /></svg>
-            <span className="text-xs font-medium">Protocol</span>
+          <a href="/food-safety" className="flex flex-col items-center gap-0.5 py-1 px-3 text-stone-400">
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
+            <span className="text-xs font-medium">Safety</span>
           </a>
         </div>
       </nav>
