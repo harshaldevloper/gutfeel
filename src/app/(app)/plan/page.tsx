@@ -9,7 +9,8 @@ import {
   type DailyPlan,
   type MealSlot,
 } from "@/lib/meals";
-import { getDbStats } from "@/lib/storage";
+import { getDbStats, loadProfile } from "@/lib/storage";
+import { mergeAvoidList } from "@/lib/planContext";
 import AppHeader from "@/components/AppHeader";
 import AppBottomNav from "@/components/AppBottomNav";
 
@@ -26,11 +27,13 @@ export default function Plan() {
   const [plan, setPlan] = useState<DailyPlan>(() => buildDailyPlan(SAMPLE_TRIGGERS));
 
   useEffect(() => {
-    getDbStats().then(s => {
-      if (s.triggeredFoods.length > 0) {
-        setTriggers(s.triggeredFoods);
-        setPlan(buildDailyPlan(s.triggeredFoods));
-      }
+    Promise.all([getDbStats(), loadProfile()]).then(([s, profile]) => {
+      const avoid = mergeAvoidList(
+        s.triggeredFoods.length > 0 ? s.triggeredFoods : SAMPLE_TRIGGERS,
+        profile
+      );
+      setTriggers(avoid);
+      setPlan(buildDailyPlan(avoid));
     });
   }, []);
 

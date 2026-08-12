@@ -3,7 +3,8 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { buildDailyPlan, mealSafePercent, type MealSlot } from "@/lib/meals";
-import { getDbStats, saveEntry, getLast7DaysSeverity, getWeekComparison, isLoggedToday, getTodayEntry, type DbStats } from "@/lib/storage";
+import { getDbStats, saveEntry, getLast7DaysSeverity, getWeekComparison, isLoggedToday, getTodayEntry, loadProfile, type DbStats } from "@/lib/storage";
+import { mergeAvoidList } from "@/lib/planContext";
 import { getFingerprintInsight } from "@/lib/fingerprint";
 import { FOODS } from "@/lib/localizedFoods";
 import { syncLocalDataToCloud } from "@/lib/sync";
@@ -26,24 +27,29 @@ export default function Dashboard() {
   const [plan, setPlan] = useState(() => buildDailyPlan(SAMPLE_TRIGGERS));
 
   useEffect(() => {
-    getDbStats().then(s => {
+    Promise.all([getDbStats(), loadProfile()]).then(([s, profile]) => {
       const todayLogged = isLoggedToday(s.entries);
       const todayEntry = getTodayEntry(s.entries);
       setStats(s);
-      setPlan(buildDailyPlan(s.triggeredFoods.length > 0 ? s.triggeredFoods : SAMPLE_TRIGGERS));
+      const base = s.triggeredFoods.length > 0 ? s.triggeredFoods : SAMPLE_TRIGGERS;
+      setPlan(buildDailyPlan(mergeAvoidList(base, profile)));
       setSymptomLogged(todayLogged);
       if (todayEntry) setSeverity(todayEntry.severity);
     });
     syncLocalDataToCloud();
   }, []);
 
+  async function refreshAfterLog() {
+    const [s, profile] = await Promise.all([getDbStats(), loadProfile()]);
+    setStats(s);
+    const base = s.triggeredFoods.length > 0 ? s.triggeredFoods : SAMPLE_TRIGGERS;
+    setPlan(buildDailyPlan(mergeAvoidList(base, profile)));
+  }
+
   async function handleCheckIn() {
     await saveEntry({ severity, symptoms: [], bowel: "normal", stress: 3, foods: [] });
     setSymptomLogged(true);
-    getDbStats().then(s => {
-      setStats(s);
-      setPlan(buildDailyPlan(s.triggeredFoods.length > 0 ? s.triggeredFoods : SAMPLE_TRIGGERS));
-    });
+    await refreshAfterLog();
   }
 
   const insight = getFingerprintInsight(stats.fingerprint, stats.streak);
