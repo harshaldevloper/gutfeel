@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { saveEntry } from "@/lib/storage";
+import { useEffect, useState } from "react";
+import { saveEntry, getDbStats, type DbStats } from "@/lib/storage";
 
 const SYMPTOM_TYPES = ["Bloating", "Cramping", "Gas", "Diarrhea", "Constipation", "Nausea", "Fatigue"];
 const BOWEL_TYPES = ["normal", "constipation", "diarrhea", "mixed"];
@@ -18,6 +18,14 @@ export default function Tracker() {
   const [bowel, setBowel] = useState("normal");
   const [stress, setStress] = useState(3);
   const [logged, setLogged] = useState(false);
+  const [stats, setStats] = useState<DbStats>({ entries: [], streak: 0, fingerprint: [], triggeredFoods: [], testedCount: 0 });
+
+  useEffect(() => {
+    getDbStats().then(setStats);
+  }, []);
+
+  const topTrigger = stats.fingerprint.find(f => f.status === "confirmed-trigger" || f.status === "likely-trigger");
+  const safeFoods = stats.fingerprint.filter(f => (f.status === "safe" || f.status === "likely-safe") && f.testCount > 0).slice(0, 3);
 
   function toggle(list: string[], item: string, fn: (v: string[]) => void) {
     fn(list.includes(item) ? list.filter(x => x !== item) : [...list, item]);
@@ -25,6 +33,7 @@ export default function Tracker() {
 
   async function handleLog() {
     await saveEntry({ severity, symptoms: selectedSymptoms, bowel, stress, foods: selectedFoods });
+    await getDbStats().then(setStats);
     setLogged(true);
     setTimeout(() => setLogged(false), 3000);
   }
@@ -96,27 +105,40 @@ export default function Tracker() {
         <div className="bg-white rounded-2xl border border-stone-200 p-5 shadow-sm">
           <h2 className="text-lg font-semibold text-stone-900 mb-4">Recent Patterns</h2>
           <div className="space-y-3">
-            <div className="flex items-center gap-3 p-3 bg-emerald-50 rounded-xl">
-              <span className="text-lg">📉</span>
-              <div className="flex-1">
-                <p className="text-sm font-medium text-stone-900">Symptoms decreasing</p>
-                <p className="text-xs text-stone-500">40% better than your first week</p>
+            {topTrigger ? (
+              <div className="flex items-center gap-3 p-3 bg-amber-50 rounded-xl">
+                <span className="text-lg">⚠️</span>
+                <div className="flex-1">
+                  <p className="text-sm font-medium text-stone-900">Possible trigger: {topTrigger.foodName}</p>
+                  <p className="text-xs text-stone-500">{topTrigger.confidence}% confidence across {topTrigger.testCount} logs</p>
+                </div>
               </div>
-            </div>
-            <div className="flex items-center gap-3 p-3 bg-amber-50 rounded-xl">
-              <span className="text-lg">⚠️</span>
-              <div className="flex-1">
-                <p className="text-sm font-medium text-stone-900">Possible trigger: Broccoli</p>
-                <p className="text-xs text-stone-500">Symptoms appeared 3/4 times after eating</p>
+            ) : (
+              <div className="flex items-center gap-3 p-3 bg-amber-50 rounded-xl">
+                <span className="text-lg">📊</span>
+                <div className="flex-1">
+                  <p className="text-sm font-medium text-stone-900">No triggers found yet</p>
+                  <p className="text-xs text-stone-500">Log {Math.max(0, 3 - stats.entries.length)} more day{stats.entries.length === 2 ? "" : "s"} to reveal patterns</p>
+                </div>
               </div>
-            </div>
-            <div className="flex items-center gap-3 p-3 bg-emerald-50 rounded-xl">
-              <span className="text-lg">✅</span>
-              <div className="flex-1">
-                <p className="text-sm font-medium text-stone-900">Safe: Quinoa, Chicken, Spinach</p>
-                <p className="text-xs text-stone-500">No symptoms in 5+ meals</p>
+            )}
+            {safeFoods.length > 0 ? (
+              <div className="flex items-center gap-3 p-3 bg-emerald-50 rounded-xl">
+                <span className="text-lg">✅</span>
+                <div className="flex-1">
+                  <p className="text-sm font-medium text-stone-900">Safe: {safeFoods.map(f => f.foodName).join(", ")}</p>
+                  <p className="text-xs text-stone-500">No symptom reaction in your logs</p>
+                </div>
               </div>
-            </div>
+            ) : (
+              <div className="flex items-center gap-3 p-3 bg-emerald-50 rounded-xl">
+                <span className="text-lg">📉</span>
+                <div className="flex-1">
+                  <p className="text-sm font-medium text-stone-900">Consistent logging</p>
+                  <p className="text-xs text-stone-500">{stats.streak > 0 ? `${stats.streak}-day streak! Keep going.` : "Log daily to see trends over time."}</p>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </main>

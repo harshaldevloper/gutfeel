@@ -65,7 +65,7 @@ export default function Hero() {
             transition={{ delay: 0.3, duration: 0.7, ease: "easeOut" }}
             className="relative"
           >
-            <div className="bg-white rounded-2xl shadow-2xl shadow-stone-200 p-6 border border-stone-100">
+            <a href="/plan" className="block bg-white rounded-2xl shadow-2xl shadow-stone-200 p-6 border border-stone-100 hover:shadow-emerald-100 hover:border-emerald-200 transition-all">
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-10 h-10 bg-emerald-100 rounded-full flex items-center justify-center">
                   <span className="text-emerald-600 text-lg">🥗</span>
@@ -97,7 +97,7 @@ export default function Hero() {
                   </motion.div>
                 ))}
               </div>
-            </div>
+            </a>
           </motion.div>
         </div>
       </div>
