@@ -8,6 +8,7 @@ export interface FoodSafetyAlert {
   date: string;
   action?: string;
   source?: string;
+  popular_brands?: string[];
 }
 
 export interface RestaurantSafety {
