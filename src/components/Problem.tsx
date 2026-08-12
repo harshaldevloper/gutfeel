@@ -46,7 +46,7 @@ export default function Problem() {
         >
           {stats.map((stat, i) => (
             <motion.div key={i} variants={item} className="text-center p-6 bg-cream rounded-2xl border border-stone-100">
-              <p className="text-2xl sm:text-3xl font-bold text-emerald-600 mb-2">{stat.value}</p>
+              <p className="text-2xl sm:text-3xl font-serif font-semibold text-brand-green mb-2">{stat.value}</p>
               <p className="text-sm text-stone-600">{stat.label}</p>
             </motion.div>
           ))}

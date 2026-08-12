@@ -2,6 +2,7 @@ import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import Problem from "@/components/Problem";
 import Solution from "@/components/Solution";
+import ProductStrip from "@/components/landing/ProductStrip";
 import Features from "@/components/Features";
 import Testimonials from "@/components/Testimonials";
 import Pricing from "@/components/Pricing";
@@ -16,6 +17,7 @@ export default function Home() {
         <Hero />
         <Problem />
         <Solution />
+        <ProductStrip />
         <Features />
         <Testimonials />
         <Pricing />

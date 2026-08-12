@@ -2,7 +2,7 @@ import BrandLogo from "@/components/BrandLogo";
 
 export default function Footer() {
   return (
-    <footer className="py-12 px-4 sm:px-6 lg:px-8 bg-stone-900 text-stone-400">
+    <footer className="py-14 px-4 sm:px-6 lg:px-8 bg-brand-navy text-stone-300">
       <div className="max-w-7xl mx-auto">
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
           <div>
@@ -38,7 +38,7 @@ export default function Footer() {
             </ul>
           </div>
         </div>
-        <div className="pt-8 border-t border-stone-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-sm">© 2026 Gutfeel. All rights reserved.</p>
           <p className="text-xs text-stone-500">This app does not provide medical advice. Consult your healthcare provider.</p>
         </div>

@@ -9,7 +9,7 @@ export default function SectionHeading({ eyebrow, title, subtitle, light }: Prop
   return (
     <div className="text-center mb-14 lg:mb-16 max-w-3xl mx-auto">
       {eyebrow && (
-        <p className={`text-xs font-semibold uppercase tracking-[0.2em] mb-4 ${light ? "text-emerald-200" : "text-emerald-600"}`}>
+        <p className={`text-xs font-semibold uppercase tracking-[0.2em] mb-4 ${light ? "text-brand-green-light" : "text-brand-green"}`}>
           {eyebrow}
         </p>
       )}

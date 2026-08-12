@@ -35,7 +35,7 @@ export default function Waitlist() {
   }
 
   return (
-    <section id="waitlist" className="py-20 lg:py-28 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-emerald-700 via-emerald-600 to-emerald-800 relative overflow-hidden">
+    <section id="waitlist" className="py-20 lg:py-28 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-brand-navy via-brand-navy-light to-brand-navy relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full blur-3xl" />
         <div className="absolute bottom-0 left-0 w-72 h-72 bg-emerald-900/40 rounded-full blur-3xl" />

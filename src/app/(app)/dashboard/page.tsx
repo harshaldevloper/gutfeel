@@ -75,7 +75,7 @@ export default function Dashboard() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-2xl p-5 text-white shadow-lg shadow-emerald-200"
+          className="bg-gradient-to-br from-brand-navy to-brand-navy-light rounded-2xl p-5 text-white shadow-lg shadow-brand-navy/20"
         >
           <div className="flex items-center justify-between mb-3">
             <div>
@@ -94,7 +94,7 @@ export default function Dashboard() {
                 <span>{"\uD83D\uDE23 Severe"}</span>
               </div>
               <input type="range" min="1" max="5" value={severity} onChange={e => setSeverity(+e.target.value)} className="w-full accent-white h-2" />
-              <button onClick={handleCheckIn} className="w-full py-3.5 bg-white text-emerald-700 rounded-xl font-bold active:scale-95 transition-transform">
+              <button onClick={handleCheckIn} className="w-full py-3.5 bg-brand-green text-white rounded-xl font-bold active:scale-95 transition-transform hover:bg-brand-green-dark">
                 Log Today&apos;s Symptoms
               </button>
             </div>

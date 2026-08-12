@@ -7,27 +7,39 @@ export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-cream/85 backdrop-blur-lg border-b border-stone-200/70">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-cream/90 backdrop-blur-xl border-b border-brand-navy/5">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-[4.25rem]">
-          <BrandLogo height={44} />
+        <div className="flex items-center justify-between h-[4.5rem]">
+          <BrandLogo height={42} />
 
           <nav className="hidden md:flex items-center gap-8">
-            <a href="#problem" className="text-stone-600 hover:text-stone-900 transition-colors text-sm font-medium">Problem</a>
-            <a href="#solution" className="text-stone-600 hover:text-stone-900 transition-colors text-sm font-medium">Solution</a>
-            <a href="#features" className="text-stone-600 hover:text-stone-900 transition-colors text-sm font-medium">Features</a>
-            <a href="#testimonials" className="text-stone-600 hover:text-stone-900 transition-colors text-sm font-medium">Testimonials</a>
-            <a href="#pricing" className="text-stone-600 hover:text-stone-900 transition-colors text-sm font-medium">Pricing</a>
+            {[
+              ["#problem", "Problem"],
+              ["#solution", "How it works"],
+              ["#features", "Features"],
+              ["#pricing", "Pricing"],
+            ].map(([href, label]) => (
+              <a key={href} href={href} className="text-stone-600 hover:text-brand-navy transition-colors text-sm font-medium">
+                {label}
+              </a>
+            ))}
           </nav>
 
-          <div className="hidden md:flex items-center gap-4">
-            <a href="/login" className="text-stone-600 hover:text-stone-900 text-sm font-medium">Sign in</a>
-            <a href="/onboarding" className="px-4 py-2.5 bg-emerald-600 text-white rounded-xl text-sm font-semibold hover:bg-emerald-700 transition-colors shadow-sm shadow-emerald-200/50">
+          <div className="hidden md:flex items-center gap-3">
+            <a href="/login" className="text-brand-navy/80 hover:text-brand-navy text-sm font-medium px-3 py-2">
+              Sign in
+            </a>
+            <a href="/onboarding" className="btn-accent text-sm py-2.5 px-5">
               Try App
             </a>
           </div>
 
-          <button onClick={() => setMobileOpen(!mobileOpen)} className="md:hidden p-2 text-stone-600">
+          <button
+            type="button"
+            onClick={() => setMobileOpen(!mobileOpen)}
+            className="md:hidden p-2.5 rounded-xl text-brand-navy hover:bg-brand-green-light/50"
+            aria-label="Menu"
+          >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               {mobileOpen ? (
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -39,14 +51,21 @@ export default function Header() {
         </div>
 
         {mobileOpen && (
-          <div className="md:hidden py-4 border-t border-stone-200">
-            <nav className="flex flex-col gap-3">
-              <a href="#problem" className="text-stone-600 text-sm font-medium py-2">Problem</a>
-              <a href="#solution" className="text-stone-600 text-sm font-medium py-2">Solution</a>
-              <a href="#features" className="text-stone-600 text-sm font-medium py-2">Features</a>
-              <a href="#testimonials" className="text-stone-600 text-sm font-medium py-2">Testimonials</a>
-              <a href="#pricing" className="text-stone-600 text-sm font-medium py-2">Pricing</a>
-              <a href="/onboarding" className="mt-2 px-4 py-2 bg-emerald-600 text-white rounded-lg text-sm font-semibold text-center">Try App</a>
+          <div className="md:hidden py-4 border-t border-brand-navy/5">
+            <nav className="flex flex-col gap-1">
+              {[
+                ["#problem", "Problem"],
+                ["#solution", "How it works"],
+                ["#features", "Features"],
+                ["#pricing", "Pricing"],
+              ].map(([href, label]) => (
+                <a key={href} href={href} className="text-stone-700 text-sm font-medium py-2.5 px-2 rounded-lg hover:bg-brand-green-light/40">
+                  {label}
+                </a>
+              ))}
+              <a href="/onboarding" className="btn-accent text-center mt-3">
+                Try App
+              </a>
             </nav>
           </div>
         )}

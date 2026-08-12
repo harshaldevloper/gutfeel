@@ -17,7 +17,7 @@ export default function OnboardingShell({ step, totalSteps = 5, children, onBack
     <div className="min-h-screen bg-cream hero-mesh flex flex-col">
       <div className="px-4 pt-6 pb-2 max-w-lg mx-auto w-full">
         <div className="flex items-center justify-between mb-6">
-          <BrandLogo height={40} href="/" />
+          <BrandLogo height={36} variant="mark" href="/" />
           <span className="text-xs font-medium text-stone-500">
             Step {step + 1} of {totalSteps + 1}
           </span>

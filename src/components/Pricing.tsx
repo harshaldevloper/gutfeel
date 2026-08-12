@@ -29,8 +29,8 @@ export default function Pricing() {
             </a>
           </div>
 
-          <div className="p-8 rounded-3xl border border-emerald-500 bg-gradient-to-b from-emerald-600 to-emerald-700 relative md:-translate-y-2 shadow-xl shadow-emerald-200/50 flex flex-col">
-            <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 bg-amber-300 text-amber-950 text-xs font-bold rounded-full tracking-wide">
+          <div className="p-8 rounded-3xl border border-brand-green bg-gradient-to-b from-brand-green to-brand-green-dark relative md:-translate-y-2 shadow-xl shadow-brand-green/25 flex flex-col">
+            <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 bg-brand-navy text-white text-xs font-bold rounded-full tracking-wide">
               POPULAR
             </div>
             <h3 className="text-lg font-semibold text-white mb-1">Premium</h3>

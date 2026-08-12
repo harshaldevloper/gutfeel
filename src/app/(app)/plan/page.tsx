@@ -66,7 +66,7 @@ export default function Plan() {
         <motion.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-2xl p-5 text-white shadow-lg shadow-emerald-200"
+          className="bg-gradient-to-br from-brand-navy to-brand-navy-light rounded-2xl p-5 text-white shadow-lg shadow-brand-navy/20"
         >
           <p className="text-emerald-100 text-sm">{plan.personalized ? "Personalized day score" : "Day score"}</p>
           <p className="text-4xl font-bold mt-1">{dayScore}%</p>

@@ -5,18 +5,22 @@ type Props = {
   height?: number;
   className?: string;
   href?: string;
+  /** full = horizontal logo, mark = circular badge for small slots */
+  variant?: "full" | "mark";
 };
 
-/** Real Gutfeel brand logo — use instead of the placeholder G icon or tiny squashed PNG */
-export default function BrandLogo({ height = 44, className = "", href = "/" }: Props) {
+export default function BrandLogo({ height = 44, className = "", href = "/", variant = "full" }: Props) {
+  const src = variant === "mark" ? "/logo-mark.png" : "/logo.png";
+  const aspect = variant === "mark" ? 1 : 1359 / 1158;
+
   const img = (
     <img
-      src="/logo.png"
+      src={src}
       alt="Gutfeel — Eat Confidently"
       height={height}
-      width={Math.round(height * 1.17)}
-      className={`object-contain ${className}`}
-      style={{ height, width: "auto", maxHeight: height }}
+      width={Math.round(height * aspect)}
+      className={`object-contain object-left ${className}`}
+      style={{ height, width: "auto", maxHeight: height, maxWidth: variant === "full" ? height * 1.4 : height }}
     />
   );
 
