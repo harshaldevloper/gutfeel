@@ -1,22 +1,30 @@
 "use client";
 
 import { useState } from "react";
+import { saveEntry } from "@/lib/storage";
 
 const SYMPTOM_TYPES = ["Bloating", "Cramping", "Gas", "Diarrhea", "Constipation", "Nausea", "Fatigue"];
 const BOWEL_TYPES = ["normal", "constipation", "diarrhea", "mixed"];
+const COMMON_FOODS = [
+  "White Rice", "Roti (Chapati)", "Dal (Moong)", "Paneer", "Chicken Breast", "Eggs",
+  "Curd (Dahi)", "Potato", "Tomato", "Spinach", "Bell Pepper", "Cucumber",
+  "Bottle Gourd (Lauki)", "Banana", "Papaya", "Onion", "Garlic", "Broccoli",
+];
 
 export default function Tracker() {
   const [severity, setSeverity] = useState(3);
   const [selectedSymptoms, setSelectedSymptoms] = useState<string[]>([]);
+  const [selectedFoods, setSelectedFoods] = useState<string[]>([]);
   const [bowel, setBowel] = useState("normal");
   const [stress, setStress] = useState(3);
   const [logged, setLogged] = useState(false);
 
-  function toggleSymptom(s: string) {
-    setSelectedSymptoms(prev => prev.includes(s) ? prev.filter(x => x !== s) : [...prev, s]);
+  function toggle(list: string[], item: string, fn: (v: string[]) => void) {
+    fn(list.includes(item) ? list.filter(x => x !== item) : [...list, item]);
   }
 
-  function handleLog() {
+  async function handleLog() {
+    await saveEntry({ severity, symptoms: selectedSymptoms, bowel, stress, foods: selectedFoods });
     setLogged(true);
     setTimeout(() => setLogged(false), 3000);
   }
@@ -51,7 +59,16 @@ export default function Tracker() {
               <label className="block text-sm font-medium text-stone-700 mb-3">Symptoms</label>
               <div className="flex flex-wrap gap-2">
                 {SYMPTOM_TYPES.map(s => (
-                  <button key={s} onClick={() => toggleSymptom(s)} className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all ${selectedSymptoms.includes(s) ? "bg-emerald-100 text-emerald-700 border border-emerald-300" : "bg-stone-100 text-stone-600 border border-stone-200"}`}>{s}</button>
+                  <button key={s} onClick={() => toggle(selectedSymptoms, s, setSelectedSymptoms)} className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all ${selectedSymptoms.includes(s) ? "bg-emerald-100 text-emerald-700 border border-emerald-300" : "bg-stone-100 text-stone-600 border border-stone-200"}`}>{s}</button>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-stone-700 mb-3">Foods eaten today</label>
+              <div className="flex flex-wrap gap-2">
+                {COMMON_FOODS.map(f => (
+                  <button key={f} onClick={() => toggle(selectedFoods, f, setSelectedFoods)} className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all ${selectedFoods.includes(f) ? "bg-emerald-100 text-emerald-700 border border-emerald-300" : "bg-stone-100 text-stone-600 border border-stone-200"}`}>{f}</button>
                 ))}
               </div>
             </div>

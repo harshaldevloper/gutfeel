@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import {
   buildDailyPlan,
@@ -9,6 +9,7 @@ import {
   type DailyPlan,
   type MealSlot,
 } from "@/lib/meals";
+import { getDbStats } from "@/lib/storage";
 
 const SAMPLE_TRIGGERS = ["Onion", "Garlic"];
 
@@ -19,16 +20,26 @@ const SLOTS: { key: MealSlot; label: string }[] = [
 ];
 
 export default function Plan() {
+  const [triggers, setTriggers] = useState<string[]>(SAMPLE_TRIGGERS);
   const [plan, setPlan] = useState<DailyPlan>(() => buildDailyPlan(SAMPLE_TRIGGERS));
 
+  useEffect(() => {
+    getDbStats().then(s => {
+      if (s.triggeredFoods.length > 0) {
+        setTriggers(s.triggeredFoods);
+        setPlan(buildDailyPlan(s.triggeredFoods));
+      }
+    });
+  }, []);
+
   const dayScore = Math.round(
-    SLOTS.reduce((sum, s) => sum + mealSafePercent(plan.slots[s.key], SAMPLE_TRIGGERS), 0) / SLOTS.length
+    SLOTS.reduce((sum, s) => sum + mealSafePercent(plan.slots[s.key], triggers), 0) / SLOTS.length
   );
 
   function handleSwap(slot: MealSlot) {
     setPlan(prev => ({
       ...prev,
-      slots: { ...prev.slots, [slot]: swapMeal(slot, prev.slots[slot].id, SAMPLE_TRIGGERS) },
+      slots: { ...prev.slots, [slot]: swapMeal(slot, prev.slots[slot].id, triggers) },
     }));
   }
 

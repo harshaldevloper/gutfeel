@@ -1,36 +1,48 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { buildDailyPlan, mealSafePercent, type MealSlot } from "@/lib/meals";
+import { getDbStats, saveEntry, type DbStats } from "@/lib/storage";
+import { getFingerprintInsight } from "@/lib/fingerprint";
+import { FOODS } from "@/lib/localizedFoods";
 
 const SAMPLE_TRIGGERS = ["Onion", "Garlic"];
+
 const SLOTS: { key: MealSlot; label: string }[] = [
   { key: "breakfast", label: "Breakfast" },
   { key: "lunch", label: "Lunch" },
   { key: "dinner", label: "Dinner" },
 ];
 
-const plan = buildDailyPlan(SAMPLE_TRIGGERS);
-
-const STREAK = 5;
-const FINGERPRINT_COMPLETE = 4;
-const FINGERPRINT_TOTAL = 14;
-
-const LIKELY_TRIGGERS = [
-  { food: "Broccoli", confidence: 87, status: "likely-trigger" },
-  { food: "Onion", confidence: 92, status: "confirmed-trigger" },
-  { food: "Quinoa", confidence: 12, status: "likely-safe" },
-  { food: "Chicken", confidence: 5, status: "confirmed-safe" },
-  { food: "Rice", confidence: 8, status: "confirmed-safe" },
-];
-
-const TODAY_INSIGHT = "People with IBS-D who ate rice today reported 40% fewer symptoms.";
 const FDA_ALERT = "⚠\uFE0F FDA seized 2,000L adulterated milk in Pune this week. Tap to check your brand.";
 
 export default function Dashboard() {
   const [symptomLogged, setSymptomLogged] = useState(false);
   const [severity, setSeverity] = useState(3);
+  const [stats, setStats] = useState<DbStats>({ entries: [], streak: 0, fingerprint: [], triggeredFoods: [], testedCount: 0 });
+  const [plan, setPlan] = useState(() => buildDailyPlan(SAMPLE_TRIGGERS));
+
+  useEffect(() => {
+    getDbStats().then(s => {
+      const todayLogged = s.entries.some(e => new Date(e.createdAt).getDate() === new Date().getDate());
+      setStats(s);
+      setPlan(buildDailyPlan(s.triggeredFoods.length > 0 ? s.triggeredFoods : SAMPLE_TRIGGERS));
+      setSymptomLogged(todayLogged);
+    });
+  }, []);
+
+  async function handleCheckIn() {
+    await saveEntry({ severity, symptoms: [], bowel: "normal", stress: 3, foods: [] });
+    setSymptomLogged(true);
+    getDbStats().then(s => {
+      setStats(s);
+      setPlan(buildDailyPlan(s.triggeredFoods.length > 0 ? s.triggeredFoods : SAMPLE_TRIGGERS));
+    });
+  }
+
+  const insight = getFingerprintInsight(stats.fingerprint, stats.streak);
+  const topFingerprint = stats.fingerprint.filter(f => f.testCount > 0).slice(0, 4);
 
   return (
     <div className="min-h-screen bg-stone-50 pb-20">
@@ -44,7 +56,7 @@ export default function Dashboard() {
           <div className="flex items-center gap-2">
             <div className="flex items-center gap-1 bg-amber-50 px-2.5 py-1 rounded-full">
               <span className="text-sm">{"\uD83D\uDD25"}</span>
-              <span className="text-sm font-bold text-amber-700">{STREAK}</span>
+              <span className="text-sm font-bold text-amber-700">{stats.streak}</span>
             </div>
           </div>
         </div>
@@ -73,7 +85,7 @@ export default function Dashboard() {
               <h1 className="text-xl font-bold">How is your gut today?</h1>
             </div>
             <div className="text-center">
-              <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center text-xl font-bold">{STREAK}</div>
+              <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center text-xl font-bold">{stats.streak}</div>
               <p className="text-emerald-100 text-xs mt-1">day streak</p>
             </div>
           </div>
@@ -84,7 +96,7 @@ export default function Dashboard() {
                 <span>{"\uD83D\uDE23 Severe"}</span>
               </div>
               <input type="range" min="1" max="5" value={severity} onChange={e => setSeverity(+e.target.value)} className="w-full accent-white h-2" />
-              <button onClick={() => setSymptomLogged(true)} className="w-full py-3.5 bg-white text-emerald-700 rounded-xl font-bold active:scale-95 transition-transform">
+              <button onClick={handleCheckIn} className="w-full py-3.5 bg-white text-emerald-700 rounded-xl font-bold active:scale-95 transition-transform">
                 Log Today&apos;s Symptoms
               </button>
             </div>
@@ -104,7 +116,7 @@ export default function Dashboard() {
           className="bg-blue-50 border border-blue-200 rounded-xl p-4"
         >
           <p className="text-sm text-blue-800 font-medium">{"\uD83D\uDCA1 Today's Insight"}</p>
-          <p className="text-sm text-blue-700 mt-1">{TODAY_INSIGHT}</p>
+          <p className="text-sm text-blue-700 mt-1">{insight}</p>
         </motion.div>
 
         {/* Fingerprint Progress */}
@@ -116,21 +128,28 @@ export default function Dashboard() {
         >
           <div className="flex items-center justify-between mb-3">
             <h2 className="font-bold text-stone-900">Your FODMAP Fingerprint</h2>
-            <span className="text-xs text-stone-500">{FINGERPRINT_COMPLETE}/{FINGERPRINT_TOTAL} foods</span>
+            <span className="text-xs text-stone-500">{stats.testedCount}/{FOODS.length} foods</span>
           </div>
           <div className="w-full h-3 bg-stone-100 rounded-full mb-4 overflow-hidden">
-            <div className="h-full bg-gradient-to-r from-emerald-400 to-emerald-600 rounded-full transition-all" style={{ width: `${(FINGERPRINT_COMPLETE / FINGERPRINT_TOTAL) * 100}%` }} />
+            <div className="h-full bg-gradient-to-r from-emerald-400 to-emerald-600 rounded-full transition-all" style={{ width: `${(stats.testedCount / FOODS.length) * 100}%` }} />
           </div>
-          <p className="text-sm text-stone-600 mb-4">Log daily to discover YOUR specific triggers. Most users see patterns after 7 days.</p>
+          <p className="text-sm text-stone-600 mb-4">{stats.triggeredFoods.length > 0 ? `${stats.triggeredFoods.length} trigger${stats.triggeredFoods.length === 1 ? "" : "s"} found. Keep logging meals + symptoms to sharpen accuracy.` : "Log daily to discover YOUR specific triggers. Most users see patterns after 7 days."}</p>
           <div className="grid grid-cols-2 gap-2">
-            {LIKELY_TRIGGERS.map((t, i) => (
-              <div key={i} className={`p-3 rounded-xl border ${t.status.includes("trigger") ? "border-red-200 bg-red-50" : "border-emerald-200 bg-emerald-50"}`}>
-                <p className="text-sm font-medium text-stone-900">{t.food}</p>
-                <p className={`text-xs font-semibold mt-0.5 ${t.status.includes("trigger") ? "text-red-600" : "text-emerald-600"}`}>
-                  {t.status === "confirmed-trigger" ? "\u2717 Trigger" : t.status === "likely-trigger" ? "\u26A0\uFE0F Likely trigger" : "\u2713 Safe"}
-                </p>
+            {topFingerprint.length > 0 ? topFingerprint.map((t, i) => {
+              const isTrigger = t.status === "confirmed-trigger" || t.status === "likely-trigger";
+              return (
+                <div key={t.foodName} className={`p-3 rounded-xl border ${isTrigger ? "border-red-200 bg-red-50" : "border-emerald-200 bg-emerald-50"}`}>
+                  <p className="text-sm font-medium text-stone-900">{t.foodName}</p>
+                  <p className={`text-xs font-semibold mt-0.5 ${isTrigger ? "text-red-600" : "text-emerald-600"}`}>
+                    {t.status === "confirmed-trigger" ? "\u2717 Trigger" : t.status === "likely-trigger" ? "\u26A0\uFE0F Likely" : "\u2713 Safe"}
+                  </p>
+                </div>
+              );
+            }) : (
+              <div className="col-span-2 p-3 rounded-xl border border-stone-200 bg-stone-50">
+                <p className="text-sm text-stone-500">Log your first meals to build your Fingerprint.</p>
               </div>
-            ))}
+            )}
           </div>
         </motion.div>
 
