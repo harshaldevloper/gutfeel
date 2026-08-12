@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { loadProfile, saveProfile } from "@/lib/storage";
 
 const COUNTRIES = [
   { code: "IN", name: "India", flag: "🇮🇳", foods: ["Rice", "Roti", "Dal", "Paneer", "Buttermilk"] },
@@ -21,6 +22,29 @@ export default function Onboarding() {
   const [diets, setDiets] = useState<string[]>([]);
   const [skill, setSkill] = useState("");
   const [household, setHousehold] = useState(1);
+
+  useEffect(() => {
+    loadProfile().then(profile => {
+      if (!profile) return;
+      setCountry(profile.country);
+      setIbsType(profile.ibsType);
+      setAllergies(profile.allergies);
+      setDiets(profile.diets);
+      setSkill(profile.skill);
+      setHousehold(profile.household);
+    });
+  }, []);
+
+  function persistProfile(overrides: Partial<{ country: string; ibsType: string; allergies: string[]; diets: string[]; skill: string; household: number }> = {}) {
+    saveProfile({
+      country: overrides.country ?? country,
+      ibsType: overrides.ibsType ?? ibsType,
+      allergies: overrides.allergies ?? allergies,
+      diets: overrides.diets ?? diets,
+      skill: overrides.skill ?? skill,
+      household: overrides.household ?? household,
+    });
+  }
 
   function next() { setStep(Math.min(step + 1, 4)); }
   function back() { setStep(Math.max(step - 1, 0)); }
@@ -47,7 +71,7 @@ export default function Onboarding() {
               <p className="text-stone-600">First, where do you live? This helps us show foods you actually eat.</p>
               <div className="space-y-2">
                 {COUNTRIES.map(c => (
-                  <button key={c.code} onClick={() => { setCountry(c.code); localStorage.setItem("gutfeel.country", c.code); next(); }} className={`w-full flex items-center gap-3 p-4 rounded-xl border text-left transition-all ${country === c.code ? "border-emerald-500 bg-emerald-50" : "border-stone-200 hover:border-stone-300 active:bg-stone-50"}`}>
+                  <button key={c.code} onClick={() => { setCountry(c.code); persistProfile({ country: c.code }); next(); }} className={`w-full flex items-center gap-3 p-4 rounded-xl border text-left transition-all ${country === c.code ? "border-emerald-500 bg-emerald-50" : "border-stone-200 hover:border-stone-300 active:bg-stone-50"}`}>
                     <span className="text-2xl">{c.flag}</span>
                     <div>
                       <p className="font-medium text-stone-900">{c.name}</p>
@@ -68,7 +92,7 @@ export default function Onboarding() {
                   <button key={t} onClick={() => setIbsType(t)} className={`p-3 rounded-xl border text-sm font-medium transition-all ${ibsType === t ? "border-emerald-500 bg-emerald-50 text-emerald-700" : "border-stone-200 active:bg-stone-50"}`}>{t}</button>
                 ))}
               </div>
-              <button onClick={next} disabled={!ibsType} className="w-full py-3 bg-emerald-600 text-white rounded-xl font-medium disabled:opacity-40">Continue</button>
+              <button onClick={() => { persistProfile({ ibsType }); next(); }} disabled={!ibsType} className="w-full py-3 bg-emerald-600 text-white rounded-xl font-medium disabled:opacity-40">Continue</button>
             </div>
           )}
 
@@ -92,7 +116,7 @@ export default function Onboarding() {
                   ))}
                 </div>
               </div>
-              <button onClick={next} className="w-full py-3 bg-emerald-600 text-white rounded-xl font-medium">Continue</button>
+              <button onClick={() => { persistProfile({ allergies, diets }); next(); }} className="w-full py-3 bg-emerald-600 text-white rounded-xl font-medium">Continue</button>
             </div>
           )}
 
@@ -113,7 +137,7 @@ export default function Onboarding() {
                   ))}
                 </div>
               </div>
-              <button onClick={next} className="w-full py-3 bg-emerald-600 text-white rounded-xl font-medium">Continue</button>
+              <button onClick={() => { persistProfile({ skill, household }); next(); }} className="w-full py-3 bg-emerald-600 text-white rounded-xl font-medium">Continue</button>
             </div>
           )}
 

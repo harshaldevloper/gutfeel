@@ -6,24 +6,23 @@ on:
   workflow_dispatch:
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      deployments: write
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: '22'
-          cache: 'npm'
+          node-version: "22"
+          cache: npm
       - run: npm ci
       - run: npm run build
-      - name: Deploy to Cloudflare Pages
-        uses: cloudflare/pages-action@v1
-        with:
-          apiToken: ${{ secrets.CF_API_TOKEN }}
-          accountId: ${{ secrets.CF_ACCOUNT_ID }}
-          projectName: gutfeel
-          directory: .next
-          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+      # Production deploy: Cloudflare Pages Git integration (connected to this repo).
+      # It reads wrangler.toml (output: out/) and deploys /functions automatically.
+      # To also deploy via GitHub Actions, set valid CF_API_TOKEN + CF_ACCOUNT_ID secrets
+      # and uncomment the wrangler step below.
+
+      # - uses: cloudflare/wrangler-action@v3
+      #   with:
+      #     apiToken: ${{ secrets.CF_API_TOKEN }}
+      #     accountId: ${{ secrets.CF_ACCOUNT_ID }}
+      #     command: pages deploy out --project-name=gutfeel

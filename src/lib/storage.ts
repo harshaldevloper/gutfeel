@@ -1,5 +1,12 @@
-import { analyzeFingerprint, type FingerprintResult } from "./fingerprint";
-import { FOODS } from "./localizedFoods";
+import { analyzeFingerprint, type FingerprintResult } from "@gutfeel/core/fingerprint";
+import { FOODS } from "@gutfeel/core/foods";
+import {
+  localKey,
+  computeStreak,
+  getLast7DaysSeverity,
+  getWeekComparison,
+  isLoggedToday,
+} from "@gutfeel/core/stats";
 
 export interface SymptomEntry {
   id: string;
@@ -42,29 +49,7 @@ export async function saveEntry(
   return updated;
 }
 
-function localKey(date: Date): string {
-  const m = String(date.getMonth() + 1).padStart(2, "0");
-  const d = String(date.getDate()).padStart(2, "0");
-  return `${date.getFullYear()}-${m}-${d}`;
-}
-
-export function computeStreak(entries: SymptomEntry[]): number {
-  if (entries.length === 0) return 0;
-  const seen = new Set<string>();
-  for (const e of entries) {
-    seen.add(localKey(new Date(e.createdAt)));
-  }
-  const today = new Date();
-  let streak = 0;
-  for (let i = 0; i < 60; i++) {
-    const d = new Date(today);
-    d.setDate(d.getDate() - i);
-    if (seen.has(localKey(d))) streak++;
-    else if (i === 0) continue;
-    else break;
-  }
-  return streak;
-}
+export { getLast7DaysSeverity, getWeekComparison, isLoggedToday };
 
 export interface DbStats {
   entries: SymptomEntry[];
@@ -97,4 +82,38 @@ export async function getDbStats(): Promise<DbStats> {
     triggeredFoods,
     testedCount,
   };
+}
+
+const PROFILE_KEY = "gutfeel.profile.v1";
+
+export interface UserProfile {
+  country: string;
+  ibsType: string;
+  allergies: string[];
+  diets: string[];
+  skill: string;
+  household: number;
+}
+
+export async function loadProfile(): Promise<UserProfile | null> {
+  if (typeof window === "undefined") return null;
+  try {
+    const raw = window.localStorage.getItem(PROFILE_KEY);
+    return raw ? (JSON.parse(raw) as UserProfile) : null;
+  } catch {
+    return null;
+  }
+}
+
+export async function saveProfile(profile: UserProfile): Promise<void> {
+  if (typeof window === "undefined") return;
+  window.localStorage.setItem(PROFILE_KEY, JSON.stringify(profile));
+  if (profile.country) {
+    window.localStorage.setItem("gutfeel.country", profile.country);
+  }
+}
+
+export function getTodayEntry(entries: SymptomEntry[]): SymptomEntry | undefined {
+  const key = localKey(new Date());
+  return entries.find(e => localKey(new Date(e.createdAt)) === key);
 }

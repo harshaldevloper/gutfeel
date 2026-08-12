@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import BrandLogo from "@/components/BrandLogo";
 
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -9,12 +10,7 @@ export default function Header() {
     <header className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-stone-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-emerald-500 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-sm">G</span>
-            </div>
-            <span className="text-xl font-bold text-stone-900">Gutfeel</span>
-          </div>
+          <BrandLogo height={40} />
 
           <nav className="hidden md:flex items-center gap-8">
             <a href="#problem" className="text-stone-600 hover:text-stone-900 transition-colors text-sm font-medium">Problem</a>
@@ -25,8 +21,9 @@ export default function Header() {
           </nav>
 
           <div className="hidden md:flex items-center gap-4">
-            <a href="#waitlist" className="px-4 py-2 bg-emerald-600 text-white rounded-lg text-sm font-semibold hover:bg-emerald-700 transition-colors">
-              Join Waitlist
+            <a href="/login" className="text-stone-600 hover:text-stone-900 text-sm font-medium">Sign in</a>
+            <a href="/onboarding" className="px-4 py-2 bg-emerald-600 text-white rounded-lg text-sm font-semibold hover:bg-emerald-700 transition-colors">
+              Try App
             </a>
           </div>
 
@@ -49,7 +46,7 @@ export default function Header() {
               <a href="#features" className="text-stone-600 text-sm font-medium py-2">Features</a>
               <a href="#testimonials" className="text-stone-600 text-sm font-medium py-2">Testimonials</a>
               <a href="#pricing" className="text-stone-600 text-sm font-medium py-2">Pricing</a>
-              <a href="#waitlist" className="mt-2 px-4 py-2 bg-emerald-600 text-white rounded-lg text-sm font-semibold text-center">Join Waitlist</a>
+              <a href="/onboarding" className="mt-2 px-4 py-2 bg-emerald-600 text-white rounded-lg text-sm font-semibold text-center">Try App</a>
             </nav>
           </div>
         )}

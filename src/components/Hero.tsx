@@ -27,7 +27,7 @@ export default function Hero() {
             </h1>
             <p className="text-lg text-stone-500 font-medium mt-2 mb-4">Eat Confidently.</p>
             <p className="text-lg sm:text-xl text-stone-600 leading-relaxed mb-8 max-w-xl">
-              Gutfeel uses AI to create personalized low FODMAP meal plans that adapt to YOUR body. No more generic diets. No more fear of food. Just relief.
+              Gutfeel builds personalized low FODMAP meal plans and tracks your symptoms to find YOUR trigger patterns — not generic food lists.
             </p>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -35,11 +35,11 @@ export default function Hero() {
               transition={{ delay: 0.4, duration: 0.5 }}
               className="flex flex-col sm:flex-row gap-4 mb-8"
             >
-              <a href="#waitlist" className="px-8 py-4 bg-emerald-600 text-white rounded-xl text-base font-semibold hover:bg-emerald-700 transition-all hover:shadow-lg hover:shadow-emerald-200 text-center">
-                Get Early Access — Free
+              <a href="/onboarding" className="px-8 py-4 bg-emerald-600 text-white rounded-xl text-base font-semibold hover:bg-emerald-700 transition-all hover:shadow-lg hover:shadow-emerald-200 text-center">
+                Try the App — Free
               </a>
-              <a href="#solution" className="px-8 py-4 bg-white border border-stone-300 text-stone-700 rounded-xl text-base font-semibold hover:bg-stone-50 transition-colors text-center">
-                See How It Works
+              <a href="#waitlist" className="px-8 py-4 bg-white border border-stone-300 text-stone-700 rounded-xl text-base font-semibold hover:bg-stone-50 transition-colors text-center">
+                Join Waitlist
               </a>
             </motion.div>
             <motion.div

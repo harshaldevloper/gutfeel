@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { FOODS, getFoodsByCountry } from "@/lib/localizedFoods";
+import AppHeader from "@/components/AppHeader";
 
 const CATEGORIES = ["all", "grain", "protein", "vegetable", "fruit", "dairy", "fat", "sweetener", "spice"];
 const FILTERS = ["all", "safe", "moderate", "high"];
@@ -34,15 +35,10 @@ export default function Foods() {
 
   return (
     <div className="min-h-screen bg-stone-50 pb-20">
-      <header className="bg-white border-b border-stone-200 px-4 py-3 sticky top-0 z-50">
-        <div className="max-w-4xl mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <img src="/logo.png" width="28" height="28" alt="Gutfeel" />
-            <span className="text-lg font-bold text-stone-900">Food Database</span>
-          </div>
-          <span className="text-xs bg-emerald-100 text-emerald-700 px-2.5 py-1 rounded-full font-medium">{countryInfo.flag} {countryInfo.label}</span>
-        </div>
-      </header>
+      <AppHeader
+        title="Food Database"
+        right={<span className="text-xs bg-emerald-100 text-emerald-700 px-2.5 py-1 rounded-full font-medium">{countryInfo.flag} {countryInfo.label}</span>}
+      />
 
       <main className="max-w-4xl mx-auto p-4 space-y-4">
         <input type="text" placeholder="Search foods..." value={search} onChange={e => setSearch(e.target.value)} className="w-full px-4 py-3 bg-white rounded-xl border border-stone-200 focus:outline-none focus:ring-2 focus:ring-emerald-500" />

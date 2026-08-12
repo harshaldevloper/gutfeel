@@ -19,7 +19,9 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@gutfeel/core": ["./packages/gutfeel-core/src/index.ts"],
+      "@gutfeel/core/*": ["./packages/gutfeel-core/src/*"]
     }
   },
   "include": [
@@ -30,5 +32,5 @@
     ".next/dev/types/**/*.ts",
     "**/*.mts"
   ],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "functions"]
 }

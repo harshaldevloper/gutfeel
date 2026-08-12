@@ -3,9 +3,11 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { buildDailyPlan, mealSafePercent, type MealSlot } from "@/lib/meals";
-import { getDbStats, saveEntry, type DbStats } from "@/lib/storage";
+import { getDbStats, saveEntry, getLast7DaysSeverity, getWeekComparison, isLoggedToday, getTodayEntry, type DbStats } from "@/lib/storage";
 import { getFingerprintInsight } from "@/lib/fingerprint";
 import { FOODS } from "@/lib/localizedFoods";
+import { syncLocalDataToCloud } from "@/lib/sync";
+import AppHeader from "@/components/AppHeader";
 
 const SAMPLE_TRIGGERS = ["Onion", "Garlic"];
 
@@ -25,11 +27,14 @@ export default function Dashboard() {
 
   useEffect(() => {
     getDbStats().then(s => {
-      const todayLogged = s.entries.some(e => new Date(e.createdAt).getDate() === new Date().getDate());
+      const todayLogged = isLoggedToday(s.entries);
+      const todayEntry = getTodayEntry(s.entries);
       setStats(s);
       setPlan(buildDailyPlan(s.triggeredFoods.length > 0 ? s.triggeredFoods : SAMPLE_TRIGGERS));
       setSymptomLogged(todayLogged);
+      if (todayEntry) setSeverity(todayEntry.severity);
     });
+    syncLocalDataToCloud();
   }, []);
 
   async function handleCheckIn() {
@@ -42,25 +47,21 @@ export default function Dashboard() {
   }
 
   const insight = getFingerprintInsight(stats.fingerprint, stats.streak);
+  const triggers = stats.triggeredFoods.length > 0 ? stats.triggeredFoods : SAMPLE_TRIGGERS;
+  const weeklyData = getLast7DaysSeverity(stats.entries);
+  const weekComparison = getWeekComparison(stats.entries);
   const topFingerprint = stats.fingerprint.filter(f => f.testCount > 0).slice(0, 4);
 
   return (
     <div className="min-h-screen bg-stone-50 pb-20">
-      {/* Header */}
-      <header className="bg-white border-b border-stone-200 px-4 py-3 sticky top-0 z-50">
-        <div className="max-w-4xl mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <img src="/logo.png" width="28" height="28" alt="Gutfeel" />
-            <span className="text-lg font-bold text-stone-900">Gutfeel</span>
+      <AppHeader
+        right={
+          <div className="flex items-center gap-1 bg-amber-50 px-2.5 py-1 rounded-full">
+            <span className="text-sm">{"\uD83D\uDD25"}</span>
+            <span className="text-sm font-bold text-amber-700">{stats.streak}</span>
           </div>
-          <div className="flex items-center gap-2">
-            <div className="flex items-center gap-1 bg-amber-50 px-2.5 py-1 rounded-full">
-              <span className="text-sm">{"\uD83D\uDD25"}</span>
-              <span className="text-sm font-bold text-amber-700">{stats.streak}</span>
-            </div>
-          </div>
-        </div>
-      </header>
+        }
+      />
 
       <main className="max-w-4xl mx-auto p-4 space-y-4">
         {/* FDA Alert Banner */}
@@ -175,7 +176,7 @@ export default function Dashboard() {
                     <p className="text-xs text-stone-500">{s.label} &middot; {meal.cookMinutes} min</p>
                   </div>
                   <div className="text-right shrink-0">
-                    <p className="text-sm font-bold text-emerald-600">{mealSafePercent(meal, SAMPLE_TRIGGERS)}%</p>
+                    <p className="text-sm font-bold text-emerald-600">{mealSafePercent(meal, triggers)}%</p>
                     <p className="text-xs text-stone-400">safe</p>
                   </div>
                 </div>
@@ -208,16 +209,25 @@ export default function Dashboard() {
         >
           <h2 className="font-bold text-stone-900 mb-4">This Week&apos;s Symptoms</h2>
           <div className="flex items-end gap-2 h-24">
-            {[2, 1, 3, 1, 2, 1, 1].map((level, i) => (
+            {weeklyData.map((day, i) => (
               <div key={i} className="flex-1 flex flex-col items-center gap-1">
                 <div className="w-full relative" style={{ height: "80px" }}>
-                  <div className={`absolute bottom-0 w-full rounded-t-md transition-all ${i === 6 ? "bg-emerald-500" : level <= 1 ? "bg-emerald-300" : level <= 2 ? "bg-amber-300" : "bg-red-300"}`} style={{ height: `${level * 33}%`, opacity: i === 6 ? 1 : 0.6 }} />
+                  {day.level > 0 ? (
+                    <div className={`absolute bottom-0 w-full rounded-t-md transition-all ${day.isToday ? "bg-emerald-500" : day.level <= 1.5 ? "bg-emerald-300" : day.level <= 2.5 ? "bg-amber-300" : "bg-red-300"}`} style={{ height: `${(day.level / 5) * 100}%`, opacity: day.isToday ? 1 : 0.6 }} />
+                  ) : (
+                    <div className="absolute bottom-0 w-full h-1 bg-stone-200 rounded-t-md opacity-40" />
+                  )}
                 </div>
-                <span className={`text-xs ${i === 6 ? "font-bold text-emerald-600" : "text-stone-400"}`}>{["M","T","W","T","F","S","S"][i]}{i === 6 ? "*" : ""}</span>
+                <span className={`text-xs ${day.isToday ? "font-bold text-emerald-600" : "text-stone-400"}`}>{day.label}{day.isToday ? "*" : ""}</span>
               </div>
             ))}
           </div>
-          <p className="text-xs text-emerald-600 mt-3 font-medium">{"\u2198"} 40% better than last week</p>
+          {weekComparison && (
+            <p className="text-xs text-emerald-600 mt-3 font-medium">{weekComparison}</p>
+          )}
+          {!weekComparison && stats.entries.length < 7 && (
+            <p className="text-xs text-stone-400 mt-3">Log daily to see weekly trends</p>
+          )}
         </motion.div>
       </main>
 

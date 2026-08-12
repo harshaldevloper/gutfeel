@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { saveEntry, getDbStats, type DbStats } from "@/lib/storage";
+import AppHeader from "@/components/AppHeader";
 
 const SYMPTOM_TYPES = ["Bloating", "Cramping", "Gas", "Diarrhea", "Constipation", "Nausea", "Fatigue"];
 const BOWEL_TYPES = ["normal", "constipation", "diarrhea", "mixed"];
@@ -40,14 +41,7 @@ export default function Tracker() {
 
   return (
     <div className="min-h-screen bg-stone-50 pb-20">
-      <header className="bg-white border-b border-stone-200 px-4 py-3 sticky top-0 z-50">
-        <div className="max-w-4xl mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <img src="/logo.png" width="28" height="28" alt="Gutfeel" />
-            <span className="text-lg font-bold text-stone-900">Symptom Tracker</span>
-          </div>
-        </div>
-      </header>
+      <AppHeader title="Symptom Tracker" />
 
       <main className="max-w-4xl mx-auto p-4 space-y-4">
         <div className="bg-white rounded-2xl border border-stone-200 p-5 shadow-sm">

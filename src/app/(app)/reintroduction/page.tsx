@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { getDbStats } from "@/lib/storage";
 import { FOODS } from "@/lib/localizedFoods";
+import AppHeader from "@/components/AppHeader";
 
 const PHASES = [
   { name: "Fructans", status: "completed", weeks: "Weeks 1-2", result: "Safe ✓" },
@@ -25,22 +26,7 @@ export default function Reintroduction() {
 
   return (
     <div className="min-h-screen bg-stone-50 pb-20">
-      <header className="bg-white border-b border-stone-200 px-4 py-4">
-        <div className="max-w-4xl mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-emerald-500 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-sm">G</span>
-            </div>
-            <span className="text-lg font-bold text-stone-900">Gutfeel</span>
-          </div>
-          <nav className="flex gap-4 text-sm">
-            <a href="/dashboard" className="text-stone-500 hover:text-stone-700">Plan</a>
-            <a href="/tracker" className="text-stone-500 hover:text-stone-700">Tracker</a>
-            <a href="/foods" className="text-stone-500 hover:text-stone-700">Foods</a>
-            <a href="/reintroduction" className="text-emerald-600 font-medium">Reintroduction</a>
-          </nav>
-        </div>
-      </header>
+      <AppHeader title="Reintroduction" />
 
       <main className="max-w-4xl mx-auto p-4 space-y-6">
         <div className="bg-white rounded-2xl shadow-sm border border-stone-200 p-6">

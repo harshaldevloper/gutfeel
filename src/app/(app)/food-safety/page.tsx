@@ -2,21 +2,17 @@
 
 import { useState } from "react";
 import { FOOD_SAFETY_ALERTS, FOOD_SAFETY_SCORES, RESTAURANT_SAFETY_TIPS, getSeverityColor } from "@/lib/foodSafety";
+import AppHeader from "@/components/AppHeader";
 
 export default function FoodSafety() {
   const [tab, setTab] = useState<"alerts" | "scores" | "tips">("alerts");
 
   return (
     <div className="min-h-screen bg-stone-50 pb-20">
-      <header className="bg-white border-b border-stone-200 px-4 py-3 sticky top-0 z-50">
-        <div className="max-w-4xl mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <img src="/logo.png" width="28" height="28" alt="Gutfeel" />
-            <span className="text-lg font-bold text-stone-900">Food Safety</span>
-          </div>
-          <span className="text-xs bg-red-100 text-red-700 px-2.5 py-1 rounded-full font-medium">🇮🇳 India</span>
-        </div>
-      </header>
+      <AppHeader
+        title="Food Safety"
+        right={<span className="text-xs bg-red-100 text-red-700 px-2.5 py-1 rounded-full font-medium">🇮🇳 India</span>}
+      />
 
       <main className="max-w-4xl mx-auto p-4 space-y-4">
         <div className="bg-gradient-to-r from-red-500 to-red-600 rounded-2xl p-5 text-white">

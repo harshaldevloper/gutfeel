@@ -8,9 +8,9 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Gutfeel — Eat Confidently. AI FODMAP Meal Planner for IBS",
+  title: "Gutfeel — Eat Confidently | Low FODMAP Meal Planner",
   description:
-    "Stop guessing what to eat. Gutfeel creates personalized low FODMAP meal plans, tracks your symptoms, and guides you through reintroduction — all powered by AI that learns YOUR triggers.",
+    "Personalized low FODMAP meal plans, symptom tracking, and trigger detection. Built for India and beyond. Not medical advice.",
   keywords: [
     "low FODMAP",
     "IBS",
@@ -20,6 +20,21 @@ export const metadata: Metadata = {
     "digestive health",
     "IBS diet",
   ],
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon-32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon-192.png", sizes: "192x192", type: "image/png" },
+    ],
+    apple: "/apple-touch-icon.png",
+  },
+  openGraph: {
+    title: "Gutfeel — Eat Confidently",
+    description: "Personalized low FODMAP meal plans that learn YOUR triggers.",
+    url: "https://gutfeel.pages.dev",
+    siteName: "Gutfeel",
+    images: [{ url: "/logo.png", width: 440, height: 375, alt: "Gutfeel logo" }],
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

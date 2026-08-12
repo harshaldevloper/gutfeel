@@ -10,6 +10,7 @@ import {
   type MealSlot,
 } from "@/lib/meals";
 import { getDbStats } from "@/lib/storage";
+import AppHeader from "@/components/AppHeader";
 
 const SAMPLE_TRIGGERS = ["Onion", "Garlic"];
 
@@ -55,15 +56,10 @@ export default function Plan() {
 
   return (
     <div className="min-h-screen bg-stone-50 pb-20">
-      <header className="bg-white border-b border-stone-200 px-4 py-3 sticky top-0 z-50">
-        <div className="max-w-4xl mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <img src="/logo.png" width="28" height="28" alt="Gutfeel" />
-            <span className="text-lg font-bold text-stone-900">Meal Planner</span>
-          </div>
-          <span className="text-xs bg-emerald-100 text-emerald-700 px-2.5 py-1 rounded-full font-medium">Personalized</span>
-        </div>
-      </header>
+      <AppHeader
+        title="Meal Planner"
+        right={<span className="text-xs bg-emerald-100 text-emerald-700 px-2.5 py-1 rounded-full font-medium">Personalized</span>}
+      />
 
       <main className="max-w-4xl mx-auto p-4 space-y-4">
         <motion.div
@@ -102,7 +98,7 @@ export default function Plan() {
               <div className="flex items-center justify-between mb-2">
                 <span className="text-xs font-bold text-emerald-600 uppercase tracking-wide">{label}</span>
                 <span className="text-xs bg-emerald-50 text-emerald-700 font-bold px-2 py-0.5 rounded-full">
-                  {mealSafePercent(meal, SAMPLE_TRIGGERS)}% safe
+                  {mealSafePercent(meal, triggers)}% safe
                 </span>
               </div>
               <h2 className="font-bold text-stone-900 text-lg">{meal.name}</h2>

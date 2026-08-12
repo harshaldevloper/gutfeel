@@ -1,6 +1,14 @@
--- Run this in Supabase SQL Editor: https://supabase.com/dashboard/project/njnluxdbvpccsawgdzxw/sql/new
+-- Gutfeel Supabase schema (idempotent — safe to re-run)
+-- Run in: https://supabase.com/dashboard/project/njnluxdbvpccsawgdzxw/sql/new
 
--- Users table (managed by Supabase Auth, but we can extend profiles)
+-- ─── Tables ───────────────────────────────────────────────────────────────
+
+CREATE TABLE IF NOT EXISTS waitlist (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  email TEXT UNIQUE NOT NULL,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
 CREATE TABLE IF NOT EXISTS profiles (
   id UUID REFERENCES auth.users ON DELETE CASCADE PRIMARY KEY,
   email TEXT,
@@ -14,7 +22,6 @@ CREATE TABLE IF NOT EXISTS profiles (
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
--- Symptom entries
 CREATE TABLE IF NOT EXISTS symptoms (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
   user_id UUID REFERENCES auth.users ON DELETE CASCADE NOT NULL,
@@ -27,7 +34,6 @@ CREATE TABLE IF NOT EXISTS symptoms (
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
--- FODMAP fingerprint (user's personal trigger profile)
 CREATE TABLE IF NOT EXISTS fingerprint (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
   user_id UUID REFERENCES auth.users ON DELETE CASCADE NOT NULL,
@@ -40,19 +46,76 @@ CREATE TABLE IF NOT EXISTS fingerprint (
   UNIQUE(user_id, food_name)
 );
 
--- Enable Row Level Security
+CREATE TABLE IF NOT EXISTS subscriptions (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  user_id UUID REFERENCES auth.users ON DELETE CASCADE NOT NULL,
+  dodo_subscription_id TEXT UNIQUE,
+  dodo_customer_id TEXT,
+  plan TEXT CHECK (plan IN ('premium', 'annual')),
+  status TEXT CHECK (status IN ('active', 'on_hold', 'cancelled', 'expired', 'failed')) DEFAULT 'active',
+  current_period_end TIMESTAMPTZ,
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  updated_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- Optional: log raw Dodo webhook events for debugging
+CREATE TABLE IF NOT EXISTS dodo_webhook_events (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  event_type TEXT NOT NULL,
+  dodo_event_id TEXT,
+  payload JSONB NOT NULL,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- ─── RLS ──────────────────────────────────────────────────────────────────
+
+ALTER TABLE waitlist ENABLE ROW LEVEL SECURITY;
 ALTER TABLE profiles ENABLE ROW LEVEL SECURITY;
 ALTER TABLE symptoms ENABLE ROW LEVEL SECURITY;
 ALTER TABLE fingerprint ENABLE ROW LEVEL SECURITY;
+ALTER TABLE subscriptions ENABLE ROW LEVEL SECURITY;
+ALTER TABLE dodo_webhook_events ENABLE ROW LEVEL SECURITY;
 
--- Policies
-CREATE POLICY "Users can view own profile" ON profiles FOR SELECT USING (auth.uid() = id);
-CREATE POLICY "Users can update own profile" ON profiles FOR UPDATE USING (auth.uid() = id);
-CREATE POLICY "Users can insert own profile" ON profiles FOR INSERT WITH CHECK (auth.uid() = id);
+-- Drop existing policies first (fixes "policy already exists" on re-run)
+DROP POLICY IF EXISTS "Anyone can join waitlist" ON waitlist;
 
-CREATE POLICY "Users can view own symptoms" ON symptoms FOR SELECT USING (auth.uid() = user_id);
-CREATE POLICY "Users can insert own symptoms" ON symptoms FOR INSERT WITH CHECK (auth.uid() = user_id);
+DROP POLICY IF EXISTS "Users can view own profile" ON profiles;
+DROP POLICY IF EXISTS "Users can update own profile" ON profiles;
+DROP POLICY IF EXISTS "Users can insert own profile" ON profiles;
 
-CREATE POLICY "Users can view own fingerprint" ON fingerprint FOR SELECT USING (auth.uid() = user_id);
-CREATE POLICY "Users can insert own fingerprint" ON fingerprint FOR INSERT WITH CHECK (auth.uid() = user_id);
-CREATE POLICY "Users can update own fingerprint" ON fingerprint FOR UPDATE USING (auth.uid() = user_id);
+DROP POLICY IF EXISTS "Users can view own symptoms" ON symptoms;
+DROP POLICY IF EXISTS "Users can insert own symptoms" ON symptoms;
+
+DROP POLICY IF EXISTS "Users can view own fingerprint" ON fingerprint;
+DROP POLICY IF EXISTS "Users can insert own fingerprint" ON fingerprint;
+DROP POLICY IF EXISTS "Users can update own fingerprint" ON fingerprint;
+
+DROP POLICY IF EXISTS "Users can view own subscription" ON subscriptions;
+
+-- Recreate policies
+CREATE POLICY "Anyone can join waitlist" ON waitlist
+  FOR INSERT WITH CHECK (true);
+
+CREATE POLICY "Users can view own profile" ON profiles
+  FOR SELECT USING (auth.uid() = id);
+CREATE POLICY "Users can update own profile" ON profiles
+  FOR UPDATE USING (auth.uid() = id);
+CREATE POLICY "Users can insert own profile" ON profiles
+  FOR INSERT WITH CHECK (auth.uid() = id);
+
+CREATE POLICY "Users can view own symptoms" ON symptoms
+  FOR SELECT USING (auth.uid() = user_id);
+CREATE POLICY "Users can insert own symptoms" ON symptoms
+  FOR INSERT WITH CHECK (auth.uid() = user_id);
+
+CREATE POLICY "Users can view own fingerprint" ON fingerprint
+  FOR SELECT USING (auth.uid() = user_id);
+CREATE POLICY "Users can insert own fingerprint" ON fingerprint
+  FOR INSERT WITH CHECK (auth.uid() = user_id);
+CREATE POLICY "Users can update own fingerprint" ON fingerprint
+  FOR UPDATE USING (auth.uid() = user_id);
+
+CREATE POLICY "Users can view own subscription" ON subscriptions
+  FOR SELECT USING (auth.uid() = user_id);
+
+-- webhook log: service role only (no client policies)
