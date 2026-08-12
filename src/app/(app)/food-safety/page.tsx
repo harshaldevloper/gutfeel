@@ -3,12 +3,13 @@
 import { useState } from "react";
 import { FOOD_SAFETY_ALERTS, FOOD_SAFETY_SCORES, RESTAURANT_SAFETY_TIPS, getSeverityColor } from "@/lib/foodSafety";
 import AppHeader from "@/components/AppHeader";
+import AppBottomNav from "@/components/AppBottomNav";
 
 export default function FoodSafety() {
   const [tab, setTab] = useState<"alerts" | "scores" | "tips">("alerts");
 
   return (
-    <div className="min-h-screen bg-stone-50 pb-20">
+    <div className="min-h-screen bg-cream pb-24">
       <AppHeader
         title="Food Safety"
         right={<span className="text-xs bg-red-100 text-red-700 px-2.5 py-1 rounded-full font-medium">🇮🇳 India</span>}
