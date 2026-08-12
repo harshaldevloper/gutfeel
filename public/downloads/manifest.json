@@ -1,0 +1,9 @@
+{
+  "version": "1.0.0",
+  "versionCode": 1,
+  "available": false,
+  "apkUrl": "/downloads/gutfeel.apk",
+  "sha256": "",
+  "publishedAt": null,
+  "releaseNotes": "First public preview — daily log, meal plan, foods, fingerprint."
+}

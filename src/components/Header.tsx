@@ -29,8 +29,8 @@ export default function Header() {
             <a href="/login" className="text-brand-navy/80 hover:text-brand-navy text-sm font-medium px-3 py-2">
               Sign in
             </a>
-            <a href="#download" className="btn-accent text-sm py-2.5 px-5">
-              Get the App
+            <a href="/download/" className="btn-accent text-sm py-2.5 px-5">
+              Download App
             </a>
           </div>
 
@@ -63,8 +63,8 @@ export default function Header() {
                   {label}
                 </a>
               ))}
-              <a href="#download" className="btn-accent text-center mt-3">
-                Get the App
+              <a href="/download/" className="btn-accent text-center mt-3">
+                Download App
               </a>
             </nav>
           </div>

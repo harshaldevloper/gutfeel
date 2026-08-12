@@ -33,8 +33,8 @@ export default function Hero() {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-3 mb-6">
-              <a href="#download" className="btn-accent text-center">
-                Get the App
+              <a href="/download/" className="btn-accent text-center">
+                Download Android App
               </a>
               <a href="#waitlist" className="btn-secondary text-center">
                 Join Waitlist

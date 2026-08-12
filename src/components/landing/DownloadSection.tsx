@@ -1,52 +1,37 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Link from "next/link";
 
-const STORE = {
-  ios: { label: "App Store", sub: "TestFlight soon", href: "#waitlist" },
-  android: { label: "Google Play", sub: "Internal testing soon", href: "#waitlist" },
-};
-
-function StoreIcon({ platform }: { platform: "ios" | "android" }) {
-  if (platform === "ios") {
-    return (
-      <svg className="w-7 h-7 shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
-        <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
-      </svg>
-    );
-  }
+function AndroidIcon() {
   return (
     <svg className="w-7 h-7 shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
-      <path d="M3.609 1.814L13.792 12 3.61 22.186a1.003 1.003 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.198l2.807 1.626a1 1 0 0 1 0 1.73l-2.808 1.626L15.206 12l2.492-2.491zM5.864 2.658L16.802 8.99l-2.303 2.303-8.635-8.635z" />
+      <path d="M17.6 9.48l1.84-3.18c.16-.31.04-.69-.26-.85a.637.637 0 0 0-.83.22l-1.88 3.24a11.463 11.463 0 0 0-8.94 0L5.65 5.67a.643.643 0 0 0-.87-.22c-.3.16-.42.54-.26.85L6.4 9.48A8.959 8.959 0 0 0 1 14c0 .55.08 1.08.23 1.58l-1.84 3.18c-.16.31-.04.69.26.85.1.05.21.08.32.08.23 0 .46-.12.58-.34l1.87-3.23A8.994 8.994 0 0 0 12 19c1.66 0 3.2-.45 4.53-1.23l1.87 3.23c.12.22.35.34.58.34.11 0 .22-.03.32-.08.3-.16.42-.54.26-.85L22.77 15.6c.15-.5.23-1.03.23-1.58 0-1.66-.67-3.16-1.76-4.25A8.96 8.96 0 0 0 17.6 9.48zM7 15.25A1.25 1.25 0 1 1 8.25 14 1.25 1.25 0 0 1 7 15.25zm10 0A1.25 1.25 0 1 1 18.25 14 1.25 1.25 0 0 1 17 15.25z" />
     </svg>
   );
 }
 
-function StoreBadge({
-  platform,
-  label,
-  sub,
-  href,
-}: {
-  platform: "ios" | "android";
-  label: string;
-  sub: string;
-  href: string;
-}) {
+function DownloadButton({ compact }: { compact?: boolean }) {
   return (
-    <a
-      href={href}
-      className="group flex items-center gap-3.5 px-5 py-3.5 bg-brand-navy text-white rounded-2xl hover:bg-brand-navy-light transition-colors shadow-lg shadow-brand-navy/15 min-w-[11.5rem]"
+    <Link
+      href="/download/"
+      className={
+        compact
+          ? "flex items-center gap-3.5 px-5 py-3.5 bg-brand-navy text-white rounded-2xl hover:bg-brand-navy-light transition-colors shadow-lg shadow-brand-navy/15 min-w-[11.5rem]"
+          : "btn-accent inline-flex items-center justify-center gap-2"
+      }
     >
-      <StoreIcon platform={platform} />
-      <span className="text-left">
-        <span className="block text-[10px] uppercase tracking-wider text-white/60 font-semibold">
-          {platform === "ios" ? "Download on the" : "Get it on"}
-        </span>
-        <span className="block text-base font-bold leading-tight">{label}</span>
-        <span className="block text-[11px] text-brand-green-light/90 font-medium mt-0.5">{sub}</span>
+      <AndroidIcon />
+      <span className={compact ? "text-left" : undefined}>
+        {compact && (
+          <span className="block text-[10px] uppercase tracking-wider text-white/60 font-semibold">Android</span>
+        )}
+        <span className={compact ? "block text-base font-bold leading-tight" : undefined}>Download APK</span>
+        {compact && (
+          <span className="block text-[11px] text-brand-green-light/90 font-medium mt-0.5">Works offline</span>
+        )}
       </span>
-    </a>
+    </Link>
   );
 }
 
@@ -54,8 +39,10 @@ export default function DownloadSection({ compact = false }: { compact?: boolean
   if (compact) {
     return (
       <div className="flex flex-col sm:flex-row gap-3">
-        <StoreBadge {...STORE.ios} platform="ios" />
-        <StoreBadge {...STORE.android} platform="android" />
+        <DownloadButton compact />
+        <Link href="/account/" className="btn-secondary text-center min-w-[11.5rem] py-3.5">
+          Premium
+        </Link>
       </div>
     );
   }
@@ -69,31 +56,27 @@ export default function DownloadSection({ compact = false }: { compact?: boolean
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          <p className="text-xs font-bold uppercase tracking-widest text-brand-green-dark mb-3">
-            Mobile-first
-          </p>
+          <p className="text-xs font-bold uppercase tracking-widest text-brand-green-dark mb-3">Android app</p>
           <h2 className="font-serif text-3xl sm:text-4xl font-semibold text-brand-navy mb-4">
-            Daily logging belongs on your phone
+            Install Gutfeel on your phone
           </h2>
           <p className="text-stone-600 text-lg leading-relaxed mb-10 max-w-2xl mx-auto">
-            Gutfeel is built for quick check-ins between meals — notifications, offline mode, and one-tap symptom logs.
-            The website handles account, billing, and legal.
+            Native app for daily check-ins — offline, fast, built for roti-and-dal meal planning. Premium billing on the
+            website.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
-            <StoreBadge {...STORE.ios} platform="ios" />
-            <StoreBadge {...STORE.android} platform="android" />
+            <DownloadButton />
+            <Link href="/#waitlist" className="btn-secondary px-8 py-3.5">
+              Join waitlist
+            </Link>
           </div>
 
           <p className="text-sm text-stone-500">
-            Stores launching soon —{" "}
-            <a href="#waitlist" className="text-brand-green-dark font-semibold hover:underline">
-              join the waitlist
-            </a>{" "}
-            for TestFlight &amp; Play internal access.{" "}
-            <a href="/onboarding" className="text-stone-400 hover:text-stone-600 underline underline-offset-2">
-              Try web demo
-            </a>
+            Also coming to Amazon Appstore &amp; Samsung Galaxy Store.{" "}
+            <Link href="/onboarding/" className="text-stone-400 hover:text-stone-600 underline underline-offset-2">
+              Web demo
+            </Link>
           </p>
         </motion.div>
       </div>

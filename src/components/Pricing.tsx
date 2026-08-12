@@ -24,8 +24,8 @@ export default function Pricing() {
               <li>FODMAP fingerprint</li>
               <li>Works offline</li>
             </ul>
-            <a href="#download" className="btn-secondary w-full text-center text-sm py-3">
-              Get the App
+            <a href="/download/" className="btn-secondary w-full text-center text-sm py-3">
+              Download Android APK
             </a>
           </div>
 
