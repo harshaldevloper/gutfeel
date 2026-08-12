@@ -1,6 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getDbStats } from "@/lib/storage";
+import { FOODS } from "@/lib/localizedFoods";
 
 const PHASES = [
   { name: "Fructans", status: "completed", weeks: "Weeks 1-2", result: "Safe ✓" },
@@ -13,6 +15,13 @@ const PHASES = [
 
 export default function Reintroduction() {
   const [activePhase, setActivePhase] = useState(2);
+  const [progress, setProgress] = useState(33);
+
+  useEffect(() => {
+    getDbStats().then(s => {
+      setProgress(Math.min(100, Math.round((s.testedCount / FOODS.length) * 100)));
+    });
+  }, []);
 
   return (
     <div className="min-h-screen bg-stone-50 pb-20">
@@ -40,9 +49,9 @@ export default function Reintroduction() {
 
           <div className="flex items-center gap-2 mb-6">
             <div className="flex-1 h-2 bg-stone-100 rounded-full overflow-hidden">
-              <div className="h-full bg-emerald-500 rounded-full" style={{ width: "33%" }} />
+              <div className="h-full bg-emerald-500 rounded-full transition-all" style={{ width: `${progress}%` }} />
             </div>
-            <span className="text-sm font-medium text-stone-600">33%</span>
+            <span className="text-sm font-medium text-stone-600">{progress}%</span>
           </div>
 
           <div className="space-y-3">

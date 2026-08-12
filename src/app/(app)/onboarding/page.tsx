@@ -47,7 +47,7 @@ export default function Onboarding() {
               <p className="text-stone-600">First, where do you live? This helps us show foods you actually eat.</p>
               <div className="space-y-2">
                 {COUNTRIES.map(c => (
-                  <button key={c.code} onClick={() => { setCountry(c.code); next(); }} className={`w-full flex items-center gap-3 p-4 rounded-xl border text-left transition-all ${country === c.code ? "border-emerald-500 bg-emerald-50" : "border-stone-200 hover:border-stone-300 active:bg-stone-50"}`}>
+                  <button key={c.code} onClick={() => { setCountry(c.code); localStorage.setItem("gutfeel.country", c.code); next(); }} className={`w-full flex items-center gap-3 p-4 rounded-xl border text-left transition-all ${country === c.code ? "border-emerald-500 bg-emerald-50" : "border-stone-200 hover:border-stone-300 active:bg-stone-50"}`}>
                     <span className="text-2xl">{c.flag}</span>
                     <div>
                       <p className="font-medium text-stone-900">{c.name}</p>

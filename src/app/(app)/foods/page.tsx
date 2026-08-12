@@ -1,17 +1,29 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FOODS, getFoodsByCountry } from "@/lib/localizedFoods";
 
 const CATEGORIES = ["all", "grain", "protein", "vegetable", "fruit", "dairy", "fat", "sweetener", "spice"];
 const FILTERS = ["all", "safe", "moderate", "high"];
 
+const COUNTRY_NAMES: Record<string, { label: string; flag: string }> = {
+  IN: { label: "India", flag: "🇮🇳" },
+  UK: { label: "United Kingdom", flag: "🇬🇧" },
+  US: { label: "United States", flag: "🇺🇸" },
+  AU: { label: "Australia", flag: "🇦🇺" },
+};
+
 export default function Foods() {
   const [filter, setFilter] = useState("all");
   const [category, setCategory] = useState("all");
   const [search, setSearch] = useState("");
-  const [country] = useState("IN"); // Would come from user profile
+  const [country, setCountry] = useState("IN");
 
+  useEffect(() => {
+    setCountry(localStorage.getItem("gutfeel.country") || "IN");
+  }, []);
+
+  const countryInfo = COUNTRY_NAMES[country] ?? COUNTRY_NAMES.IN;
   const countryFoods = getFoodsByCountry(country);
   const filtered = countryFoods.filter(f => {
     if (filter !== "all" && f.fodmap !== filter) return false;
@@ -28,7 +40,7 @@ export default function Foods() {
             <img src="/logo.png" width="28" height="28" alt="Gutfeel" />
             <span className="text-lg font-bold text-stone-900">Food Database</span>
           </div>
-          <span className="text-xs bg-emerald-100 text-emerald-700 px-2.5 py-1 rounded-full font-medium">🇮🇳 India</span>
+          <span className="text-xs bg-emerald-100 text-emerald-700 px-2.5 py-1 rounded-full font-medium">{countryInfo.flag} {countryInfo.label}</span>
         </div>
       </header>
 
