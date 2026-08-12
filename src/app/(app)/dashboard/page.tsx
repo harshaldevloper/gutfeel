@@ -33,7 +33,7 @@ export default function Dashboard() {
           </div>
           <div className="flex items-center gap-2">
             <div className="flex items-center gap-1 bg-amber-50 px-2.5 py-1 rounded-full">
-              <span className="text-sm">\uD83D\uDD25</span>
+              <span className="text-sm">{"\uD83D\uDD25"}</span>
               <span className="text-sm font-bold text-amber-700">{STREAK}</span>
             </div>
           </div>
@@ -70,8 +70,8 @@ export default function Dashboard() {
           {!symptomLogged ? (
             <div className="space-y-3">
               <div className="flex justify-between text-xs text-emerald-100">
-                <span>\uD83D\uDE0A Feeling great</span>
-                <span>\uD83D\uDE23 Severe</span>
+                <span>{"\uD83D\uDE0A Feeling great"}</span>
+                <span>{"\uD83D\uDE23 Severe"}</span>
               </div>
               <input type="range" min="1" max="5" value={severity} onChange={e => setSeverity(+e.target.value)} className="w-full accent-white h-2" />
               <button onClick={() => setSymptomLogged(true)} className="w-full py-3.5 bg-white text-emerald-700 rounded-xl font-bold active:scale-95 transition-transform">
@@ -80,7 +80,7 @@ export default function Dashboard() {
             </div>
           ) : (
             <div className="bg-white/20 rounded-xl p-4 text-center">
-              <p className="text-lg font-semibold">\u2713 Logged today!</p>
+              <p className="text-lg font-semibold">{"\u2713 Logged today!"}</p>
               <p className="text-emerald-100 text-sm">Severity: {severity}/5. Keep your streak going!</p>
             </div>
           )}
@@ -93,7 +93,7 @@ export default function Dashboard() {
           transition={{ delay: 0.2 }}
           className="bg-blue-50 border border-blue-200 rounded-xl p-4"
         >
-          <p className="text-sm text-blue-800 font-medium">\uD83D\uDCA1 Today&apos;s Insight</p>
+          <p className="text-sm text-blue-800 font-medium">{"\uD83D\uDCA1 Today's Insight"}</p>
           <p className="text-sm text-blue-700 mt-1">{TODAY_INSIGHT}</p>
         </motion.div>
 
@@ -156,6 +156,21 @@ export default function Dashboard() {
           </div>
         </motion.div>
 
+        {/* Reintroduction Protocol */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.45 }}
+          className="bg-white rounded-2xl border border-stone-200 p-5 shadow-sm"
+        >
+          <div className="flex items-center justify-between mb-3">
+            <h2 className="font-bold text-stone-900">Reintroduction Protocol</h2>
+            <span className="text-xs bg-emerald-100 text-emerald-700 px-2.5 py-1 rounded-full font-semibold">Phase 3 of 6</span>
+          </div>
+          <p className="text-sm text-stone-600 mb-3">Currently challenging Lactose — 33% done. Find out which FODMAPs you can safely enjoy.</p>
+          <a href="/reintroduction" className="block text-center py-3 bg-emerald-600 text-white rounded-xl font-bold text-sm active:scale-95 transition-transform">Continue Protocol</a>
+        </motion.div>
+
         {/* Weekly Symptom Chart */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -174,7 +189,7 @@ export default function Dashboard() {
               </div>
             ))}
           </div>
-          <p className="text-xs text-emerald-600 mt-3 font-medium">\u2198 40% better than last week</p>
+          <p className="text-xs text-emerald-600 mt-3 font-medium">{"\u2198"} 40% better than last week</p>
         </motion.div>
       </main>
 
