@@ -3,6 +3,7 @@ import Hero from "@/components/Hero";
 import Problem from "@/components/Problem";
 import Solution from "@/components/Solution";
 import ProductStrip from "@/components/landing/ProductStrip";
+import DownloadSection from "@/components/landing/DownloadSection";
 import Features from "@/components/Features";
 import Testimonials from "@/components/Testimonials";
 import Pricing from "@/components/Pricing";
@@ -18,6 +19,7 @@ export default function Home() {
         <Problem />
         <Solution />
         <ProductStrip />
+        <DownloadSection />
         <Features />
         <Testimonials />
         <Pricing />

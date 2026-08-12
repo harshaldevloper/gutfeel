@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import AppPreview from "@/components/landing/AppPreview";
+import DownloadSection from "@/components/landing/DownloadSection";
 
 export default function Hero() {
   return (
@@ -31,13 +32,17 @@ export default function Hero() {
               Meal plans, symptom tracking, and trigger patterns — with roti, dal, and paneer built in. Not another generic Western diet app.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-3 mb-10">
-              <a href="/onboarding" className="btn-accent text-center">
-                Try the App — Free
+            <div className="flex flex-col sm:flex-row gap-3 mb-6">
+              <a href="#download" className="btn-accent text-center">
+                Get the App
               </a>
               <a href="#waitlist" className="btn-secondary text-center">
                 Join Waitlist
               </a>
+            </div>
+
+            <div className="mb-10">
+              <DownloadSection compact />
             </div>
 
             <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-stone-500">

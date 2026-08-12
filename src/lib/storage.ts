@@ -39,12 +39,20 @@ export async function saveEntry(
   entry: Omit<SymptomEntry, "id" | "createdAt">
 ): Promise<SymptomEntry[]> {
   const entries = await loadEntries();
+  const todayKey = localKey(new Date());
+  const existingIdx = entries.findIndex(e => localKey(new Date(e.createdAt)) === todayKey);
+
   const next: SymptomEntry = {
     ...entry,
-    id: `${Date.now()}${Math.random().toString(36).slice(2, 7)}`,
-    createdAt: new Date().toISOString(),
+    id: existingIdx >= 0 ? entries[existingIdx].id : `${Date.now()}${Math.random().toString(36).slice(2, 7)}`,
+    createdAt: existingIdx >= 0 ? entries[existingIdx].createdAt : new Date().toISOString(),
   };
-  const updated = [next, ...entries];
+
+  const updated =
+    existingIdx >= 0
+      ? entries.map((e, i) => (i === existingIdx ? next : e))
+      : [next, ...entries];
+
   window.localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
   return updated;
 }
