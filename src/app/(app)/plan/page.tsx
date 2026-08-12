@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import {
   buildDailyPlan,
@@ -42,6 +42,16 @@ export default function Plan() {
       slots: { ...prev.slots, [slot]: swapMeal(slot, prev.slots[slot].id, triggers) },
     }));
   }
+
+  const grocery = useMemo(() => {
+    const counts: Record<string, number> = {};
+    for (const s of SLOTS) {
+      for (const ing of plan.slots[s.key].ingredients) {
+        counts[ing] = (counts[ing] || 0) + 1;
+      }
+    }
+    return Object.entries(counts).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+  }, [plan]);
 
   return (
     <div className="min-h-screen bg-stone-50 pb-20">
@@ -112,6 +122,26 @@ export default function Plan() {
             </motion.div>
           );
         })}
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5 }}
+          className="bg-white rounded-2xl border border-stone-200 p-5 shadow-sm"
+        >
+          <div className="flex items-center justify-between mb-3">
+            <h2 className="font-bold text-stone-900">Today's Grocery List</h2>
+            <span className="text-xs text-stone-500">{grocery.length} items</span>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {grocery.map(([item, count]) => (
+              <span key={item} className="px-3 py-1.5 rounded-full text-sm bg-stone-100 border border-stone-200 text-stone-700">
+                {item}
+                {count > 1 ? <span className="text-stone-400 ml-1">×{count}</span> : null}
+              </span>
+            ))}
+          </div>
+        </motion.div>
       </main>
 
       {/* Bottom Navigation */}
