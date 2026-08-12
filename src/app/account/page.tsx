@@ -23,7 +23,7 @@ export default function AccountPage() {
   async function startCheckout(tier: "premium" | "annual") {
     setCheckoutLoading(tier);
     try {
-      const res = await fetch("/api/dodo/checkout", {
+      const res = await fetch("/api/dodo/checkout/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ tier, email: user?.email, user_id: user?.id }),
