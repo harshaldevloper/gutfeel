@@ -35,9 +35,13 @@ export default function Waitlist() {
   }
 
   return (
-    <section id="waitlist" className="py-20 lg:py-32 px-4 sm:px-6 lg:px-8 bg-emerald-600">
-      <div className="max-w-3xl mx-auto text-center">
-        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6">
+    <section id="waitlist" className="py-20 lg:py-28 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-emerald-700 via-emerald-600 to-emerald-800 relative overflow-hidden">
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 left-0 w-72 h-72 bg-emerald-900/40 rounded-full blur-3xl" />
+      </div>
+      <div className="max-w-3xl mx-auto text-center relative">
+        <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-semibold text-white mb-5">
           Ready to stop guessing?
         </h2>
         <p className="text-lg text-emerald-100 mb-8 max-w-xl mx-auto">

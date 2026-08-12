@@ -7,10 +7,10 @@ export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-stone-200">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-cream/85 backdrop-blur-lg border-b border-stone-200/70">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          <BrandLogo height={40} />
+        <div className="flex items-center justify-between h-[4.25rem]">
+          <BrandLogo height={44} />
 
           <nav className="hidden md:flex items-center gap-8">
             <a href="#problem" className="text-stone-600 hover:text-stone-900 transition-colors text-sm font-medium">Problem</a>
@@ -22,7 +22,7 @@ export default function Header() {
 
           <div className="hidden md:flex items-center gap-4">
             <a href="/login" className="text-stone-600 hover:text-stone-900 text-sm font-medium">Sign in</a>
-            <a href="/onboarding" className="px-4 py-2 bg-emerald-600 text-white rounded-lg text-sm font-semibold hover:bg-emerald-700 transition-colors">
+            <a href="/onboarding" className="px-4 py-2.5 bg-emerald-600 text-white rounded-xl text-sm font-semibold hover:bg-emerald-700 transition-colors shadow-sm shadow-emerald-200/50">
               Try App
             </a>
           </div>
