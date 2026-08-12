@@ -2,6 +2,16 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { buildDailyPlan, mealSafePercent, type MealSlot } from "@/lib/meals";
+
+const SAMPLE_TRIGGERS = ["Onion", "Garlic"];
+const SLOTS: { key: MealSlot; label: string }[] = [
+  { key: "breakfast", label: "Breakfast" },
+  { key: "lunch", label: "Lunch" },
+  { key: "dinner", label: "Dinner" },
+];
+
+const plan = buildDailyPlan(SAMPLE_TRIGGERS);
 
 const STREAK = 5;
 const FINGERPRINT_COMPLETE = 4;
@@ -133,26 +143,25 @@ export default function Dashboard() {
         >
           <div className="flex items-center justify-between mb-4">
             <h2 className="font-bold text-stone-900">Today&apos;s Meals</h2>
-            <span className="text-xs bg-emerald-100 text-emerald-700 px-2.5 py-1 rounded-full font-semibold">92% safe</span>
+            <a href="/plan" className="text-xs bg-emerald-100 text-emerald-700 px-2.5 py-1 rounded-full font-semibold">Open planner</a>
           </div>
           <div className="space-y-3">
-            {[
-              { meal: "Breakfast", name: "Scrambled eggs with spinach", time: "12 min", confidence: 95, emoji: "\uD83C\uDF73" },
-              { meal: "Lunch", name: "Quinoa bowl with grilled chicken", time: "20 min", confidence: 92, emoji: "\uD83E\uDD59" },
-              { meal: "Dinner", name: "Lemon herb salmon with rice", time: "25 min", confidence: 90, emoji: "\uD83C\uDF72" },
-            ].map((m, i) => (
-              <div key={i} className="flex items-center gap-3 p-3 rounded-xl bg-stone-50 border border-stone-100 active:bg-stone-100 transition-colors">
-                <div className="w-11 h-11 bg-emerald-100 rounded-xl flex items-center justify-center text-xl">{m.emoji}</div>
-                <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium text-stone-900 truncate">{m.name}</p>
-                  <p className="text-xs text-stone-500">{m.meal} &middot; {m.time}</p>
+            {SLOTS.map(s => {
+              const meal = plan.slots[s.key];
+              return (
+                <div key={s.key} className="flex items-center gap-3 p-3 rounded-xl bg-stone-50 border border-stone-100 active:bg-stone-100 transition-colors">
+                  <div className="w-11 h-11 bg-emerald-100 rounded-xl flex items-center justify-center text-xs font-bold text-emerald-700">{meal.calories}<span className="text-[9px] font-medium ml-0.5">kcal</span></div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-medium text-stone-900 truncate">{meal.name}</p>
+                    <p className="text-xs text-stone-500">{s.label} &middot; {meal.cookMinutes} min</p>
+                  </div>
+                  <div className="text-right shrink-0">
+                    <p className="text-sm font-bold text-emerald-600">{mealSafePercent(meal, SAMPLE_TRIGGERS)}%</p>
+                    <p className="text-xs text-stone-400">safe</p>
+                  </div>
                 </div>
-                <div className="text-right shrink-0">
-                  <p className="text-sm font-bold text-emerald-600">{m.confidence}%</p>
-                  <p className="text-xs text-stone-400">safe</p>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </motion.div>
 
@@ -199,6 +208,10 @@ export default function Dashboard() {
           <a href="/dashboard" className="flex flex-col items-center gap-0.5 py-1 px-3 text-emerald-600">
             <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" /></svg>
             <span className="text-xs font-medium">Home</span>
+          </a>
+          <a href="/plan" className="flex flex-col items-center gap-0.5 py-1 px-3 text-stone-400">
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
+            <span className="text-xs font-medium">Plan</span>
           </a>
           <a href="/tracker" className="flex flex-col items-center gap-0.5 py-1 px-3 text-stone-400">
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
