@@ -2,9 +2,9 @@ import { test, expect } from "@playwright/test";
 
 /** Core smoke flows — run after deploy or on schedule to catch regressions without manual QA. */
 const APP_PAGES = [
-  { path: "/dashboard/", heading: /How is your gut today/i },
+  { path: "/dashboard/", heading: /Welcome back/i },
   { path: "/tracker/", heading: /How are you feeling/i },
-  { path: "/foods/", text: /Find safe food/i },
+  { path: "/foods/", heading: /Find food/i },
   { path: "/plan/", text: /Meal Planner|day score/i },
   { path: "/food-safety/", heading: /Food Safety|FDA/i },
   { path: "/support/", heading: /How can we help/i },
