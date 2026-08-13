@@ -1,0 +1,30 @@
+name: Ops — Support ticket digest
+
+on:
+  schedule:
+    - cron: "0 7 * * *" # 07:00 UTC daily
+  workflow_dispatch:
+
+jobs:
+  digest:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Count open support tickets
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: |
+          if [ -z "$SUPABASE_URL" ] || [ -z "$SUPABASE_SERVICE_ROLE_KEY" ]; then
+            echo "Set SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY repo secrets to enable support digest."
+            exit 0
+          fi
+          COUNT=$(curl -sS -I \
+            "${SUPABASE_URL}/rest/v1/support_tickets?status=eq.open&select=id" \
+            -H "Authorization: Bearer ${SUPABASE_SERVICE_ROLE_KEY}" \
+            -H "apikey: ${SUPABASE_SERVICE_ROLE_KEY}" \
+            -H "Prefer: count=exact" | grep -i content-range | sed 's/.*\///' | tr -d '\r')
+          echo "## Support digest" >> $GITHUB_STEP_SUMMARY
+          echo "Open tickets: **${COUNT:-0}**" >> $GITHUB_STEP_SUMMARY
+          if [ -n "$COUNT" ] && [ "$COUNT" != "0" ]; then
+            echo "Review tickets in Supabase → support_tickets" >> $GITHUB_STEP_SUMMARY
+          fi

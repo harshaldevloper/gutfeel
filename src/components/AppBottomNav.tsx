@@ -54,21 +54,23 @@ export default function AppBottomNav() {
   const pathname = usePathname();
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-xl border-t border-brand-navy/8 px-1 py-2 z-50 shadow-[0_-8px_32px_rgba(30,58,92,0.06)]">
-      <div className="max-w-4xl mx-auto flex items-center justify-around">
+    <nav className="fixed bottom-0 left-0 right-0 z-50 px-3 pb-3 pt-1 pointer-events-none">
+      <div className="glass-nav pointer-events-auto px-1 py-2 max-w-4xl mx-auto">
+      <div className="flex items-center justify-around">
         {tabs.map(tab => {
           const active = pathname === tab.href || pathname === `${tab.href}/`;
           return (
             <a
               key={tab.href}
               href={tab.href}
-              className={`flex flex-col items-center gap-0.5 py-2 px-2 rounded-2xl min-w-[3.25rem] transition-all ${active ? "text-brand-green bg-brand-green-light/60" : "text-stone-500"}`}
+              className={`flex flex-col items-center gap-0.5 py-2 px-2.5 rounded-2xl min-w-[3.25rem] transition-all ${active ? "glass-nav-active text-brand-green" : "text-stone-500 hover:bg-white/40"}`}
             >
               <TabIcon icon={tab.icon} active={active} />
               <span className={`text-[10px] ${active ? "font-bold text-brand-navy" : "font-medium"}`}>{tab.label}</span>
             </a>
           );
         })}
+      </div>
       </div>
     </nav>
   );

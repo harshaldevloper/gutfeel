@@ -58,17 +58,16 @@ export default function Plan() {
   }, [plan]);
 
   return (
-    <div className="min-h-screen app-page-bg pb-24">
+    <div className="min-h-screen app-page-bg pb-28">
       <AppHeader
         title="Meal Planner"
-        right={<span className="text-xs bg-brand-green-light text-brand-green-dark px-2.5 py-1 rounded-full font-semibold">Personalized</span>}
+        right={<span className="text-xs bg-brand-green-light text-brand-green-dark px-2.5 py-1 rounded-full font-semibold border border-brand-green/25">Personalized</span>}
       />
 
-      <main className="max-w-4xl mx-auto px-4 py-5 space-y-4">
-        {/* Compact score strip — meals visible above the fold on mobile */}
-        <div className="premium-card p-4 flex items-center gap-4">
+      <main className="max-w-4xl mx-auto px-4 py-5 space-y-4 relative z-[1]">
+        <div className="plan-score-glass rounded-2xl p-4 flex items-center gap-4">
           <div
-            className="w-14 h-14 rounded-2xl bg-brand-navy flex flex-col items-center justify-center shrink-0"
+            className="w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-navy to-brand-navy-light flex flex-col items-center justify-center shrink-0 shadow-lg shadow-brand-navy/25"
             aria-hidden
           >
             <span className="text-lg font-bold text-white leading-none">{dayScore}</span>
@@ -102,7 +101,7 @@ export default function Plan() {
         {SLOTS.map(({ key, label, short }) => {
           const meal = plan.slots[key];
           return (
-            <div key={key} className="premium-card p-4">
+            <div key={key} className="meal-row-card p-4">
               <div className="flex items-start gap-3">
                 <div className="w-10 h-10 rounded-xl bg-brand-green-light flex items-center justify-center shrink-0">
                   <span className="text-sm font-bold text-brand-green-dark">{short}</span>

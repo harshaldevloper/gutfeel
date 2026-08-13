@@ -85,17 +85,17 @@ export default function Tracker() {
   }
 
   return (
-    <div className="min-h-screen app-page-bg pb-24">
+    <div className="min-h-screen app-page-bg pb-28">
       <AppHeader title="Symptom Tracker" />
 
-      <main className="max-w-4xl mx-auto px-4 py-5 space-y-4">
+      <main className="max-w-4xl mx-auto px-4 py-5 space-y-4 relative z-[1]">
         <div>
           <p className="section-label text-brand-green-dark">Daily log</p>
           <h1 className="font-serif text-2xl font-bold text-brand-navy mt-1">How are you feeling?</h1>
           <p className="text-sm text-stone-500 mt-1">Build your fingerprint — under a minute</p>
         </div>
 
-        <div className="premium-card p-5 space-y-6">
+        <div className="tracker-hero-glass p-5 space-y-6">
           <div>
             <label className="block text-sm font-semibold text-stone-700 mb-2">
               Overall severity: <span className="text-brand-green-dark">{severity}/5</span>
@@ -165,7 +165,7 @@ export default function Tracker() {
 
           <button
             onClick={handleLog}
-            className={`w-full py-3.5 rounded-xl font-bold text-base active:scale-[0.98] transition-all ${logged ? "bg-brand-green text-white" : "bg-brand-navy hover:bg-brand-navy-light text-white"}`}
+            className={`w-full py-3.5 rounded-xl font-bold text-base active:scale-[0.98] transition-all ${logged ? "btn-glow text-white" : "bg-brand-navy hover:bg-brand-navy-light text-white shadow-lg shadow-brand-navy/20"}`}
           >
             {logged ? "Logged successfully" : "Save today's log"}
           </button>
@@ -175,7 +175,7 @@ export default function Tracker() {
           <h2 className="font-serif font-bold text-brand-navy mb-4">Recent patterns</h2>
           <div className="space-y-3">
             {topTrigger ? (
-              <div className="flex items-start gap-3 p-3 bg-amber-50 rounded-xl border border-amber-100 text-amber-900">
+              <div className="flex items-start gap-3 p-3 pattern-glass-warn rounded-xl text-amber-900">
                 <PatternIcon type="warn" />
                 <div className="flex-1">
                   <p className="text-sm font-semibold">Possible trigger: {topTrigger.foodName}</p>
@@ -183,7 +183,7 @@ export default function Tracker() {
                 </div>
               </div>
             ) : (
-              <div className="flex items-start gap-3 p-3 bg-amber-50 rounded-xl border border-amber-100 text-amber-900">
+              <div className="flex items-start gap-3 p-3 pattern-glass-warn rounded-xl text-amber-900">
                 <PatternIcon type="chart" />
                 <div className="flex-1">
                   <p className="text-sm font-semibold">No triggers found yet</p>
@@ -196,7 +196,7 @@ export default function Tracker() {
               </div>
             )}
             {safeFoods.length > 0 ? (
-              <div className="flex items-start gap-3 p-3 bg-brand-green-light rounded-xl border border-brand-green/20 text-brand-green-dark">
+              <div className="flex items-start gap-3 p-3 pattern-glass-safe rounded-xl text-brand-green-dark">
                 <PatternIcon type="check" />
                 <div className="flex-1">
                   <p className="text-sm font-semibold">Safe: {safeFoods.map(f => f.foodName).join(", ")}</p>
@@ -204,7 +204,7 @@ export default function Tracker() {
                 </div>
               </div>
             ) : (
-              <div className="flex items-start gap-3 p-3 bg-brand-green-light rounded-xl border border-brand-green/20 text-brand-green-dark">
+              <div className="flex items-start gap-3 p-3 pattern-glass-safe rounded-xl text-brand-green-dark">
                 <PatternIcon type="trend" />
                 <div className="flex-1">
                   <p className="text-sm font-semibold">Consistent logging</p>

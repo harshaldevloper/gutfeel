@@ -10,11 +10,11 @@ export default function FoodSafety() {
   const [tab, setTab] = useState<"alerts" | "scores" | "tips">("alerts");
 
   return (
-    <div className="min-h-screen app-page-bg pb-24">
+    <div className="min-h-screen app-page-bg pb-28">
       <AppHeader title="Food Safety" right={<CountryBadge country="IN" />} />
 
-      <main className="max-w-4xl mx-auto px-4 py-5 space-y-5">
-        <div className="bg-gradient-to-r from-red-500 to-red-600 rounded-2xl p-5 text-white">
+      <main className="max-w-4xl mx-auto px-4 py-5 space-y-5 relative z-[1]">
+        <div className="alert-glass-red rounded-2xl p-5 text-white">
           <p className="text-red-100 text-sm">Trending in Maharashtra</p>
           <h1 className="text-xl font-bold mt-1">FDA Crackdown: Food Safety First</h1>
           <p className="text-red-100 text-sm mt-2">Commissioner Tukaram Mundhe leads massive crackdown on adulterated food across Maharashtra. Stay informed, stay safe.</p>
@@ -29,7 +29,7 @@ export default function FoodSafety() {
         {tab === "alerts" && (
           <div className="space-y-3">
             {FOOD_SAFETY_ALERTS.map(alert => (
-              <div key={alert.id} className={`rounded-xl border p-4 ${getSeverityColor(alert.severity)}`}>
+              <div key={alert.id} className={`glass-card rounded-xl p-4 ${getSeverityColor(alert.severity)}`}>
                 <div className="flex items-start justify-between mb-2">
                   <h3 className="font-semibold text-sm">{alert.title}</h3>
                   <span className="text-xs font-semibold uppercase">{alert.severity}</span>
@@ -53,7 +53,7 @@ export default function FoodSafety() {
           <div className="space-y-3">
             <p className="text-sm text-stone-600">Food safety scores based on FSSAI compliance data. Higher = safer.</p>
             {Object.entries(FOOD_SAFETY_SCORES).map(([food, data]) => (
-              <div key={food} className="bg-white rounded-xl border border-stone-200 p-4">
+              <div key={food} className="glass-card p-4">
                 <div className="flex items-center justify-between mb-2">
                   <h3 className="font-medium text-stone-900">{food}</h3>
                   <span className={`text-sm font-bold ${data.score >= 80 ? "text-brand-green-dark" : data.score >= 60 ? "text-amber-600" : "text-red-600"}`}>{data.score}/100</span>
@@ -71,7 +71,7 @@ export default function FoodSafety() {
           <div className="space-y-3">
             <p className="text-sm text-stone-600">Restaurant safety tips from FSSAI guidelines.</p>
             {RESTAURANT_SAFETY_TIPS.map((tip, i) => (
-              <div key={i} className="bg-white rounded-xl border border-stone-200 p-4 flex items-start gap-3">
+              <div key={i} className="glass-card p-4 flex items-start gap-3">
                 <div className="w-6 h-6 bg-brand-green-light rounded-full flex items-center justify-center text-xs font-bold text-brand-green-dark shrink-0">{i + 1}</div>
                 <p className="text-sm text-stone-700">{tip}</p>
               </div>

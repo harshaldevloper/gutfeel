@@ -33,6 +33,7 @@ export default function Footer() {
           <div>
             <h4 className="text-sm font-semibold text-white mb-4">Legal</h4>
             <ul className="space-y-2 text-sm">
+              <li><a href="/support" className="hover:text-white transition-colors">Support</a></li>
               <li><a href="/privacy" className="hover:text-white transition-colors">Privacy</a></li>
               <li><a href="/terms" className="hover:text-white transition-colors">Terms</a></li>
               <li><a href="mailto:hello@gutfeel.app" className="hover:text-white transition-colors">Contact</a></li>

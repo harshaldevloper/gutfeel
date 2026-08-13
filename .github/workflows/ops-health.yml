@@ -1,0 +1,34 @@
+name: Ops — Daily health check
+
+on:
+  schedule:
+    - cron: "0 6 * * *" # 06:00 UTC daily
+  workflow_dispatch:
+
+jobs:
+  health:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check live site
+        run: |
+          set -e
+          URL="https://gutfeel.pages.dev"
+          CODE=$(curl -sS -o /dev/null -w "%{http_code}" "$URL")
+          echo "Homepage: $CODE"
+          test "$CODE" = "200"
+
+      - name: Check app dashboard
+        run: |
+          CODE=$(curl -sS -o /dev/null -w "%{http_code}" "https://gutfeel.pages.dev/dashboard/")
+          echo "Dashboard: $CODE"
+          test "$CODE" = "200"
+
+      - name: Check support API (expect 405 on GET)
+        run: |
+          CODE=$(curl -sS -o /dev/null -w "%{http_code}" "https://gutfeel.pages.dev/api/support/submit")
+          echo "Support API: $CODE"
+          test "$CODE" = "405" -o "$CODE" = "503"
+
+      - name: Summary
+        if: always()
+        run: echo "Health check completed at $(date -u)"

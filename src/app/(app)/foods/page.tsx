@@ -9,7 +9,12 @@ import FodmapBadge from "@/components/ui/FodmapBadge";
 import CountryBadge from "@/components/ui/CountryBadge";
 
 const CATEGORIES = ["all", "grain", "protein", "vegetable", "fruit", "dairy", "fat", "sweetener", "spice"];
-const FILTERS = ["all", "safe", "moderate", "high"];
+const FILTERS: { key: string; label: string }[] = [
+  { key: "all", label: "All" },
+  { key: "safe", label: "Safe" },
+  { key: "moderate", label: "Caution" },
+  { key: "high", label: "Avoid" },
+];
 
 export default function Foods() {
   const [filter, setFilter] = useState("all");
@@ -30,13 +35,13 @@ export default function Foods() {
   });
 
   return (
-    <div className="min-h-screen app-page-bg pb-24">
+    <div className="min-h-screen app-page-bg pb-28">
       <AppHeader title="Food Database" right={<CountryBadge country={country} />} />
 
       <main className="max-w-4xl mx-auto px-4 py-5 space-y-5">
         <div>
-          <h1 className="font-serif text-2xl font-bold text-brand-navy mb-1">Find safe foods</h1>
-          <p className="text-sm text-stone-500">Search {FOODS.length}+ items rated for your region</p>
+          <h1 className="font-serif text-2xl font-bold text-brand-navy mb-1">Find food</h1>
+          <p className="text-sm text-brand-green-dark/80 font-medium">Search {countryFoods.length} items rated for your region</p>
         </div>
 
         <SearchInput value={search} onChange={setSearch} placeholder="Search foods..." />
@@ -46,11 +51,11 @@ export default function Foods() {
           <div className="flex gap-2 overflow-x-auto pb-1 -mx-4 px-4 scrollbar-hide">
             {FILTERS.map(f => (
               <button
-                key={f}
-                onClick={() => setFilter(f)}
-                className={`chip capitalize ${filter === f ? "chip-active" : ""}`}
+                key={f.key}
+                onClick={() => setFilter(f.key)}
+                className={`chip ${filter === f.key ? "chip-active" : ""}`}
               >
-                {f}
+                {f.label}
               </button>
             ))}
           </div>
@@ -83,9 +88,14 @@ export default function Foods() {
             filtered.map(food => (
               <div
                 key={food.id}
-                className="premium-card p-4 flex items-center justify-between active:scale-[0.99] transition-transform"
+                className="meal-row-card p-4 flex items-center gap-4 active:scale-[0.99] transition-transform"
               >
-                <div className="min-w-0 pr-3">
+                <div className="food-row-icon">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.75}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M21 15.546c-.523 0-1.046.151-1.5.454a2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.701 2.701 0 00-1.5-.454M9 6v2m3-2v2m3-2v2M9 3h.01M12 3h.01M15 3h.01M21 21v-7a2 2 0 00-2-2H5a2 2 0 00-2 2v7h18z" />
+                  </svg>
+                </div>
+                <div className="flex-1 min-w-0">
                   <p className="font-semibold text-stone-900 truncate">{food.name}</p>
                   <p className="text-xs text-stone-500 capitalize mt-0.5">
                     {food.category}
