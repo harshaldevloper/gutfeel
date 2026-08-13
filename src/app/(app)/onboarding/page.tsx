@@ -124,9 +124,9 @@ export default function Onboarding() {
                   persistProfile({ country: c.code });
                   next();
                 }}
-                className={`w-full flex items-center gap-3 p-4 rounded-2xl border text-left transition-all ${country === c.code ? "border-emerald-500 bg-emerald-50 ring-1 ring-emerald-200" : "border-stone-200 hover:border-stone-300 bg-white"}`}
+                className={`w-full flex items-center gap-3 p-4 rounded-2xl border text-left transition-all ${country === c.code ? "border-brand-green bg-brand-green-light ring-1 ring-brand-green/30" : "border-stone-200 hover:border-stone-300 bg-white"}`}
               >
-                <span className="text-2xl">{c.flag}</span>
+                <span className="w-10 h-10 rounded-xl bg-brand-navy text-white text-xs font-bold flex items-center justify-center shrink-0">{c.code}</span>
                 <div>
                   <p className="font-medium text-stone-900">{c.name}</p>
                   <p className="text-xs text-stone-500">{c.foods.join(" · ")}</p>
@@ -172,7 +172,7 @@ export default function Onboarding() {
               const selected = ibsType === t.id;
               const expanded = expandedType === t.id;
               return (
-                <div key={t.id} className={`rounded-2xl border overflow-hidden transition-all ${selected ? "border-emerald-500 ring-1 ring-emerald-200" : "border-stone-200"}`}>
+                <div key={t.id} className={`rounded-2xl border overflow-hidden transition-all ${selected ? "border-brand-green ring-1 ring-brand-green/30" : "border-stone-200"}`}>
                   <button
                     type="button"
                     onClick={() => {
@@ -181,12 +181,12 @@ export default function Onboarding() {
                     }}
                     className={`w-full flex items-start gap-3 p-4 text-left ${selected ? "bg-emerald-50" : "bg-white hover:bg-stone-50"}`}
                   >
-                    <span className="text-xl shrink-0">{t.emoji}</span>
+                    <span className="w-9 h-9 rounded-xl bg-brand-green-light text-brand-green-dark text-sm font-bold flex items-center justify-center shrink-0">{t.badge}</span>
                     <div className="flex-1 min-w-0">
                       <p className="font-semibold text-stone-900 text-sm">{t.shortLabel}</p>
                       <p className="text-xs text-stone-600 mt-0.5">{t.summary}</p>
                     </div>
-                    <span className={`w-5 h-5 rounded-full border-2 shrink-0 mt-0.5 flex items-center justify-center ${selected ? "border-emerald-600 bg-emerald-600" : "border-stone-300"}`}>
+                    <span className={`w-5 h-5 rounded-full border-2 shrink-0 mt-0.5 flex items-center justify-center ${selected ? "border-brand-green bg-brand-green" : "border-stone-300"}`}>
                       {selected && (
                         <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
                           <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
@@ -195,7 +195,7 @@ export default function Onboarding() {
                     </span>
                   </button>
                   {(expanded || selected) && (
-                    <div className="px-4 pb-4 pt-0 bg-emerald-50/50 border-t border-emerald-100">
+                    <div className="px-4 pb-4 pt-0 bg-brand-green-light/50 border-t border-brand-green/20">
                       <p className="text-xs text-stone-600 mb-2">{t.clue}</p>
                       <p className="text-xs font-medium text-stone-700 mb-1">Common signs:</p>
                       <ul className="text-xs text-stone-600 space-y-0.5 list-disc pl-4">
@@ -234,7 +234,7 @@ export default function Onboarding() {
                       key={opt.id}
                       type="button"
                       onClick={() => setQuiz(q => ({ ...q, bowelPattern: opt.id }))}
-                      className={`p-2.5 rounded-xl text-xs font-medium border ${quiz.bowelPattern === opt.id ? "border-emerald-500 bg-emerald-50 text-emerald-800" : "border-stone-200 bg-white"}`}
+                      className={`p-2.5 rounded-xl text-xs font-medium border ${quiz.bowelPattern === opt.id ? "border-brand-green bg-brand-green-light text-emerald-800" : "border-stone-200 bg-white"}`}
                     >
                       {opt.label}
                     </button>
@@ -254,7 +254,7 @@ export default function Onboarding() {
                       key={opt.id}
                       type="button"
                       onClick={() => setQuiz(q => ({ ...q, mainComplaint: opt.id }))}
-                      className={`p-2.5 rounded-xl text-xs font-medium border ${quiz.mainComplaint === opt.id ? "border-emerald-500 bg-emerald-50 text-emerald-800" : "border-stone-200 bg-white"}`}
+                      className={`p-2.5 rounded-xl text-xs font-medium border ${quiz.mainComplaint === opt.id ? "border-brand-green bg-brand-green-light text-emerald-800" : "border-stone-200 bg-white"}`}
                     >
                       {opt.label}
                     </button>
@@ -350,7 +350,7 @@ export default function Onboarding() {
                   key={n}
                   type="button"
                   onClick={() => setHousehold(n)}
-                  className={`p-3 rounded-xl border text-center font-semibold transition-all ${household === n ? "border-emerald-500 bg-emerald-50 text-emerald-700" : "border-stone-200 bg-white"}`}
+                  className={`p-3 rounded-xl border text-center font-semibold transition-all ${household === n ? "border-brand-green bg-brand-green-light text-emerald-700" : "border-stone-200 bg-white"}`}
                 >
                   {n}
                 </button>
@@ -369,7 +369,7 @@ export default function Onboarding() {
                   key={s.id}
                   type="button"
                   onClick={() => setSkill(s.id)}
-                  className={`p-3 rounded-xl border text-left transition-all ${skill === s.id ? "border-emerald-500 bg-emerald-50" : "border-stone-200 bg-white"}`}
+                  className={`p-3 rounded-xl border text-left transition-all ${skill === s.id ? "border-brand-green bg-brand-green-light" : "border-stone-200 bg-white"}`}
                 >
                   <p className="font-medium text-stone-900 capitalize">{s.label}</p>
                   <p className="text-xs text-stone-500">{s.desc}</p>
@@ -393,11 +393,14 @@ export default function Onboarding() {
 
       {step === 5 && (
         <div className="text-center py-4 space-y-5">
-          <div className="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto text-3xl">🎉</div>
+          <div className="w-16 h-16 bg-brand-green-light rounded-full flex items-center justify-center mx-auto">
+            <svg className="w-8 h-8 text-brand-green-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+            </svg>
+          </div>
           <div>
             <h3 className="font-serif text-xl font-semibold text-stone-900 mb-2">You&apos;re all set!</h3>
             <p className="text-stone-600 text-sm leading-relaxed">
-              {country && COUNTRIES.find(c => c.code === country)?.flag}{" "}
               {country ? COUNTRIES.find(c => c.code === country)?.name : ""} foods
               {ibsType && (
                 <>

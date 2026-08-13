@@ -59,21 +59,21 @@ export default function Plan() {
   }, [plan]);
 
   return (
-    <div className="min-h-screen bg-cream pb-24">
+    <div className="min-h-screen app-page-bg pb-24">
       <AppHeader
         title="Meal Planner"
-        right={<span className="text-xs bg-emerald-100 text-emerald-700 px-2.5 py-1 rounded-full font-medium">Personalized</span>}
+        right={<span className="text-xs bg-brand-green-light text-brand-green-dark px-2.5 py-1 rounded-full font-semibold">Personalized</span>}
       />
 
-      <main className="max-w-4xl mx-auto p-4 space-y-4">
+      <main className="max-w-4xl mx-auto px-4 py-5 space-y-5">
         <motion.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-gradient-to-br from-brand-navy to-brand-navy-light rounded-2xl p-5 text-white shadow-lg shadow-brand-navy/20"
+          className="hero-checkin rounded-2xl p-6 text-white"
         >
-          <p className="text-emerald-100 text-sm">{plan.personalized ? "Personalized day score" : "Day score"}</p>
-          <p className="text-4xl font-bold mt-1">{dayScore}%</p>
-          <p className="text-emerald-100 text-sm mt-1">of your day is low FODMAP safe</p>
+          <p className="text-white/70 text-sm">{plan.personalized ? "Personalized day score" : "Day score"}</p>
+          <p className="font-serif text-5xl font-bold mt-1">{dayScore}%</p>
+          <p className="text-white/70 text-sm mt-1">of your day is low FODMAP safe</p>
           <div className="w-full h-2 bg-white/25 rounded-full mt-4 overflow-hidden">
             <div className="h-full bg-white rounded-full transition-all" style={{ width: `${dayScore}%` }} />
           </div>
@@ -82,7 +82,7 @@ export default function Plan() {
               <p className="text-sm font-medium mb-2">Avoiding your triggers:</p>
               <div className="flex flex-wrap gap-2">
                 {plan.avoidedTriggers.map(t => (
-                  <span key={t} className="bg-white text-emerald-700 text-xs font-bold px-2.5 py-1 rounded-full">{t}</span>
+                  <span key={t} className="bg-white text-brand-green-dark text-xs font-bold px-2.5 py-1 rounded-full">{t}</span>
                 ))}
               </div>
             </div>
@@ -97,11 +97,11 @@ export default function Plan() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 + i * 0.1 }}
-              className="bg-white rounded-2xl border border-stone-200 p-5 shadow-sm"
+              className="premium-card p-5"
             >
               <div className="flex items-center justify-between mb-2">
-                <span className="text-xs font-bold text-emerald-600 uppercase tracking-wide">{label}</span>
-                <span className="text-xs bg-emerald-50 text-emerald-700 font-bold px-2 py-0.5 rounded-full">
+                <span className="section-label text-brand-green-dark">{label}</span>
+                <span className="text-xs bg-brand-green-light text-brand-green-dark font-bold px-2 py-0.5 rounded-full">
                   {mealSafePercent(meal, triggers)}% safe
                 </span>
               </div>

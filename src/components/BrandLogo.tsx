@@ -19,7 +19,7 @@ export default function BrandLogo({ height = 44, className = "", href = "/", var
       alt="Gutfeel — Eat Confidently"
       height={height}
       width={Math.round(height * aspect)}
-      className={`object-contain object-left ${className}`}
+      className={`object-contain object-left ${variant === "mark" ? "rounded-xl ring-1 ring-brand-navy/10 bg-white/80 p-0.5" : ""} ${className}`}
       style={{ height, width: "auto", maxHeight: height, maxWidth: variant === "full" ? height * 1.4 : height }}
     />
   );

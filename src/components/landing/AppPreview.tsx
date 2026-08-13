@@ -3,12 +3,11 @@
 import { motion } from "framer-motion";
 
 const meals = [
-  { emoji: "🍳", name: "Moong dal khichdi", tag: "Safe", kcal: "320" },
-  { emoji: "🥙", name: "Roti + paneer bhurji", tag: "Safe", kcal: "410" },
-  { emoji: "🍲", name: "Lauki lemon rice", tag: "Safe", kcal: "380" },
+  { slot: "B", name: "Moong dal khichdi", tag: "Safe", kcal: "320" },
+  { slot: "L", name: "Roti + paneer bhurji", tag: "Safe", kcal: "410" },
+  { slot: "D", name: "Lauki lemon rice", tag: "Safe", kcal: "380" },
 ];
 
-/** Product preview inside phone mockup — leads with the app, not feature bullets */
 export default function AppPreview() {
   return (
     <motion.div
@@ -17,23 +16,23 @@ export default function AppPreview() {
       transition={{ delay: 0.2, duration: 0.7 }}
       className="relative mx-auto w-full max-w-[320px] lg:max-w-none"
     >
-      <div className="absolute -top-4 -right-2 lg:right-4 z-10 px-3 py-1.5 bg-white rounded-full text-xs font-semibold text-brand-green shadow-lg border border-brand-green-light animate-float">
-        🇮🇳 Built for Indian meals
+      <div className="absolute -top-4 -right-2 lg:right-4 z-10 px-3 py-1.5 bg-white rounded-full text-xs font-semibold text-brand-green shadow-lg border border-brand-green-light animate-float flex items-center gap-1.5">
+        <span className="w-5 h-5 rounded bg-brand-navy text-white text-[8px] font-bold flex items-center justify-center">IN</span>
+        Built for Indian meals
       </div>
 
       <div className="phone-frame mx-auto max-w-[300px]">
         <div className="phone-screen">
-          {/* Status bar */}
           <div className="bg-brand-navy px-4 pt-3 pb-2 flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <img src="/logo-mark.png" alt="" className="w-7 h-7 object-contain" />
+              <img src="/logo-mark.png" alt="" className="w-7 h-7 object-contain rounded-md bg-white/10 p-0.5" />
               <span className="text-white text-xs font-semibold">Gutfeel</span>
             </div>
             <span className="text-[10px] text-white/70">Today</span>
           </div>
 
           <div className="p-3 space-y-3 bg-cream min-h-[380px]">
-            <div className="rounded-2xl bg-gradient-to-br from-brand-navy to-brand-navy-light p-4 text-white">
+            <div className="rounded-2xl hero-checkin p-4 text-white">
               <p className="text-[10px] text-white/70 uppercase tracking-wider">Daily check-in</p>
               <p className="text-sm font-semibold mt-1">How is your gut?</p>
               <div className="mt-3 h-1.5 bg-white/20 rounded-full">
@@ -52,12 +51,14 @@ export default function AppPreview() {
                     transition={{ delay: 0.4 + i * 0.08 }}
                     className="flex items-center gap-2.5 p-2.5 bg-white rounded-xl border border-brand-navy/5 shadow-sm"
                   >
-                    <span className="text-lg">{m.emoji}</span>
+                    <span className="w-8 h-8 rounded-lg bg-brand-green-light text-brand-green-dark text-[10px] font-bold flex items-center justify-center shrink-0">
+                      {m.slot}
+                    </span>
                     <div className="flex-1 min-w-0">
                       <p className="text-[11px] font-medium text-brand-navy truncate">{m.name}</p>
                       <p className="text-[9px] text-stone-400">{m.kcal} kcal</p>
                     </div>
-                    <span className="text-[9px] font-bold text-brand-green bg-brand-green-light px-1.5 py-0.5 rounded-full">{m.tag}</span>
+                    <span className="text-[9px] font-bold text-brand-green-dark bg-brand-green-light px-1.5 py-0.5 rounded-full">{m.tag}</span>
                   </motion.div>
                 ))}
               </div>

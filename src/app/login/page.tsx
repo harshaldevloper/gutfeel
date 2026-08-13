@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { signIn } from "@/lib/supabase";
 import Link from "next/link";
+import BrandLogo from "@/components/BrandLogo";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -24,43 +25,46 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-stone-50 flex items-center justify-center p-4">
-      <div className="w-full max-w-md bg-white rounded-2xl border border-stone-200 p-8 shadow-sm">
-        <h1 className="text-2xl font-bold text-stone-900 mb-2">Sign in</h1>
-        <p className="text-stone-500 text-sm mb-6">
-          Optional — sync your logs across devices. The app works offline without an account.
+    <div className="min-h-screen app-page-bg flex items-center justify-center p-4">
+      <div className="w-full max-w-md premium-card p-8">
+        <div className="flex justify-center mb-6">
+          <BrandLogo height={48} variant="mark" href="/" />
+        </div>
+        <h1 className="font-serif text-2xl font-bold text-brand-navy mb-2 text-center">Welcome back</h1>
+        <p className="text-stone-500 text-sm mb-6 text-center">
+          Sign in to sync your logs across devices
         </p>
         <form onSubmit={handleSubmit} className="space-y-4">
-          <input
-            type="email"
-            value={email}
-            onChange={e => setEmail(e.target.value)}
-            placeholder="Email"
-            required
-            className="w-full px-4 py-3 rounded-xl border border-stone-200 focus:outline-none focus:ring-2 focus:ring-emerald-500"
-          />
-          <input
-            type="password"
-            value={password}
-            onChange={e => setPassword(e.target.value)}
-            placeholder="Password"
-            required
-            className="w-full px-4 py-3 rounded-xl border border-stone-200 focus:outline-none focus:ring-2 focus:ring-emerald-500"
-          />
-          {error && <p className="text-red-600 text-sm">{error}</p>}
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full py-3 bg-emerald-600 text-white rounded-xl font-semibold disabled:opacity-60"
-          >
-            {loading ? "Signing in…" : "Sign In"}
+          <div>
+            <label className="block text-sm font-medium text-stone-700 mb-1.5">Email</label>
+            <input
+              type="email"
+              value={email}
+              onChange={e => setEmail(e.target.value)}
+              required
+              className="input-field w-full px-4 py-3 text-stone-900"
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-stone-700 mb-1.5">Password</label>
+            <input
+              type="password"
+              value={password}
+              onChange={e => setPassword(e.target.value)}
+              required
+              className="input-field w-full px-4 py-3 text-stone-900"
+            />
+          </div>
+          {error && <p className="text-sm text-red-600">{error}</p>}
+          <button type="submit" disabled={loading} className="btn-primary w-full disabled:opacity-50">
+            {loading ? "Signing in…" : "Sign in"}
           </button>
         </form>
-        <p className="text-center text-sm text-stone-500 mt-4">
-          No account? <Link href="/signup" className="text-emerald-600 font-medium">Sign up</Link>
-        </p>
-        <p className="text-center text-sm mt-2">
-          <Link href="/onboarding" className="text-stone-400">Continue without account →</Link>
+        <p className="text-sm text-stone-500 mt-6 text-center">
+          No account?{" "}
+          <Link href="/signup" className="text-brand-green-dark font-semibold hover:underline">
+            Create one
+          </Link>
         </p>
       </div>
     </div>

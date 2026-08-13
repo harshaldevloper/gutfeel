@@ -51,8 +51,8 @@ export default function Tracker() {
 
           <div className="space-y-6">
             <div>
-              <label className="block text-sm font-medium text-stone-700 mb-3">Overall severity: <span className="font-bold text-emerald-600">{severity}/5</span></label>
-              <input type="range" min="1" max="5" value={severity} onChange={e => setSeverity(+e.target.value)} className="w-full accent-emerald-500 h-2" />
+              <label className="block text-sm font-medium text-stone-700 mb-3">Overall severity: <span className="font-bold text-brand-green-dark">{severity}/5</span></label>
+              <input type="range" min="1" max="5" value={severity} onChange={e => setSeverity(+e.target.value)} className="w-full accent-brand-green h-2" />
               <div className="flex justify-between text-xs text-stone-400 mt-1">
                 <span>No symptoms</span>
                 <span>Severe</span>
@@ -63,7 +63,7 @@ export default function Tracker() {
               <label className="block text-sm font-medium text-stone-700 mb-3">Symptoms</label>
               <div className="flex flex-wrap gap-2">
                 {SYMPTOM_TYPES.map(s => (
-                  <button key={s} onClick={() => toggle(selectedSymptoms, s, setSelectedSymptoms)} className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all ${selectedSymptoms.includes(s) ? "bg-emerald-100 text-emerald-700 border border-emerald-300" : "bg-stone-100 text-stone-600 border border-stone-200"}`}>{s}</button>
+                  <button key={s} onClick={() => toggle(selectedSymptoms, s, setSelectedSymptoms)} className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all ${selectedSymptoms.includes(s) ? "bg-brand-green-light text-brand-green-dark border border-brand-green/30" : "bg-stone-100 text-stone-600 border border-stone-200"}`}>{s}</button>
                 ))}
               </div>
             </div>
@@ -72,7 +72,7 @@ export default function Tracker() {
               <label className="block text-sm font-medium text-stone-700 mb-3">Foods eaten today</label>
               <div className="flex flex-wrap gap-2">
                 {COMMON_FOODS.map(f => (
-                  <button key={f} onClick={() => toggle(selectedFoods, f, setSelectedFoods)} className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all ${selectedFoods.includes(f) ? "bg-emerald-100 text-emerald-700 border border-emerald-300" : "bg-stone-100 text-stone-600 border border-stone-200"}`}>{f}</button>
+                  <button key={f} onClick={() => toggle(selectedFoods, f, setSelectedFoods)} className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all ${selectedFoods.includes(f) ? "bg-brand-green-light text-brand-green-dark border border-brand-green/30" : "bg-stone-100 text-stone-600 border border-stone-200"}`}>{f}</button>
                 ))}
               </div>
             </div>
@@ -81,17 +81,17 @@ export default function Tracker() {
               <label className="block text-sm font-medium text-stone-700 mb-3">Bowel movement</label>
               <div className="grid grid-cols-4 gap-2">
                 {BOWEL_TYPES.map(b => (
-                  <button key={b} onClick={() => setBowel(b)} className={`p-2 rounded-xl border text-xs font-medium capitalize transition-all ${bowel === b ? "border-emerald-500 bg-emerald-50 text-emerald-700" : "border-stone-200"}`}>{b}</button>
+                  <button key={b} onClick={() => setBowel(b)} className={`p-2 rounded-xl border text-xs font-medium capitalize transition-all ${bowel === b ? "border-brand-green bg-brand-green-light text-brand-green-dark" : "border-stone-200"}`}>{b}</button>
                 ))}
               </div>
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-stone-700 mb-3">Stress level: <span className="font-bold text-emerald-600">{stress}/5</span></label>
-              <input type="range" min="1" max="5" value={stress} onChange={e => setStress(+e.target.value)} className="w-full accent-emerald-500 h-2" />
+              <label className="block text-sm font-medium text-stone-700 mb-3">Stress level: <span className="font-bold text-brand-green-dark">{stress}/5</span></label>
+              <input type="range" min="1" max="5" value={stress} onChange={e => setStress(+e.target.value)} className="w-full accent-brand-green h-2" />
             </div>
 
-            <button onClick={handleLog} className="w-full py-3.5 bg-emerald-600 text-white rounded-xl font-bold text-base active:scale-95 transition-transform">
+            <button onClick={handleLog} className="w-full py-3.5 bg-brand-navy hover:bg-brand-navy-light text-white rounded-xl font-bold text-base active:scale-95 transition-transform">
               {logged ? "✓ Logged!" : "Log Symptoms"}
             </button>
           </div>
@@ -118,7 +118,7 @@ export default function Tracker() {
               </div>
             )}
             {safeFoods.length > 0 ? (
-              <div className="flex items-center gap-3 p-3 bg-emerald-50 rounded-xl">
+              <div className="flex items-center gap-3 p-3 bg-brand-green-light rounded-xl">
                 <span className="text-lg">✅</span>
                 <div className="flex-1">
                   <p className="text-sm font-medium text-stone-900">Safe: {safeFoods.map(f => f.foodName).join(", ")}</p>
@@ -126,7 +126,7 @@ export default function Tracker() {
                 </div>
               </div>
             ) : (
-              <div className="flex items-center gap-3 p-3 bg-emerald-50 rounded-xl">
+              <div className="flex items-center gap-3 p-3 bg-brand-green-light rounded-xl">
                 <span className="text-lg">📉</span>
                 <div className="flex-1">
                   <p className="text-sm font-medium text-stone-900">Consistent logging</p>

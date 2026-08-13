@@ -11,10 +11,10 @@ const stats = [
 ];
 
 const pains = [
-  { icon: "😰", title: "Fear of eating", desc: "Every meal is a gamble. Will this cause pain, bloating, or an urgent bathroom trip?" },
-  { icon: "📱", title: "Confusing information", desc: "Google gives you 10 conflicting answers. Monash has data but no plan." },
-  { icon: "🍽️", title: "Generic meal plans", desc: "One-size-fits-all diets that don't account for YOUR triggers or preferences." },
-  { icon: "🔄", title: "Reintroduction is impossible", desc: "The hardest phase of FODMAP — and nobody guides you through it." },
+  { title: "Fear of eating", desc: "Every meal is a gamble. Will this cause pain, bloating, or an urgent bathroom trip?" },
+  { title: "Confusing information", desc: "Google gives you 10 conflicting answers. Monash has data but no plan." },
+  { title: "Generic meal plans", desc: "One-size-fits-all diets that don't account for YOUR triggers or preferences." },
+  { title: "Reintroduction is impossible", desc: "The hardest phase of FODMAP — and nobody guides you through it." },
 ];
 
 const container = { hidden: {}, show: { transition: { staggerChildren: 0.1 } } };
@@ -60,8 +60,10 @@ export default function Problem() {
           className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6"
         >
           {pains.map((pain, i) => (
-            <motion.div key={i} variants={item} className="p-6 bg-cream rounded-2xl border border-stone-100 hover:border-emerald-200/80 hover:shadow-lg hover:shadow-emerald-100/40 transition-all">
-              <span className="text-3xl mb-4 block">{pain.icon}</span>
+            <motion.div key={i} variants={item} className="p-6 bg-cream rounded-2xl border border-stone-100 hover:border-brand-green/30 hover:shadow-lg hover:shadow-brand-green/5 transition-all">
+              <div className="w-10 h-10 rounded-xl bg-brand-navy/8 text-brand-navy flex items-center justify-center mb-4 font-serif font-bold text-lg">
+                {i + 1}
+              </div>
               <h3 className="text-lg font-semibold text-stone-900 mb-2">{pain.title}</h3>
               <p className="text-sm text-stone-600 leading-relaxed">{pain.desc}</p>
             </motion.div>

@@ -18,7 +18,12 @@ const SLOTS: { key: MealSlot; label: string }[] = [
   { key: "dinner", label: "Dinner" },
 ];
 
-const FDA_ALERT = "⚠\uFE0F FDA seized 2,000L adulterated milk in Pune this week. Tap to check your brand.";
+function greeting(): string {
+  const h = new Date().getHours();
+  if (h < 12) return "Good morning";
+  if (h < 17) return "Good afternoon";
+  return "Good evening";
+}
 
 export default function Dashboard() {
   const [symptomLogged, setSymptomLogged] = useState(false);
@@ -61,177 +66,198 @@ export default function Dashboard() {
   return (
     <AppShell
       headerRight={
-        <div className="flex items-center gap-1 bg-amber-50 px-2.5 py-1 rounded-full border border-amber-100">
-          <span className="text-sm">{"\uD83D\uDD25"}</span>
-          <span className="text-sm font-bold text-amber-700">{stats.streak}</span>
+        <div className="streak-pill">
+          <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" aria-hidden>
+            <path fillRule="evenodd" d="M12.395 2.553a1 1 0 00-1.45-.385c-.345.23-.614.558-.822.88-.214.33-.403.713-.57 1.116-.334.804-.614 1.768-.84 2.734a31.365 31.365 0 00-.613 3.58 2.64 2.64 0 01-.945-1.067c-.328-.68-.451-1.283-.476-1.809-.074-1.63.782-2.926 1.86-3.927 1.023-.96 2.247-1.521 3.578-1.688a.75.75 0 01.697.447z" clipRule="evenodd" />
+          </svg>
+          {stats.streak} day{stats.streak === 1 ? "" : "s"}
         </div>
       }
     >
-        {/* FDA Alert Banner */}
-        <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="bg-red-50 border border-red-200 rounded-xl p-4"
-        >
-          <p className="text-sm text-red-800 font-medium">{FDA_ALERT}</p>
-        </motion.div>
+      {/* Daily Check-in — hero card */}
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="hero-checkin rounded-2xl p-6 text-white"
+      >
+        <p className="section-label text-white/60 mb-1">{greeting()}</p>
+        <h1 className="font-serif text-2xl font-bold mb-5">How is your gut today?</h1>
 
-        {/* Daily Check-in */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
-          className="bg-gradient-to-br from-brand-navy to-brand-navy-light rounded-2xl p-5 text-white shadow-lg shadow-brand-navy/20"
-        >
-          <div className="flex items-center justify-between mb-3">
+        {!symptomLogged ? (
+          <div className="space-y-4">
             <div>
-              <p className="text-emerald-100 text-sm">Good morning!</p>
-              <h1 className="text-xl font-bold">How is your gut today?</h1>
-            </div>
-            <div className="text-center">
-              <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center text-xl font-bold">{stats.streak}</div>
-              <p className="text-emerald-100 text-xs mt-1">day streak</p>
-            </div>
-          </div>
-          {!symptomLogged ? (
-            <div className="space-y-3">
-              <div className="flex justify-between text-xs text-emerald-100">
-                <span>{"\uD83D\uDE0A Feeling great"}</span>
-                <span>{"\uD83D\uDE23 Severe"}</span>
+              <div className="flex justify-between text-xs text-white/70 mb-2">
+                <span>Feeling great</span>
+                <span className="font-semibold text-white">{severity}/5</span>
+                <span>Severe</span>
               </div>
-              <input type="range" min="1" max="5" value={severity} onChange={e => setSeverity(+e.target.value)} className="w-full accent-white h-2" />
-              <button onClick={handleCheckIn} className="w-full py-3.5 bg-brand-green text-white rounded-xl font-bold active:scale-95 transition-transform hover:bg-brand-green-dark">
-                Log Today&apos;s Symptoms
-              </button>
+              <input
+                type="range"
+                min="1"
+                max="5"
+                value={severity}
+                onChange={e => setSeverity(+e.target.value)}
+                className="w-full accent-brand-green h-2 rounded-full"
+              />
             </div>
-          ) : (
-            <div className="bg-white/20 rounded-xl p-4 text-center">
-              <p className="text-lg font-semibold">{"\u2713 Logged today!"}</p>
-              <p className="text-emerald-100 text-sm">Severity: {severity}/5. Keep your streak going!</p>
+            <button
+              onClick={handleCheckIn}
+              className="w-full py-3.5 bg-brand-green hover:bg-brand-green-dark text-white rounded-xl font-bold active:scale-[0.98] transition-all shadow-lg shadow-black/10"
+            >
+              Log today&apos;s check-in
+            </button>
+            <a href="/tracker" className="block text-center text-sm text-white/75 font-medium hover:text-white transition-colors">
+              Add symptoms & foods →
+            </a>
+          </div>
+        ) : (
+          <div className="bg-white/15 backdrop-blur rounded-xl p-5 text-center border border-white/10">
+            <div className="w-10 h-10 rounded-full bg-brand-green/30 flex items-center justify-center mx-auto mb-2">
+              <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+              </svg>
+            </div>
+            <p className="text-lg font-semibold">Logged for today</p>
+            <p className="text-white/70 text-sm mt-1">Severity {severity}/5 — keep your streak alive</p>
+          </div>
+        )}
+      </motion.div>
+
+      {/* Insight */}
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.05 }}
+        className="premium-card p-5 border-l-4 border-l-brand-green"
+      >
+        <p className="section-label text-brand-green-dark mb-1">Today&apos;s insight</p>
+        <p className="text-sm text-stone-700 leading-relaxed">{insight}</p>
+      </motion.div>
+
+      {/* Meals */}
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.1 }}
+        className="premium-card p-5"
+      >
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="font-serif text-lg font-bold text-brand-navy">Today&apos;s meals</h2>
+          <a href="/plan" className="text-xs bg-brand-green-light text-brand-green-dark px-3 py-1.5 rounded-full font-semibold hover:bg-brand-green/15 transition-colors">
+            Open planner
+          </a>
+        </div>
+        <div className="space-y-2">
+          {SLOTS.map(s => {
+            const meal = plan.slots[s.key];
+            return (
+              <div key={s.key} className="flex items-center gap-3 p-3 rounded-xl bg-cream border border-stone-100">
+                <div className="w-12 h-12 bg-brand-green-light rounded-xl flex flex-col items-center justify-center shrink-0">
+                  <span className="text-sm font-bold text-brand-green-dark leading-none">{meal.calories}</span>
+                  <span className="text-[8px] font-medium text-brand-green-dark/70">kcal</span>
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-semibold text-stone-900 truncate">{meal.name}</p>
+                  <p className="text-xs text-stone-500">{s.label} · {meal.cookMinutes} min</p>
+                </div>
+                <div className="text-right shrink-0">
+                  <p className="text-sm font-bold text-brand-green">{mealSafePercent(meal, triggers)}%</p>
+                  <p className="text-[10px] text-stone-400 uppercase tracking-wide">safe</p>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </motion.div>
+
+      {/* Fingerprint */}
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.15 }}
+        className="premium-card p-5"
+      >
+        <div className="flex items-center justify-between mb-3">
+          <h2 className="font-serif text-lg font-bold text-brand-navy">Your FODMAP fingerprint</h2>
+          <span className="text-xs text-stone-500 font-medium">{stats.testedCount}/{FOODS.length}</span>
+        </div>
+        <div className="w-full h-2.5 bg-stone-100 rounded-full mb-4 overflow-hidden">
+          <div
+            className="h-full bg-gradient-to-r from-brand-green to-brand-green-dark rounded-full transition-all duration-500"
+            style={{ width: `${(stats.testedCount / FOODS.length) * 100}%` }}
+          />
+        </div>
+        <div className="grid grid-cols-2 gap-2">
+          {topFingerprint.length > 0 ? topFingerprint.map(t => {
+            const isTrigger = t.status === "confirmed-trigger" || t.status === "likely-trigger";
+            return (
+              <div key={t.foodName} className={`p-3 rounded-xl border ${isTrigger ? "border-red-200 bg-red-50" : "border-brand-green/25 bg-brand-green-light/50"}`}>
+                <p className="text-sm font-semibold text-stone-900">{t.foodName}</p>
+                <p className={`text-xs font-semibold mt-0.5 ${isTrigger ? "text-red-600" : "text-brand-green-dark"}`}>
+                  {t.status === "confirmed-trigger" ? "Trigger" : t.status === "likely-trigger" ? "Likely trigger" : "Safe"}
+                </p>
+              </div>
+            );
+          }) : (
+            <div className="col-span-2 p-4 rounded-xl border border-dashed border-stone-200 bg-stone-50/50 text-center">
+              <p className="text-sm text-stone-500">Log meals to build your personal fingerprint</p>
             </div>
           )}
-        </motion.div>
+        </div>
+      </motion.div>
 
-        {/* Daily Insight */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="bg-blue-50 border border-blue-200 rounded-xl p-4"
-        >
-          <p className="text-sm text-blue-800 font-medium">{"\uD83D\uDCA1 Today's Insight"}</p>
-          <p className="text-sm text-blue-700 mt-1">{insight}</p>
-        </motion.div>
+      {/* Reintroduction */}
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.2 }}
+        className="premium-card p-5 app-card-interactive"
+      >
+        <div className="flex items-center justify-between mb-2">
+          <h2 className="font-serif text-lg font-bold text-brand-navy">Reintroduction protocol</h2>
+          <span className="text-xs bg-brand-green-light text-brand-green-dark px-2.5 py-1 rounded-full font-semibold">Phase 3</span>
+        </div>
+        <p className="text-sm text-stone-600 mb-4">Systematically test FODMAP groups to expand your safe foods.</p>
+        <a href="/reintroduction" className="block text-center py-3 bg-brand-navy text-white rounded-xl font-bold text-sm hover:bg-brand-navy-light transition-colors">
+          Continue protocol
+        </a>
+      </motion.div>
 
-        {/* Fingerprint Progress */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-          className="card-elevated rounded-2xl p-5"
-        >
-          <div className="flex items-center justify-between mb-3">
-            <h2 className="font-bold text-stone-900">Your FODMAP Fingerprint</h2>
-            <span className="text-xs text-stone-500">{stats.testedCount}/{FOODS.length} foods</span>
-          </div>
-          <div className="w-full h-3 bg-stone-100 rounded-full mb-4 overflow-hidden">
-            <div className="h-full bg-gradient-to-r from-emerald-400 to-emerald-600 rounded-full transition-all" style={{ width: `${(stats.testedCount / FOODS.length) * 100}%` }} />
-          </div>
-          <p className="text-sm text-stone-600 mb-4">{stats.triggeredFoods.length > 0 ? `${stats.triggeredFoods.length} trigger${stats.triggeredFoods.length === 1 ? "" : "s"} found. Keep logging meals + symptoms to sharpen accuracy.` : "Log daily to discover YOUR specific triggers. Most users see patterns after 7 days."}</p>
-          <div className="grid grid-cols-2 gap-2">
-            {topFingerprint.length > 0 ? topFingerprint.map((t, i) => {
-              const isTrigger = t.status === "confirmed-trigger" || t.status === "likely-trigger";
-              return (
-                <div key={t.foodName} className={`p-3 rounded-xl border ${isTrigger ? "border-red-200 bg-red-50" : "border-emerald-200 bg-emerald-50"}`}>
-                  <p className="text-sm font-medium text-stone-900">{t.foodName}</p>
-                  <p className={`text-xs font-semibold mt-0.5 ${isTrigger ? "text-red-600" : "text-emerald-600"}`}>
-                    {t.status === "confirmed-trigger" ? "\u2717 Trigger" : t.status === "likely-trigger" ? "\u26A0\uFE0F Likely" : "\u2713 Safe"}
-                  </p>
-                </div>
-              );
-            }) : (
-              <div className="col-span-2 p-3 rounded-xl border border-stone-200 bg-stone-50">
-                <p className="text-sm text-stone-500">Log your first meals to build your Fingerprint.</p>
+      {/* Weekly chart */}
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.25 }}
+        className="premium-card p-5"
+      >
+        <h2 className="font-serif text-lg font-bold text-brand-navy mb-4">This week&apos;s symptoms</h2>
+        <div className="flex items-end gap-2 h-28">
+          {weeklyData.map((day, i) => (
+            <div key={i} className="flex-1 flex flex-col items-center gap-1.5">
+              <div className="w-full relative" style={{ height: "88px" }}>
+                {day.level > 0 ? (
+                  <div
+                    className={`absolute bottom-0 w-full rounded-t-lg transition-all ${
+                      day.isToday ? "bg-brand-green" : day.level <= 1.5 ? "bg-brand-green-light" : day.level <= 2.5 ? "bg-amber-200" : "bg-red-200"
+                    }`}
+                    style={{ height: `${(day.level / 5) * 100}%`, opacity: day.isToday ? 1 : 0.75 }}
+                  />
+                ) : (
+                  <div className="absolute bottom-0 w-full h-1 bg-stone-200 rounded-t-lg" />
+                )}
               </div>
-            )}
-          </div>
-        </motion.div>
-
-        {/* Today\'s Meals */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4 }}
-          className="card-elevated rounded-2xl p-5"
-        >
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="font-bold text-stone-900">Today&apos;s Meals</h2>
-            <a href="/plan" className="text-xs bg-emerald-100 text-emerald-700 px-2.5 py-1 rounded-full font-semibold">Open planner</a>
-          </div>
-          <div className="space-y-3">
-            {SLOTS.map(s => {
-              const meal = plan.slots[s.key];
-              return (
-                <div key={s.key} className="flex items-center gap-3 p-3 rounded-xl bg-stone-50 border border-stone-100 active:bg-stone-100 transition-colors">
-                  <div className="w-11 h-11 bg-emerald-100 rounded-xl flex items-center justify-center text-xs font-bold text-emerald-700">{meal.calories}<span className="text-[9px] font-medium ml-0.5">kcal</span></div>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium text-stone-900 truncate">{meal.name}</p>
-                    <p className="text-xs text-stone-500">{s.label} &middot; {meal.cookMinutes} min</p>
-                  </div>
-                  <div className="text-right shrink-0">
-                    <p className="text-sm font-bold text-emerald-600">{mealSafePercent(meal, triggers)}%</p>
-                    <p className="text-xs text-stone-400">safe</p>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </motion.div>
-
-        {/* Reintroduction Protocol */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.45 }}
-          className="card-elevated rounded-2xl p-5"
-        >
-          <div className="flex items-center justify-between mb-3">
-            <h2 className="font-bold text-stone-900">Reintroduction Protocol</h2>
-            <span className="text-xs bg-emerald-100 text-emerald-700 px-2.5 py-1 rounded-full font-semibold">Phase 3 of 6</span>
-          </div>
-          <p className="text-sm text-stone-600 mb-3">Currently challenging Lactose — 33% done. Find out which FODMAPs you can safely enjoy.</p>
-          <a href="/reintroduction" className="block text-center py-3 bg-emerald-600 text-white rounded-xl font-bold text-sm active:scale-95 transition-transform">Continue Protocol</a>
-        </motion.div>
-
-        {/* Weekly Symptom Chart */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5 }}
-          className="card-elevated rounded-2xl p-5"
-        >
-          <h2 className="font-bold text-stone-900 mb-4">This Week&apos;s Symptoms</h2>
-          <div className="flex items-end gap-2 h-24">
-            {weeklyData.map((day, i) => (
-              <div key={i} className="flex-1 flex flex-col items-center gap-1">
-                <div className="w-full relative" style={{ height: "80px" }}>
-                  {day.level > 0 ? (
-                    <div className={`absolute bottom-0 w-full rounded-t-md transition-all ${day.isToday ? "bg-emerald-500" : day.level <= 1.5 ? "bg-emerald-300" : day.level <= 2.5 ? "bg-amber-300" : "bg-red-300"}`} style={{ height: `${(day.level / 5) * 100}%`, opacity: day.isToday ? 1 : 0.6 }} />
-                  ) : (
-                    <div className="absolute bottom-0 w-full h-1 bg-stone-200 rounded-t-md opacity-40" />
-                  )}
-                </div>
-                <span className={`text-xs ${day.isToday ? "font-bold text-emerald-600" : "text-stone-400"}`}>{day.label}{day.isToday ? "*" : ""}</span>
-              </div>
-            ))}
-          </div>
-          {weekComparison && (
-            <p className="text-xs text-emerald-600 mt-3 font-medium">{weekComparison}</p>
-          )}
-          {!weekComparison && stats.entries.length < 7 && (
-            <p className="text-xs text-stone-400 mt-3">Log daily to see weekly trends</p>
-          )}
-        </motion.div>
-      </AppShell>
+              <span className={`text-[10px] ${day.isToday ? "font-bold text-brand-green" : "text-stone-400"}`}>
+                {day.label}
+              </span>
+            </div>
+          ))}
+        </div>
+        {weekComparison ? (
+          <p className="text-xs text-brand-green-dark mt-3 font-semibold">{weekComparison}</p>
+        ) : stats.entries.length < 7 ? (
+          <p className="text-xs text-stone-400 mt-3">Log daily to unlock weekly trends</p>
+        ) : null}
+      </motion.div>
+    </AppShell>
   );
 }

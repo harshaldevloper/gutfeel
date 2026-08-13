@@ -4,7 +4,7 @@ export type IbsTypeInfo = {
   id: IbsType;
   label: string;
   shortLabel: string;
-  emoji: string;
+  badge: string;
   summary: string;
   symptoms: string[];
   /** Plain-language clue for people who don't know medical terms */
@@ -16,7 +16,7 @@ export const IBS_TYPES: IbsTypeInfo[] = [
     id: "IBS-D",
     label: "IBS-D — Diarrhea type",
     shortLabel: "Diarrhea (IBS-D)",
-    emoji: "💨",
+    badge: "D",
     summary: "Loose or urgent stools are your main pattern.",
     symptoms: ["Frequent loose stools", "Urgent bathroom trips", "Cramping before bowel movements"],
     clue: "If diarrhea or urgency happens more often than constipation, this is likely you.",
@@ -25,7 +25,7 @@ export const IBS_TYPES: IbsTypeInfo[] = [
     id: "IBS-C",
     label: "IBS-C — Constipation type",
     shortLabel: "Constipation (IBS-C)",
-    emoji: "🧱",
+    badge: "C",
     summary: "Hard stools, infrequent bowel movements, or feeling 'not empty'.",
     symptoms: ["Hard or lumpy stools", "Fewer than 3 bowel movements per week", "Bloating and straining"],
     clue: "If you’re usually blocked up or bloated more than you’re running to the bathroom, pick this.",
@@ -34,7 +34,7 @@ export const IBS_TYPES: IbsTypeInfo[] = [
     id: "IBS-M",
     label: "IBS-M — Mixed type",
     shortLabel: "Mixed (IBS-M)",
-    emoji: "🔄",
+    badge: "M",
     summary: "You swing between diarrhea and constipation — sometimes in the same week.",
     symptoms: ["Alternating loose and hard stools", "Unpredictable bowel days", "Both bloating and urgency"],
     clue: "If your gut feels like a coin flip day to day, mixed type fits best.",
@@ -43,7 +43,7 @@ export const IBS_TYPES: IbsTypeInfo[] = [
     id: "IBS-U",
     label: "IBS-U — Unsure / not diagnosed",
     shortLabel: "Not sure yet",
-    emoji: "❓",
+    badge: "?",
     summary: "You suspect IBS but don't have a type from a doctor — or symptoms don't fit neatly.",
     symptoms: ["Not formally diagnosed", "Symptoms change a lot", "Still figuring out your pattern"],
     clue: "Totally okay — Gutfeel still works. We'll use general low FODMAP guidance until patterns emerge.",
