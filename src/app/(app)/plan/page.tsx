@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { motion } from "framer-motion";
 import {
   buildDailyPlan,
   swapMeal,
@@ -16,10 +15,10 @@ import AppBottomNav from "@/components/AppBottomNav";
 
 const SAMPLE_TRIGGERS = ["Onion", "Garlic"];
 
-const SLOTS: { key: MealSlot; label: string }[] = [
-  { key: "breakfast", label: "Breakfast" },
-  { key: "lunch", label: "Lunch" },
-  { key: "dinner", label: "Dinner" },
+const SLOTS: { key: MealSlot; label: string; short: string }[] = [
+  { key: "breakfast", label: "Breakfast", short: "B" },
+  { key: "lunch", label: "Lunch", short: "L" },
+  { key: "dinner", label: "Dinner", short: "D" },
 ];
 
 export default function Plan() {
@@ -65,85 +64,87 @@ export default function Plan() {
         right={<span className="text-xs bg-brand-green-light text-brand-green-dark px-2.5 py-1 rounded-full font-semibold">Personalized</span>}
       />
 
-      <main className="max-w-4xl mx-auto px-4 py-5 space-y-5">
-        <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="hero-checkin rounded-2xl p-6 text-white"
-        >
-          <p className="text-white/70 text-sm">{plan.personalized ? "Personalized day score" : "Day score"}</p>
-          <p className="font-serif text-5xl font-bold mt-1">{dayScore}%</p>
-          <p className="text-white/70 text-sm mt-1">of your day is low FODMAP safe</p>
-          <div className="w-full h-2 bg-white/25 rounded-full mt-4 overflow-hidden">
-            <div className="h-full bg-white rounded-full transition-all" style={{ width: `${dayScore}%` }} />
+      <main className="max-w-4xl mx-auto px-4 py-5 space-y-4">
+        {/* Compact score strip — meals visible above the fold on mobile */}
+        <div className="premium-card p-4 flex items-center gap-4">
+          <div
+            className="w-14 h-14 rounded-2xl bg-brand-navy flex flex-col items-center justify-center shrink-0"
+            aria-hidden
+          >
+            <span className="text-lg font-bold text-white leading-none">{dayScore}</span>
+            <span className="text-[9px] text-white/70 font-semibold">%</span>
           </div>
-          {plan.personalized && plan.avoidedTriggers.length > 0 && (
-            <div className="bg-white/15 rounded-xl p-3 mt-4">
-              <p className="text-sm font-medium mb-2">Avoiding your triggers:</p>
-              <div className="flex flex-wrap gap-2">
-                {plan.avoidedTriggers.map(t => (
-                  <span key={t} className="bg-white text-brand-green-dark text-xs font-bold px-2.5 py-1 rounded-full">{t}</span>
-                ))}
-              </div>
+          <div className="flex-1 min-w-0">
+            <p className="section-label text-brand-green-dark mb-0.5">
+              {plan.personalized ? "Personalized day score" : "Day score"}
+            </p>
+            <p className="text-sm text-stone-600">Low FODMAP safe today</p>
+            <div className="w-full h-1.5 bg-stone-100 rounded-full mt-2 overflow-hidden">
+              <div className="h-full bg-brand-green rounded-full transition-all" style={{ width: `${dayScore}%` }} />
             </div>
-          )}
-        </motion.div>
+          </div>
+        </div>
 
-        {SLOTS.map(({ key, label }, i) => {
+        {plan.personalized && plan.avoidedTriggers.length > 0 && (
+          <div className="flex flex-wrap gap-2 items-center px-1">
+            <span className="text-xs font-semibold text-stone-500">Avoiding:</span>
+            {plan.avoidedTriggers.map(t => (
+              <span key={t} className="text-xs bg-brand-green-light text-brand-green-dark font-bold px-2.5 py-1 rounded-full border border-brand-green/20">
+                {t}
+              </span>
+            ))}
+          </div>
+        )}
+
+        {/* First meal preview hint */}
+        <p className="text-xs text-stone-400 px-1 -mb-2">Today&apos;s meals · tap swap to rotate</p>
+
+        {SLOTS.map(({ key, label, short }) => {
           const meal = plan.slots[key];
           return (
-            <motion.div
-              key={key}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 + i * 0.1 }}
-              className="premium-card p-5"
-            >
-              <div className="flex items-center justify-between mb-2">
-                <span className="section-label text-brand-green-dark">{label}</span>
-                <span className="text-xs bg-brand-green-light text-brand-green-dark font-bold px-2 py-0.5 rounded-full">
-                  {mealSafePercent(meal, triggers)}% safe
-                </span>
+            <div key={key} className="premium-card p-4">
+              <div className="flex items-start gap-3">
+                <div className="w-10 h-10 rounded-xl bg-brand-green-light flex items-center justify-center shrink-0">
+                  <span className="text-sm font-bold text-brand-green-dark">{short}</span>
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center justify-between gap-2 mb-1">
+                    <span className="section-label text-brand-green-dark">{label}</span>
+                    <span className="text-xs bg-brand-green-light text-brand-green-dark font-bold px-2 py-0.5 rounded-full shrink-0">
+                      {mealSafePercent(meal, triggers)}% safe
+                    </span>
+                  </div>
+                  <h2 className="font-semibold text-stone-900 truncate">{meal.name}</h2>
+                  <p className="text-xs text-stone-500 mt-1">{meal.cookMinutes} min · {meal.calories} kcal</p>
+                </div>
               </div>
-              <h2 className="font-bold text-stone-900 text-lg">{meal.name}</h2>
-              <p className="text-sm text-stone-600 mt-1">{meal.description}</p>
-              <p className="text-xs text-stone-500 mt-3">{meal.ingredients.join(" · ")}</p>
-              <div className="flex items-center gap-2 mt-2 text-xs text-stone-500 font-medium">
-                <span>{meal.cookMinutes} min</span>
-                <span className="text-stone-300">·</span>
-                <span>{meal.calories} kcal</span>
-              </div>
+              <p className="text-sm text-stone-600 mt-3 line-clamp-2">{meal.description}</p>
               <button
                 onClick={() => handleSwap(key)}
-                className="mt-3 w-full py-2.5 bg-stone-100 hover:bg-stone-200 border border-stone-200 rounded-xl text-sm font-bold text-stone-700 transition-colors active:scale-[0.98]"
+                className="mt-3 w-full py-2.5 bg-cream hover:bg-stone-100 border border-stone-200 rounded-xl text-sm font-bold text-brand-navy transition-colors active:scale-[0.98]"
               >
                 Swap meal
               </button>
-            </motion.div>
+            </div>
           );
         })}
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5 }}
-          className="bg-white rounded-2xl border border-stone-200 p-5 shadow-sm"
-        >
+        <div className="premium-card p-5">
           <div className="flex items-center justify-between mb-3">
-            <h2 className="font-bold text-stone-900">Today's Grocery List</h2>
-            <span className="text-xs text-stone-500">{grocery.length} items</span>
+            <h2 className="font-serif font-bold text-brand-navy">Grocery list</h2>
+            <span className="text-xs font-semibold text-stone-500">{grocery.length} items</span>
           </div>
           <div className="flex flex-wrap gap-2">
             {grocery.map(([item, count]) => (
-              <span key={item} className="px-3 py-1.5 rounded-full text-sm bg-stone-100 border border-stone-200 text-stone-700">
+              <span key={item} className="px-3 py-1.5 rounded-full text-sm bg-cream border border-stone-200 text-stone-700">
                 {item}
                 {count > 1 ? <span className="text-stone-400 ml-1">×{count}</span> : null}
               </span>
             ))}
           </div>
-        </motion.div>
+        </div>
       </main>
       <AppBottomNav />
-</div>
+    </div>
   );
 }

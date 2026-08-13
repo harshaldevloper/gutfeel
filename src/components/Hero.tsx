@@ -39,7 +39,7 @@ export default function Hero() {
 
             <h1 className="font-serif text-[2.5rem] sm:text-5xl lg:text-[3.5rem] font-semibold leading-[1.06] text-brand-navy mb-6 tracking-tight">
               Stop guessing what to eat.{" "}
-              <span className="gradient-text block sm:inline mt-1 sm:mt-0">Start living again.</span>
+              <span className="text-brand-green block sm:inline mt-1 sm:mt-0">Start living again.</span>
             </h1>
 
             <p className="text-lg sm:text-xl text-stone-600 leading-relaxed mb-8 max-w-xl">
