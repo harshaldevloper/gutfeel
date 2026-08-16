@@ -17,7 +17,6 @@ export default function Footer() {
               <li><a href="/download/" className="hover:text-white transition-colors">Download Android</a></li>
               <li><a href="/onboarding" className="hover:text-white transition-colors">Web demo</a></li>
               <li><a href="#features" className="hover:text-white transition-colors">Features</a></li>
-              <li><a href="#pricing" className="hover:text-white transition-colors">Pricing</a></li>
               <li><a href="/account" className="hover:text-white transition-colors">Account</a></li>
             </ul>
           </div>

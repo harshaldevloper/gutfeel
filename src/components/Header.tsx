@@ -17,7 +17,7 @@ export default function Header() {
               ["#problem", "Problem"],
               ["#solution", "How it works"],
               ["#features", "Features"],
-              ["#pricing", "Pricing"],
+              ["#download", "Get the app"],
             ].map(([href, label]) => (
               <a key={href} href={href} className="text-stone-600 hover:text-brand-navy transition-colors text-sm font-medium">
                 {label}
@@ -57,7 +57,7 @@ export default function Header() {
                 ["#problem", "Problem"],
                 ["#solution", "How it works"],
                 ["#features", "Features"],
-                ["#pricing", "Pricing"],
+                ["#download", "Get the app"],
               ].map(([href, label]) => (
                 <a key={href} href={href} className="text-stone-700 text-sm font-medium py-2.5 px-2 rounded-lg hover:bg-brand-green-light/40">
                   {label}

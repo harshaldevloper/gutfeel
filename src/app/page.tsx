@@ -6,7 +6,6 @@ import ProductStrip from "@/components/landing/ProductStrip";
 import DownloadSection from "@/components/landing/DownloadSection";
 import Features from "@/components/Features";
 import Testimonials from "@/components/Testimonials";
-import Pricing from "@/components/Pricing";
 import Waitlist from "@/components/Waitlist";
 import Footer from "@/components/Footer";
 
@@ -22,7 +21,6 @@ export default function Home() {
         <DownloadSection />
         <Features />
         <Testimonials />
-        <Pricing />
         <Waitlist />
       </main>
       <Footer />
