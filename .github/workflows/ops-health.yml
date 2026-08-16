@@ -12,20 +12,20 @@ jobs:
       - name: Check live site
         run: |
           set -e
-          URL="https://gutfeel.pages.dev"
+          URL="https://gutvista.pages.dev"
           CODE=$(curl -sS -o /dev/null -w "%{http_code}" "$URL")
           echo "Homepage: $CODE"
           test "$CODE" = "200"
 
       - name: Check app dashboard
         run: |
-          CODE=$(curl -sS -o /dev/null -w "%{http_code}" "https://gutfeel.pages.dev/dashboard/")
+          CODE=$(curl -sS -o /dev/null -w "%{http_code}" "https://gutvista.pages.dev/dashboard/")
           echo "Dashboard: $CODE"
           test "$CODE" = "200"
 
       - name: Check support API (expect 405 on GET)
         run: |
-          CODE=$(curl -sS -o /dev/null -w "%{http_code}" "https://gutfeel.pages.dev/api/support/submit")
+          CODE=$(curl -sS -o /dev/null -w "%{http_code}" "https://gutvista.pages.dev/api/support/submit")
           echo "Support API: $CODE"
           test "$CODE" = "405" -o "$CODE" = "503"
 

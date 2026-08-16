@@ -77,7 +77,7 @@ export default function Waitlist() {
             </form>
             {error && <p className="text-red-100 text-sm mt-3">{error}</p>}
             <a href="/onboarding" className="inline-block mt-6 text-emerald-100 underline underline-offset-2 text-sm">
-              Or skip waitlist — start using Gutfeel now
+              Or skip waitlist — start using GutVista now
             </a>
           </>
         )}

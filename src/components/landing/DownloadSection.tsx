@@ -58,7 +58,7 @@ export default function DownloadSection({ compact = false }: { compact?: boolean
         >
           <p className="text-xs font-bold uppercase tracking-widest text-brand-green-dark mb-3">Android app</p>
           <h2 className="font-serif text-3xl sm:text-4xl font-semibold text-brand-navy mb-4">
-            Install Gutfeel on your phone
+            Install GutVista on your phone
           </h2>
           <p className="text-stone-600 text-lg leading-relaxed mb-10 max-w-2xl mx-auto">
             Native app for daily check-ins — offline, fast, built for roti-and-dal meal planning. Premium billing on the

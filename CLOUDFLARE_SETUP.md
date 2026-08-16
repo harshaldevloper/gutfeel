@@ -14,7 +14,7 @@ Dodo dashboard may show both "404" and "405" depending on whether the route exis
 
 ## Deploy path (two systems)
 
-**Primary:** Cloudflare Pages is connected to GitHub (`gutfeel` repo). **Push to `main`** triggers a Cloudflare build automatically.
+**Primary:** Cloudflare Pages is connected to GitHub (`gutvista` repo). **Push to `main`** triggers a Cloudflare build automatically.
 
 **Secondary:** GitHub Action `.github/workflows/deploy.yml` also deploys via Wrangler. If it fails with `Authentication error` (401), regenerate your Cloudflare API token and update GitHub repo secret `CF_API_TOKEN` (needs **Cloudflare Pages Edit** permission). This does not block Cloudflare Git deploys.
 
@@ -39,10 +39,10 @@ git commit -m "Add Dodo webhook/checkout, logo, auth pages, deploy fix"
 git push origin main
 ```
 
-Wait for Cloudflare Pages build (Dashboard → gutfeel → Deployments). Then test:
+Wait for Cloudflare Pages build (Dashboard → gutvista → Deployments). Then test:
 
 ```bash
-curl -sI https://gutfeel.pages.dev/api/dodo/webhook | head -1
+curl -sI https://gutvista.pages.dev/api/dodo/webhook | head -1
 # Expect: HTTP/2 405
 ```
 
@@ -50,7 +50,7 @@ curl -sI https://gutfeel.pages.dev/api/dodo/webhook | head -1
 
 ## Step 2 — Set env vars in Cloudflare
 
-1. [Cloudflare Dashboard](https://dash.cloudflare.com/) → **Workers & Pages** → **gutfeel**
+1. [Cloudflare Dashboard](https://dash.cloudflare.com/) → **Workers & Pages** → **gutvista**
 2. **Settings** → **Environment variables** → **Production**
 3. Add:
 

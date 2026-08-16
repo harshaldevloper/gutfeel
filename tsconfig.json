@@ -20,8 +20,8 @@
     ],
     "paths": {
       "@/*": ["./src/*"],
-      "@gutfeel/core": ["./packages/gutfeel-core/src/index.ts"],
-      "@gutfeel/core/*": ["./packages/gutfeel-core/src/*"]
+      "@gutvista/core": ["./packages/gutvista-core/src/index.ts"],
+      "@gutvista/core/*": ["./packages/gutvista-core/src/*"]
     }
   },
   "include": [

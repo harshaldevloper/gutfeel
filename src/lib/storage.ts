@@ -1,12 +1,12 @@
-import { analyzeFingerprint, type FingerprintResult } from "@gutfeel/core/fingerprint";
-import { FOODS } from "@gutfeel/core/foods";
+import { analyzeFingerprint, type FingerprintResult } from "@gutvista/core/fingerprint";
+import { FOODS } from "@gutvista/core/foods";
 import {
   localKey,
   computeStreak,
   getLast7DaysSeverity,
   getWeekComparison,
   isLoggedToday,
-} from "@gutfeel/core/stats";
+} from "@gutvista/core/stats";
 
 export interface SymptomEntry {
   id: string;
@@ -18,7 +18,7 @@ export interface SymptomEntry {
   foods: string[];
 }
 
-const STORAGE_KEY = "gutfeel.symptoms.v1";
+const STORAGE_KEY = "gutvista.symptoms.v1";
 
 function safeParse(raw: string | null): SymptomEntry[] {
   if (!raw) return [];
@@ -92,7 +92,7 @@ export async function getDbStats(): Promise<DbStats> {
   };
 }
 
-const PROFILE_KEY = "gutfeel.profile.v1";
+const PROFILE_KEY = "gutvista.profile.v1";
 
 export interface UserProfile {
   country: string;
@@ -117,7 +117,7 @@ export async function saveProfile(profile: UserProfile): Promise<void> {
   if (typeof window === "undefined") return;
   window.localStorage.setItem(PROFILE_KEY, JSON.stringify(profile));
   if (profile.country) {
-    window.localStorage.setItem("gutfeel.country", profile.country);
+    window.localStorage.setItem("gutvista.country", profile.country);
   }
 }
 

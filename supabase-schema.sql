@@ -1,4 +1,4 @@
--- Gutfeel Supabase schema (idempotent — safe to re-run)
+-- GutVista Supabase schema (idempotent — safe to re-run)
 -- Run in: https://supabase.com/dashboard/project/njnluxdbvpccsawgdzxw/sql/new
 
 -- ─── Tables ───────────────────────────────────────────────────────────────

@@ -42,7 +42,7 @@ export default function SupportPage() {
         <div className="max-w-lg mx-auto flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
             <BrandLogo height={28} variant="mark" />
-            <span className="font-bold text-brand-navy text-sm">Gutfeel</span>
+            <span className="font-bold text-brand-navy text-sm">GutVista</span>
           </Link>
           <Link href="/dashboard" className="text-sm font-semibold text-brand-green-dark">
             Open app →
@@ -54,7 +54,7 @@ export default function SupportPage() {
         <p className="section-label">Support</p>
         <h1 className="font-serif text-3xl font-bold text-brand-navy mt-1 mb-2">How can we help?</h1>
         <p className="text-sm text-stone-600 mb-4">
-          Prefer the app? Open <strong>Gutfeel → Home → Support</strong> for the best experience.
+          Prefer the app? Open <strong>GutVista → Home → Support</strong> for the best experience.
           This form also works on web.
         </p>
         <p className="text-xs text-stone-500 mb-6">

@@ -7,4 +7,4 @@ export {
   getSeverityColor,
   type FoodSafetyAlert,
   type RestaurantSafety,
-} from "@gutfeel/core/foodSafety";
+} from "@gutvista/core/foodSafety";

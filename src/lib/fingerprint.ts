@@ -3,4 +3,4 @@ export {
   getFingerprintInsight,
   type FingerprintResult,
   type SymptomEntry as FingerprintSymptomEntry,
-} from "@gutfeel/core/fingerprint";
+} from "@gutvista/core/fingerprint";

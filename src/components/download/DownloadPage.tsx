@@ -35,7 +35,7 @@ export default function DownloadPage() {
     <div className="pt-28 pb-20 px-4 sm:px-6 lg:px-8 bg-cream min-h-screen">
       <div className="max-w-2xl mx-auto">
         <p className="text-xs font-bold uppercase tracking-widest text-brand-green-dark mb-3">Android app</p>
-        <h1 className="font-serif text-4xl font-semibold text-brand-navy mb-4">Download Gutfeel</h1>
+        <h1 className="font-serif text-4xl font-semibold text-brand-navy mb-4">Download GutVista</h1>
         <p className="text-stone-600 text-lg leading-relaxed mb-8">
           Native Android app — offline daily logging, meal plans, and your trigger fingerprint. No PWA. Install the APK
           or grab it from partner stores when listed.
@@ -80,10 +80,10 @@ export default function DownloadPage() {
             <li>Download the APK file to your Android phone.</li>
             <li>Open the file → if prompted, allow install from your browser or Files app.</li>
             <li>Settings → Security → enable install from unknown sources for that app (wording varies by phone).</li>
-            <li>Open Gutfeel → complete onboarding → log daily.</li>
+            <li>Open GutVista → complete onboarding → log daily.</li>
           </ol>
           <p className="text-xs text-stone-400 mt-4">
-            Package: <code className="bg-stone-100 px-1 rounded">com.gutfeel.app</code> · Not medical advice.
+            Package: <code className="bg-stone-100 px-1 rounded">com.gutvista.app</code> · Not medical advice.
           </p>
         </section>
 

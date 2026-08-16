@@ -26,7 +26,7 @@ export default function AppPreview() {
           <div className="bg-brand-navy px-4 pt-3 pb-2 flex items-center justify-between">
             <div className="flex items-center gap-2">
               <img src="/logo-mark.png" alt="" className="w-7 h-7 object-contain rounded-md bg-white/10 p-0.5" />
-              <span className="text-white text-xs font-semibold">Gutfeel</span>
+              <span className="text-white text-xs font-semibold">GutVista</span>
             </div>
             <span className="text-[10px] text-white/70">Today</span>
           </div>

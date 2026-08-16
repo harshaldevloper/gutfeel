@@ -89,7 +89,7 @@ export default function Onboarding() {
         <div className="space-y-5">
           <div>
             <p className="text-xs font-semibold uppercase tracking-wider text-emerald-600 mb-2">3-minute setup</p>
-            <h1 className="font-serif text-2xl sm:text-3xl font-semibold text-stone-900">Welcome to Gutfeel</h1>
+            <h1 className="font-serif text-2xl sm:text-3xl font-semibold text-stone-900">Welcome to GutVista</h1>
             <p className="text-stone-600 mt-2 leading-relaxed">
               We&apos;ll personalize meals and tracking for your region and gut — no medical jargon required.
             </p>
@@ -150,7 +150,7 @@ export default function Onboarding() {
             <p>
               Doctors label IBS as <strong>IBS-D</strong>, <strong>IBS-C</strong>, <strong>IBS-M</strong>, or <strong>IBS-U</strong> based on whether diarrhea, constipation, or both dominate.
             </p>
-            <p className="mt-2">Gutfeel uses this to tune meal suggestions — it&apos;s not a diagnosis.</p>
+            <p className="mt-2">GutVista uses this to tune meal suggestions — it&apos;s not a diagnosis.</p>
           </HintCard>
 
           <HintCard title="How do I find mine?" variant="tip">

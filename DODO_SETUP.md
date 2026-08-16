@@ -1,8 +1,8 @@
-# Dodo Payments — Webhook setup for Gutfeel
+# Dodo Payments — Webhook setup for GutVista
 
 Webhook URL (Cloudflare Pages):
 ```
-https://gutfeel.pages.dev/api/dodo/webhook
+https://gutvista.pages.dev/api/dodo/webhook
 ```
 
 ## Events to subscribe (minimum)
@@ -31,7 +31,7 @@ Optional (only if you want them):
 
 **There is no public link** — you must log in at https://dash.cloudflare.com/
 
-Path: **Workers & Pages → gutfeel → Settings → Environment variables**
+Path: **Workers & Pages → gutvista → Settings → Environment variables**
 
 See **CLOUDFLARE_SETUP.md** for full step-by-step instructions.
 

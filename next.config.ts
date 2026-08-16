@@ -4,7 +4,7 @@ const nextConfig: NextConfig = {
   output: "export",
   trailingSlash: true,
   images: { unoptimized: true },
-  transpilePackages: ["@gutfeel/core"],
+  transpilePackages: ["@gutvista/core"],
 };
 
 export default nextConfig;

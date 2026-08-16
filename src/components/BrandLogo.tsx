@@ -16,7 +16,7 @@ export default function BrandLogo({ height = 44, className = "", href = "/", var
   const img = (
     <img
       src={src}
-      alt="Gutfeel — Eat Confidently"
+      alt="GutVista — Eat Confidently"
       height={height}
       width={Math.round(height * aspect)}
       className={`object-contain object-left ${variant === "mark" ? "rounded-xl ring-1 ring-brand-navy/10 bg-white/80 p-0.5" : ""} ${className}`}

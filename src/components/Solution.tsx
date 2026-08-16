@@ -33,7 +33,7 @@ export default function Solution() {
         <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.55 }}>
           <SectionHeading
             eyebrow="How it works"
-            title="Meet Gutfeel — your gut health companion"
+            title="Meet GutVista — your gut health companion"
             subtitle="Not another static food list. A practical system that learns from your logs and adapts your plan over time."
           />
         </motion.div>

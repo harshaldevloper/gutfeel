@@ -2,7 +2,7 @@ export default function PrivacyPage() {
   return (
     <div className="min-h-screen bg-stone-50 py-16 px-4">
       <div className="max-w-2xl mx-auto prose prose-stone">
-        <a href="/" className="text-emerald-600 text-sm no-underline">← Back to Gutfeel</a>
+        <a href="/" className="text-emerald-600 text-sm no-underline">← Back to GutVista</a>
         <h1 className="text-3xl font-bold mt-6">Privacy Policy</h1>
         <p className="text-stone-500 text-sm">Last updated: August 12, 2026</p>
 
@@ -25,17 +25,17 @@ export default function PrivacyPage() {
         <ul>
           <li>We do not sell your health data to third parties.</li>
           <li>We do not share personal health data with advertisers.</li>
-          <li>We do not provide medical advice — Gutfeel is a tracking and planning tool only.</li>
+          <li>We do not provide medical advice — GutVista is a tracking and planning tool only.</li>
         </ul>
 
         <h2>Your rights</h2>
         <p>
           You can delete local data by clearing your browser storage or app data. For account deletion,
-          contact us at privacy@gutfeel.app.
+          contact us at privacy@gutvista.app.
         </p>
 
         <h2>Contact</h2>
-        <p>Questions: privacy@gutfeel.app</p>
+        <p>Questions: privacy@gutvista.app</p>
       </div>
     </div>
   );

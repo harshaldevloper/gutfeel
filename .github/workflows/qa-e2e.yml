@@ -30,7 +30,7 @@ jobs:
 
       - name: Run smoke tests against production
         env:
-          QA_BASE_URL: https://gutfeel.pages.dev
+          QA_BASE_URL: https://gutvista.pages.dev
         run: npx playwright test --workers=1
 
       - name: Upload failure artifacts

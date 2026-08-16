@@ -1,6 +1,6 @@
 import { defineConfig, devices } from "@playwright/test";
 
-const baseURL = process.env.QA_BASE_URL ?? "https://gutfeel.pages.dev";
+const baseURL = process.env.QA_BASE_URL ?? "https://gutvista.pages.dev";
 
 export default defineConfig({
   testDir: "./e2e",

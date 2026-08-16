@@ -36,12 +36,12 @@ export default function Footer() {
               <li><a href="/support" className="hover:text-white transition-colors">Support</a></li>
               <li><a href="/privacy" className="hover:text-white transition-colors">Privacy</a></li>
               <li><a href="/terms" className="hover:text-white transition-colors">Terms</a></li>
-              <li><a href="mailto:hello@gutfeel.app" className="hover:text-white transition-colors">Contact</a></li>
+              <li><a href="mailto:hello@gutvista.app" className="hover:text-white transition-colors">Contact</a></li>
             </ul>
           </div>
         </div>
         <div className="pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-sm">© 2026 Gutfeel. All rights reserved.</p>
+          <p className="text-sm">© 2026 GutVista. All rights reserved.</p>
           <p className="text-xs text-stone-500">This app does not provide medical advice. Consult your healthcare provider.</p>
         </div>
       </div>

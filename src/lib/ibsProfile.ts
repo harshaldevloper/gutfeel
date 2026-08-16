@@ -46,7 +46,7 @@ export const IBS_TYPES: IbsTypeInfo[] = [
     badge: "?",
     summary: "You suspect IBS but don't have a type from a doctor — or symptoms don't fit neatly.",
     symptoms: ["Not formally diagnosed", "Symptoms change a lot", "Still figuring out your pattern"],
-    clue: "Totally okay — Gutfeel still works. We'll use general low FODMAP guidance until patterns emerge.",
+    clue: "Totally okay — GutVista still works. We'll use general low FODMAP guidance until patterns emerge.",
   },
 ];
 

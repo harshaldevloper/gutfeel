@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Gutfeel — Eat Confidently | Low FODMAP Meal Planner",
+  title: "GutVista — Eat Confidently | Low FODMAP Meal Planner",
   description:
     "Personalized low FODMAP meal plans, symptom tracking, and trigger detection. Built for India and beyond. Not medical advice.",
   keywords: [
@@ -23,11 +23,11 @@ export const metadata: Metadata = {
     apple: "/apple-touch-icon.png",
   },
   openGraph: {
-    title: "Gutfeel — Eat Confidently",
+    title: "GutVista — Eat Confidently",
     description: "Personalized low FODMAP meal plans that learn YOUR triggers.",
-    url: "https://gutfeel.pages.dev",
-    siteName: "Gutfeel",
-    images: [{ url: "/logo.png", width: 440, height: 375, alt: "Gutfeel logo" }],
+    url: "https://gutvista.pages.dev",
+    siteName: "GutVista",
+    images: [{ url: "/logo.png", width: 440, height: 375, alt: "GutVista logo" }],
   },
 };
 

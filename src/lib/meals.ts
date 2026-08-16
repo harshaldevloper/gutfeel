@@ -7,4 +7,4 @@ export {
   type MealSlot,
   type MealOption,
   type DailyPlan,
-} from "@gutfeel/core/meals";
+} from "@gutvista/core/meals";

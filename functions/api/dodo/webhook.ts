@@ -1,6 +1,6 @@
 /**
  * Dodo Payments webhook handler (Standard Webhooks spec)
- * Endpoint: POST https://gutfeel.pages.dev/api/dodo/webhook
+ * Endpoint: POST https://gutvista.pages.dev/api/dodo/webhook
  *
  * Subscribe to these events in Dodo Dashboard → Developer → Webhooks:
  *

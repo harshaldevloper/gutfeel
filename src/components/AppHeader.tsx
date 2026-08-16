@@ -12,7 +12,7 @@ export default function AppHeader({ title, right }: Props) {
         <div className="flex items-center gap-3 min-w-0">
           <BrandLogo height={32} variant="mark" href="/dashboard" />
           <div className="min-w-0">
-            <p className="text-sm font-bold text-brand-navy leading-none">Gutfeel</p>
+            <p className="text-sm font-bold text-brand-navy leading-none">GutVista</p>
             {title && <p className="text-[11px] text-stone-500 truncate mt-0.5">{title}</p>}
           </div>
         </div>

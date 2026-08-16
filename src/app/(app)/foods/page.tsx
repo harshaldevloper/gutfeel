@@ -23,7 +23,7 @@ export default function Foods() {
   const [country, setCountry] = useState("IN");
 
   useEffect(() => {
-    setCountry(localStorage.getItem("gutfeel.country") || "IN");
+    setCountry(localStorage.getItem("gutvista.country") || "IN");
   }, []);
 
   const countryFoods = getFoodsByCountry(country);
