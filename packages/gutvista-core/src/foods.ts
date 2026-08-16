@@ -126,10 +126,30 @@ export const FOODS: Food[] = [
 { id: "extra48", name: "Millet", category: "grain", fodmap: "safe", countries: ["IN"], calories: 207, servingSize: "1 cup cooked" },
 { id: "extra49", name: "Buckwheat", category: "grain", fodmap: "safe", countries: ["UK", "US"], calories: 155, servingSize: "1 cup cooked" },
 { id: "extra50", name: "Sorghum", category: "grain", fodmap: "safe", countries: ["IN"], calories: 220, servingSize: "1 cup cooked" },
+
+  // === INDIA DAILY LIFE ===
+  { id: "in23", name: "Poha", category: "grain", fodmap: "safe", countries: ["IN"], calories: 180, servingSize: "1 cup", fodmapType: [] },
+  { id: "in24", name: "Idli", category: "grain", fodmap: "safe", countries: ["IN"], calories: 78, servingSize: "2 pieces" },
+  { id: "in25", name: "Plain Dosa", category: "grain", fodmap: "safe", countries: ["IN"], calories: 165, servingSize: "1 medium" },
+  { id: "in26", name: "Sambar", category: "protein", fodmap: "high", fodmapType: ["GOS", "fructans"], countries: ["IN"], calories: 140, servingSize: "1 cup" },
+  { id: "in27", name: "Curd Rice", category: "grain", fodmap: "safe", countries: ["IN"], calories: 260, servingSize: "1 bowl" },
+  { id: "in28", name: "Lemon Rice", category: "grain", fodmap: "safe", countries: ["IN"], calories: 240, servingSize: "1 bowl" },
+  { id: "in29", name: "Jowar Roti", category: "grain", fodmap: "safe", countries: ["IN"], calories: 110, servingSize: "1 medium" },
+  { id: "in30", name: "Bajra Roti", category: "grain", fodmap: "safe", countries: ["IN"], calories: 120, servingSize: "1 medium" },
+  { id: "in31", name: "Ragi Roti", category: "grain", fodmap: "safe", countries: ["IN"], calories: 115, servingSize: "1 medium" },
+  { id: "in32", name: "Ghee", category: "fat", fodmap: "safe", countries: ["IN"], calories: 112, servingSize: "1 tbsp" },
+  { id: "in33", name: "Masala Chai", category: "dairy", fodmap: "high", fodmapType: ["lactose"], countries: ["IN"], calories: 90, servingSize: "1 cup" },
+  { id: "in34", name: "Lassi", category: "dairy", fodmap: "high", fodmapType: ["lactose"], countries: ["IN"], calories: 180, servingSize: "1 glass" },
+  { id: "in35", name: "Samosa", category: "grain", fodmap: "high", fodmapType: ["fructans"], countries: ["IN"], calories: 260, servingSize: "1 piece" },
+  { id: "in36", name: "Pakora", category: "protein", fodmap: "high", fodmapType: ["GOS", "fructans"], countries: ["IN"], calories: 200, servingSize: "4 pieces" },
+  { id: "in37", name: "Biryani", category: "grain", fodmap: "high", fodmapType: ["fructans"], countries: ["IN"], calories: 450, servingSize: "1 plate" },
+  { id: "in38", name: "Achar (Pickle)", category: "spice", fodmap: "high", fodmapType: ["fructans"], countries: ["IN"], calories: 20, servingSize: "1 tbsp" },
+  { id: "in39", name: "Papad", category: "protein", fodmap: "safe", countries: ["IN"], calories: 35, servingSize: "1 piece" },
+  { id: "in40", name: "Coconut Chutney", category: "fat", fodmap: "moderate", fodmapType: ["polyols"], countries: ["IN"], calories: 80, servingSize: "2 tbsp" },
 ];
 
 export function getFoodsByCountry(countryCode: string): Food[] {
-  return FOODS.filter(f => f.countries.includes(countryCode));
+  return FOODS.filter(f => f.countries.includes(countryCode)).sort((a, b) => a.name.localeCompare(b.name));
 }
 
 export function getSafeFoodsByCountry(countryCode: string): Food[] {

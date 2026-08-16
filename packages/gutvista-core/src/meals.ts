@@ -182,13 +182,20 @@ export function mealsForSlot(slot: MealSlot): MealOption[] {
   return MEAL_OPTIONS.filter(m => m.slot === slot);
 }
 
-export function buildDailyPlan(triggeredFoods: string[] = []): DailyPlan {
+export function buildDailyPlan(
+  triggeredFoods: string[] = [],
+  options: { maxCookMinutes?: number } = {}
+): DailyPlan {
   const pickBest = (slot: MealSlot, triggered: string[], excludeId?: string): MealOption => {
     const triggeredLower = triggered.map(t => t.toLowerCase());
-    const options = mealsForSlot(slot).filter(
+    const byTime = (m: MealOption) =>
+      options.maxCookMinutes == null || m.cookMinutes <= options.maxCookMinutes;
+    const optionsForSlot = mealsForSlot(slot).filter(byTime);
+    const source = optionsForSlot.length > 0 ? optionsForSlot : mealsForSlot(slot);
+    const filtered = source.filter(
       m => m.id !== excludeId && !m.ingredients.some(i => triggeredLower.includes(i.toLowerCase()))
     );
-    const pool = options.length > 0 ? options : mealsForSlot(slot).filter(m => m.id !== excludeId);
+    const pool = filtered.length > 0 ? filtered : source.filter(m => m.id !== excludeId);
     return pool.reduce((best, cur) => (cur.baseSafe > best.baseSafe ? cur : best));
   };
 
