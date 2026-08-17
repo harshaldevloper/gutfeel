@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 
-interface ReleaseManifest {
+export interface ReleaseManifest {
   version: string;
   versionCode: number;
   available: boolean;
@@ -19,15 +19,18 @@ const ALT_STORES = [
   { name: "Uptodown", href: "https://en.uptodown.com/developers-console", note: "Listing soon" },
 ];
 
-export default function DownloadPage() {
-  const [manifest, setManifest] = useState<ReleaseManifest | null>(null);
+export default function DownloadPage({ serverManifest }: { serverManifest?: ReleaseManifest | null }) {
+  const initialManifest: ReleaseManifest | null = serverManifest ?? null;
+  const [manifest, setManifest] = useState<ReleaseManifest | null>(initialManifest);
 
   useEffect(() => {
-    fetch("/downloads/manifest.json")
-      .then(r => r.json())
-      .then(setManifest)
-      .catch(() => setManifest(null));
-  }, []);
+    if (!serverManifest) {
+      fetch("/downloads/manifest.json")
+        .then(r => r.json())
+        .then(setManifest)
+        .catch(() => setManifest(null));
+    }
+  }, [serverManifest]);
 
   const ready = manifest?.available && manifest.apkUrl;
 
