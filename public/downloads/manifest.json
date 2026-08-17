@@ -1,9 +1,10 @@
 {
   "version": "1.0.0",
   "versionCode": 1,
-  "available": false,
+  "available": true,
   "apkUrl": "/downloads/gutvista.apk",
-  "sha256": "",
-  "publishedAt": null,
-  "releaseNotes": "First public preview — daily log, meal plan, foods, fingerprint."
+  "sha256": "9ed17019abdeb6f455ba1ebee91cbd9eb0eacb3681a53240f7f3f5d8793715c2",
+  "publishedAt": "2026-08-17T05:32:24.781751Z",
+  "releaseNotes": "First public preview \u2014 daily log, meal plan, foods, fingerprint.",
+  "fileSize": 84871498
 }
