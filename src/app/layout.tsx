@@ -4,7 +4,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "GutVista — Eat Confidently | Low FODMAP Meal Planner",
   description:
-    "Personalized low FODMAP meal plans, symptom tracking, and trigger detection. Built for India and beyond. Not medical advice.",
+    "Personalized low FODMAP meal plans, AI plate scanning, symptom tracking, and trigger detection — worldwide. Works offline. Not medical advice.",
   keywords: [
     "low FODMAP",
     "IBS",
@@ -13,6 +13,8 @@ export const metadata: Metadata = {
     "gut health",
     "digestive health",
     "IBS diet",
+    "AI food scanner",
+    "food photo scanner",
   ],
   icons: {
     icon: [
@@ -24,7 +26,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "GutVista — Eat Confidently",
-    description: "Personalized low FODMAP meal plans that learn YOUR triggers.",
+    description: "Low FODMAP meal plans, AI plate scanner, and symptom tracking that learn YOUR triggers — worldwide.",
     url: "https://gutvista.pages.dev",
     siteName: "GutVista",
     images: [{ url: "/logo.png", width: 440, height: 375, alt: "GutVista logo" }],

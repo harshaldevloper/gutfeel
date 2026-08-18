@@ -6,7 +6,7 @@ import DownloadSection from "@/components/landing/DownloadSection";
 
 const stats = [
   { value: "3 min", label: "to set up your profile" },
-  { value: "100+", label: "India-safe foods rated" },
+  { value: "70+", label: "FODMAP-rated foods" },
   { value: "Offline", label: "works without internet" },
 ];
 
@@ -34,7 +34,7 @@ export default function Hero() {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-green opacity-60" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-green" />
               </span>
-              Low FODMAP · India-first · Works offline
+              Now available worldwide · Low FODMAP · Works offline
             </div>
 
             <h1 className="font-serif text-[2.5rem] sm:text-5xl lg:text-[3.5rem] font-semibold leading-[1.06] text-brand-navy mb-6 tracking-tight">
@@ -43,7 +43,7 @@ export default function Hero() {
             </h1>
 
             <p className="text-lg sm:text-xl text-stone-600 leading-relaxed mb-8 max-w-xl">
-              Personalized meal plans, symptom tracking, and trigger patterns — with roti, dal, and paneer built in. Not another generic Western diet app.
+              Personalized meal plans, symptom tracking, AI plate scanning, and trigger patterns — built with roti, dal, and paneer, ready for every kitchen in the world.
             </p>
 
             <motion.div

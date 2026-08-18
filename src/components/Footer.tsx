@@ -9,7 +9,7 @@ export default function Footer() {
             <div className="mb-4 brightness-110">
               <BrandLogo height={48} href="/" />
             </div>
-            <p className="text-sm leading-relaxed">Low FODMAP meal planning and symptom tracking for IBS. Works offline. Not medical advice.</p>
+            <p className="text-sm leading-relaxed">Low FODMAP meal planning, AI plate scanning, and symptom tracking for IBS — worldwide. Works offline. Not medical advice.</p>
           </div>
           <div>
             <h4 className="text-sm font-semibold text-white mb-4">Product</h4>

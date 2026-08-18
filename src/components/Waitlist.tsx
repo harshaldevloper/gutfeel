@@ -45,7 +45,7 @@ export default function Waitlist() {
           Ready to stop guessing?
         </h2>
         <p className="text-lg text-emerald-100 mb-8 max-w-xl mx-auto">
-          Join the waitlist for launch updates — or skip the line and try the app now. It&apos;s free and works offline.
+          GutVista is live worldwide. No waitlist — the free core is yours now, offline and with no account.
         </p>
 
         {submitted ? (

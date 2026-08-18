@@ -4,13 +4,15 @@ import FeatureIcon from "@/components/ui/FeatureIcon";
 const features = [
   { icon: "meals" as const, title: "Personalized Meal Plans", desc: "Daily breakfast, lunch, and dinner that avoid your known triggers. Swap meals and get a grocery list.", live: true },
   { icon: "tracker" as const, title: "Symptom-Food Tracking", desc: "Log severity, symptoms, and foods in under a minute. See patterns emerge over time.", live: true },
-  { icon: "fingerprint" as const, title: "FODMAP Fingerprint", desc: "Rule-based analysis finds likely triggers from your logs. Gets smarter with more data.", live: true },
+  { icon: "fingerprint" as const, title: "FODMAP Fingerprint", desc: "Baseline-relative correlation analysis finds likely triggers from your own logs — no false alarms on foods you tolerate.", live: true },
+  { icon: "camera" as const, title: "AI Plate Scanner", desc: "Photograph any meal to estimate FODMAP load, calories, and macros, then add it to your log in one tap.", live: true },
+  { icon: "chart" as const, title: "Advanced Insights", desc: "7-day symptom trends, macro totals, and a clinician report you can export for your dietitian.", live: true },
   { icon: "reintro" as const, title: "Guided Reintroduction", desc: "Step-by-step protocol UI for testing FODMAP groups. Dose tracking coming soon.", live: "partial" as const },
   { icon: "grocery" as const, title: "Grocery Lists", desc: "Auto-generated from your daily plan. Organized by ingredient.", live: true },
-  { icon: "safety" as const, title: "India Food Safety", desc: "FDA/FSSAI alerts and brand safety scores for common foods.", live: true },
-  { icon: "globe" as const, title: "Multi-Country Foods", desc: "Food database for India, UK, US, and Australia with FODMAP ratings.", live: true },
-  { icon: "sync" as const, title: "Cloud Sync", desc: "Optional account to sync logs across devices. Works fully offline without one.", live: true },
-  { icon: "share" as const, title: "Dietitian Sharing", desc: "Share reports with your dietitian. Planned for a future update.", live: false },
+  { icon: "safety" as const, title: "Food Safety Alerts", desc: "FDA/FSSAI recall alerts and brand safety scores for common foods in your country.", live: true },
+  { icon: "globe" as const, title: "Multi-Country Foods", desc: "Food databases for India, UK, US, and Australia with Monash-based FODMAP ratings — available worldwide.", live: true },
+  { icon: "sync" as const, title: "Cloud Sync", desc: "Optional account syncs your logs across devices and regions. Works fully offline without one.", live: true },
+  { icon: "share" as const, title: "Clinician Report Export", desc: "One-tap PDF summary of symptoms, logs, and triggers to share with your dietitian.", live: true },
 ];
 
 export default function Features() {
